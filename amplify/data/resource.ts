@@ -12,21 +12,20 @@ const schema = a.schema({
       content: a.string(),
     })
     .authorization((allow) => [allow.publicApiKey()]),
+  Post: a
+    .model({
+      id: a.id(),
+      subject: a.string(),
+      content: a.string(),
+      containsImage: a.boolean(),
+      datePosted: a.datetime(),
+      likes: a.integer(),
+    })
+    .authorization((allow) => [
+      allow.publicApiKey().to(['read']),
+      allow.owner()
+    ]),
 });
-
-const postSchema = a.schema({
-  Post: a.model({
-    id: a.id(),
-    subject: a.string(),
-    content: a.string(),
-    containsImage: a.boolean(),
-    datePosted: a.datetime(),
-    likes: a.integer()
-  }).authorization((allow) => [
-    allow.publicApiKey().to(['read']),
-    allow.owner()
-  ])
-})
 
 export type Schema = ClientSchema<typeof schema>;
 
