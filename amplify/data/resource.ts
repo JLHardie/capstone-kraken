@@ -25,6 +25,13 @@ const schema = a.schema({
       allow.publicApiKey().to(['read']),
       allow.owner()
     ]),
+  Forum: a
+    .model({
+      id: a.id(),
+      name: a.string(),
+      beongsTo: a.string(),
+      description: a.string(),
+    })
 });
 
 export type Schema = ClientSchema<typeof schema>;
