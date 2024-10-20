@@ -20,6 +20,8 @@ const schema = a.schema({
       containsImage: a.boolean(),
       datePosted: a.datetime(),
       likes: a.integer(),
+      forum: a.belongsTo("Forum", "id"),
+      comments: a.hasMany("Comment", "id"),
     })
     .authorization((allow) => [
       allow.publicApiKey().to(['read']),
@@ -31,6 +33,7 @@ const schema = a.schema({
       name: a.string(),
       beongsTo: a.string(),
       description: a.string(),
+      posts: a.hasMany("Post", "id"),
     })
     .authorization((allow) => [
       allow.publicApiKey().to(['read']),
@@ -42,6 +45,7 @@ const schema = a.schema({
         content: a.string(),
         commenter: a.string(),
         likes: a.integer(),
+        post: a.belongsTo("Post", "id"),
       })
       .authorization((allow) => [
         allow.publicApiKey().to(['read']),
