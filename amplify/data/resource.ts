@@ -32,6 +32,21 @@ const schema = a.schema({
       beongsTo: a.string(),
       description: a.string(),
     })
+    .authorization((allow) => [
+      allow.publicApiKey().to(['read']),
+      allow.owner()
+    ]),
+    Comment: a
+      .model({
+        id: a.id(),
+        content: a.string(),
+        commenter: a.string(),
+        likes: a.integer(),
+      })
+      .authorization((allow) => [
+        allow.publicApiKey().to(['read']),
+        allow.owner()
+      ]),
 });
 
 export type Schema = ClientSchema<typeof schema>;
