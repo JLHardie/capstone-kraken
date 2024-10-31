@@ -25,7 +25,7 @@ function App() {
   return (
 
     <Authenticator>
-      {({ signOut }) -> (
+      {({ signOut }) => (
         <main>
           <h1>Kraken</h1>
           <button onClick={signOut}>Sign out</button>
