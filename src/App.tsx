@@ -31,6 +31,7 @@ function App() {
           <main>
             <h1>Kraken</h1>
           </main>
+          <button onClick={signOut}>Sign out</button>
         )}
       </Authenticator>
 
