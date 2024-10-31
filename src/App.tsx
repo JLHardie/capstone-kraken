@@ -1,7 +1,9 @@
 // import { useEffect, useState } from "react";
 // import type { Schema } from "../amplify/data/resource";
 // import { generateClient } from "aws-amplify/data";
-
+import React from "react";
+import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
+import Forum from "./Forum";
 import { Authenticator } from '@aws-amplify/ui-react'
 //import '@aws-amplify/ui-react/styles.css'
 
@@ -26,10 +28,20 @@ function App() {
 
     <Authenticator>
       {({ signOut }) => (
-        <main>
-          <h1>Kraken</h1>
-          <button onClick={signOut}>Sign out</button>
-        </main>
+        <Router>
+        <div>
+          <h1>My Application</h1>
+          <nav>
+            <Link to="/forum">Forum</Link>
+          </nav>
+          <Switch>
+            <Route path="/forum" component={Forum} />
+            <Route path="/" exact>
+              <h2>Welcome! Select a page:</h2>
+            </Route>
+          </Switch>
+        </div>
+      </Router>
       )}
     </Authenticator>
         
