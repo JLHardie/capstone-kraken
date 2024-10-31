@@ -2,7 +2,7 @@
 // import type { Schema } from "../amplify/data/resource";
 // import { generateClient } from "aws-amplify/data";
 import React from "react";
-import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
 import Forum from "./Forum";
 import { Authenticator } from '@aws-amplify/ui-react'
 //import '@aws-amplify/ui-react/styles.css'
@@ -34,12 +34,11 @@ function App() {
           <nav>
             <Link to="/forum">Forum</Link>
           </nav>
-          <Switch>
-            <Route path="/forum" component={Forum} />
-            <Route path="/" exact>
-              <h2>Welcome! Select a page:</h2>
-            </Route>
-          </Switch>
+          <Routes>
+            <Route path="/todos" element={<Todos />} />
+            <Route path="/forum" element={<Forum />} />
+            <Route path="/" element={<h2>Welcome! Select a page:</h2>} />
+          </Routes>
         </div>
       </Router>
       )}
