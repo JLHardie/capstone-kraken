@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { generateClient } from "aws-amplify/data";
 import type { Schema } from "../amplify/data/resource";
@@ -29,6 +29,10 @@ function Post() {
       },
       error: (error) => console.error("Error fetching comments:", error),
     });
+    return () => {
+        commentSubscription.unsubscribe();
+        postSubscription.unsubscribe();
+      };
   }, [postId]);
 
 
