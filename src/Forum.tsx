@@ -12,28 +12,22 @@ function Forum() {
     const [posts, setPosts] = useState<Array<Schema["Post"]["type"]>>([]);
 
     useEffect(() => {
-      // Fetch the forum information, if needed
-      const fetchForum = async () => {
-        try {
-          const forumData = await client.query("Forum", (f) => f.id("eq", forumId));
-          setForums(forumData);
-        } catch (error) {
-          console.error("Error fetching forum:", error);
-        }
-      };
+      // Observe the forum based on the forumId
+      const forumSubscription = client.models.Forum.observeQuery().subscribe({
+        next: (data) => setForums(data.items.filter(forum => forum.id === forumId)),
+        error: (error) => console.error("Error fetching forum:", error),
+      });
   
-      // Fetch posts for the specific forum
-      const fetchPosts = async () => {
-        try {
-          const postsData = await client.query("Post", (p) => p.forumId("eq", forumId));
-          setPosts(postsData);
-        } catch (error) {
-          console.error("Error fetching posts:", error);
-        }
-      };
+      // Observe posts associated with the forumId
+      const postSubscription = client.models.Post.observeQuery().subscribe({
+        next: (data) => setPosts(data.items.filter(post => post.forum.id === forumId)),
+        error: (error) => console.error("Error fetching posts:", error),
+      });
   
-      fetchForum();
-      fetchPosts();
+      return () => {
+        forumSubscription.unsubscribe();
+        postSubscription.unsubscribe();
+      };
     }, [forumId]);
     
     return (
