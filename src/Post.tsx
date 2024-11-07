@@ -1,7 +1,7 @@
-import { useParams } from "react-router-dom";
+//import { useParams } from "react-router-dom";
 
 function Post() {
-    const { postId } = useParams<{ postId: string }>();
+    //const { postId } = useParams<{ postId: string }>();
     
     return (
         <main>

@@ -20,7 +20,19 @@ function Forum() {
   
       // Observe posts associated with the forumId
       const postSubscription = client.models.Post.observeQuery().subscribe({
-        next: (data) => setPosts(data.items.filter(post => post.forum.id === forumId)),
+        next: async (data) => {
+          // Resolve the forum for each post by calling the forum method
+          const filteredPosts = await Promise.all(data.items.map(async (post) => {
+            const forum = await post.forum(); // Call the method to get the forum object
+            if (forum && forum.data?.id === forumId) {
+              return post; // Include post if forum id matches
+            }
+            return null; // Otherwise, return null (will be filtered out)
+          }));
+    
+          // Filter out null entries
+          setPosts(filteredPosts.filter(post => post !== null));
+        },
         error: (error) => console.error("Error fetching posts:", error),
       });
   
