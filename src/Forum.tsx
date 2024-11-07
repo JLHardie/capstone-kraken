@@ -14,7 +14,7 @@ function Forum() {
     useEffect(() => {
       // Observe the forum based on the forumId
       const forumSubscription = client.models.Forum.observeQuery().subscribe({
-        next: async (data) => setForums(data.items.filter(forum => forum.id === forumId)),
+        next: async (data) => setForums(await data.items.filter(forum => forum.id === forumId)),
         error: (error) => console.error("Error fetching forum:", error),
       });
   

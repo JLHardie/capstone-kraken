@@ -12,7 +12,7 @@ function Post() {
 
   useEffect(() => {
     const postSubscription = client.models.Post.observeQuery().subscribe({
-        next: async (data) => setPosts(data.items.filter(post => post.id === postId)),
+        next: async (data) => setPosts(await data.items.filter(post => post.id === postId)),
         error: (error) => console.error("Error fetching posts:", error),
       });
 
