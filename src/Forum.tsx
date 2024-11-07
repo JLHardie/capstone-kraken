@@ -45,7 +45,9 @@ function Forum() {
     return (
       <main>
         <button>Add New Post</button>
-        <h1>Forum: {forums.length ? forums[0].name : "Loading..."}</h1>
+        {forums.map((forum) => (
+          <h1>Forum: {forum.name}</h1>
+        ))}
   
         {posts.length ? (
           posts.map((post) => (

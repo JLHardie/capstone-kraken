@@ -38,9 +38,19 @@ function Post() {
 
   return (
     <div>
-      <h1>{posts[0].subject}</h1>
-      <p>{posts[0].content}</p>
-      <small>Posted on: {(posts[0].datePosted)}</small>
+        {
+            posts.length ? (
+                posts.map((post) => (
+                    <div>
+                    <h1>{post.subject}</h1>
+                    <p>{post.content}</p>
+                    <small>Posted on: {(post.datePosted)}</small>
+                    </div>
+                ))
+            ) : (
+                <h2>Post data failed to load.</h2>
+            )
+        }
       <div>
         <h3>Comments</h3>
         {comments.length ? (
