@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 const client = generateClient<Schema>();
 const { forumId } = useParams<{ forumId: string }>();
 const {data : forum} = await client.models.Forum.get({ id: forumId });
-const {data : posts} = await forum.posts();
+const {data : posts} = await forum?.posts();
 
 function Forum() {
     
@@ -15,12 +15,12 @@ function Forum() {
         <h1>Forum: {forum?.name}</h1>
         <ul>
         {posts.length ? (
-          posts.forEach((post: { id: any; subject: any; content: any; createdAt: string | number | Date; }) => {
-            <div key={post.id} style={{ marginBottom: '15px', padding: '10px', border: '1px solid #ccc' }}>
+          posts.forEach((post) => {
+            <li>
               <h2>{post.subject}</h2>
               <p>{post.content}</p>
               <small>Posted by: PLACEHOLDER on {new Date(post.createdAt).toLocaleDateString()}</small>
-            </div>
+            </li>
           })
         ) : (
           <div>
