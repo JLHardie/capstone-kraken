@@ -1,45 +1,13 @@
-import { useEffect, useState } from "react";
 import type { Schema } from "../amplify/data/resource";
 import { generateClient } from "aws-amplify/data";
 import { useParams } from "react-router-dom";
 
 const client = generateClient<Schema>();
+const { forumId } = useParams<{ forumId: string }>();
+const {data : forum} = await client.models.Forum.get({ id: forumId });
+const {data : posts} = await forum.posts();
 
 function Forum() {
-    const { forumId } = useParams<{ forumId: string }>();
-    const [forums, setForums] = useState<Array<Schema["Forum"]["type"]>>([]);
-    const [posts, setPosts] = useState<Array<Schema["Post"]["type"]>>([]);
-
-    useEffect(() => {
-      // Observe the forum based on the forumId
-      const forumSubscription = client.models.Forum.observeQuery().subscribe({
-        next: async (data) => setForums(await data.items.filter(forum => forum.id === forumId)),
-        error: (error) => console.error("Error fetching forum:", error),
-      });
-  
-      // Observe posts associated with the forumId
-      const postSubscription = client.models.Post.observeQuery().subscribe({
-        next: async (data) => {
-          // Resolve the forum for each post by calling the forum method
-          const filteredPosts = await Promise.all(data.items.map(async (post) => {
-            const forum = await post.forum(); // Call the method to get the forum object
-            if (forum && forum.data?.id === forumId) {
-              return post; // Include post if forum id matches
-            }
-            return null; // Otherwise, return null (will be filtered out)
-          }));
-    
-          // Filter out null entries
-          setPosts(filteredPosts.filter(post => post !== null));
-        },
-        error: (error) => console.error("Error fetching posts:", error),
-      });
-  
-      return () => {
-        forumSubscription.unsubscribe();
-        postSubscription.unsubscribe();
-      };
-    }, [forumId]);
     
     return (
       <main>
