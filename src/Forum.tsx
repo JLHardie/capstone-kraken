@@ -5,22 +5,23 @@ import { useParams } from "react-router-dom";
 
 const client = generateClient<Schema>();
 
+const { forumId } = useParams<{ forumId: string }>();
+const { data: forum } = await client.models.Forum.get({ id: forumId });
+
+
 function Forum() {
-  const { forumId } = useParams<{ forumId: string }>();
-  const [forum, setForum] = useState<Schema['Forum']['type'][]>([]);
   const [posts, setPosts] = useState<Schema['Post']['type'][]>([]);
 
   // Fetch forum and posts data on mount
   useEffect(() => {
     const fetchData = async () => {
-      const { data: forumData } = await client.models.Forum.get({ id: forumId });
-      setForum(forumData);
-
-      const { data: forumPostsData } = await client.models.Forum.get(
-        { id: forumId },
-        { selectionSet: ["id", "posts.*"] }
-      );
-      setPosts(forumPostsData?.posts);
+      
+      const { data : postsData } = await client.models.Post.list({
+        filter: {
+          forumid : { eq : forumId}
+        }
+      })
+      setPosts(postsData);
     };
 
     fetchData();
@@ -34,7 +35,7 @@ function Forum() {
   return (
     <main>
       <button>Add New Post</button>
-      <h1>Forum: {forum[0].name}</h1>
+      <h1>Forum: {forum.name}</h1>
       <ul>
         {posts.length ? (
           posts.map((post) => (
