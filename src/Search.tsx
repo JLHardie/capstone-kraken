@@ -49,12 +49,12 @@ function Search() {
           {forums.length > 0 ? (
             <ul>
               {forums.map((forum) => (
-                <li key={forum.id}>
-                  <Link to={`/forum/${forum.id}`}>
-                  <h3>{forum.name}</h3>
+                <Link to={`/forum/${forum.id}`}>
+                  <li key={forum.id}>
+                    <h3>{forum.name}</h3>
+                    <p>{forum.description}</p>
+                  </li>
                 </Link>
-                <p>{forum.description}</p>
-                </li>
               ))}
             </ul>
           ) : (

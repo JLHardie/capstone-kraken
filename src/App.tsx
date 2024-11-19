@@ -15,10 +15,6 @@ function App() {
         <div>
           <h1>Kraken</h1>
           <SearchBar />
-          <nav>
-            <Link to="/forum">Forum</Link>
-            <Link to="/post">Post</Link>
-          </nav>
           <Routes>
             <Route path="/forum/:forumid" element={<Forum />} />
             <Route path="/post/:postid" element={<Post />} />
