@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 
 const client = generateClient<Schema>();
 const { forumId } = useParams<{ forumId: string }>();
-const {data : forum} = await client.models.Forum.get({ id: forumId });
+const {forum} = await client.models.Forum.get({ id: forumId });
 const {posts} = await forum?.posts();
 
 function Forum() {
