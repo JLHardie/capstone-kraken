@@ -21,8 +21,8 @@ function App() {
           <SearchBar />
           <Routes>
             <Route path="/feed" element={<Home />} />
-            <Route path="/forum/:forumId" element={<Forum />} />
-            <Route path="/forum/:forumId/create" element={<CreatePost />} />
+            <Route path="/forum/:forumid" element={<Forum />} />
+            <Route path="/forum/:forumid/create" element={<CreatePost />} />
             <Route path="/post/:postid" element={<Post />} />
             <Route path="/search" element={<Search />} />
             <Route path="/" element={<Navigate to="/feed" replace />} />
