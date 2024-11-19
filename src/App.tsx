@@ -17,7 +17,7 @@ function App() {
         <div>
           <Link to={`/feed`}>
             <h1>Kraken</h1>
-          <Link/>
+          </Link>
           <SearchBar />
           <Routes>
             <Route path="/feed" element={<Home />} />
