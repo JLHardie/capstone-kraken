@@ -5,10 +5,12 @@ import { useParams } from "react-router-dom";
 
 const client = generateClient<Schema>();
 
-const { forumId } = useParams<{ forumId: string }>();
 
 
 function Forum() {
+
+  const { forumId } = useParams<{ forumId: string }>();
+  
   const [posts, setPosts] = useState<Schema['Post']['type'][]>([]);
   const [forum, setForum] = useState<Schema['Forum']['type'] | null>(null);
 
