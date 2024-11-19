@@ -4,8 +4,11 @@ import { useParams } from "react-router-dom";
 
 const client = generateClient<Schema>();
 const { forumId } = useParams<{ forumId: string }>();
-const { data: forum } = await client.models.Forum.get({ id: forumId });
-const { data: posts } = await forum?.posts();
+const { data : forum } = await client.models.Forum.get({id:forumId})
+const { data : forumWithPosts } = await client.models.Forum.get(
+  { id: forumId },
+  { selectionSet: ["id", "posts.*"]}
+)
 
 function Forum() {
     
@@ -14,8 +17,8 @@ function Forum() {
         <button>Add New Post</button>
         <h1>Forum: {forum?.name}</h1>
         <ul>
-        {posts.length ? (
-          posts.forEach((post) => {
+        {forumWithPosts?.posts.length ? (
+          forumWithPosts.posts.map(post => {
             <li>
               <h2>{post.subject}</h2>
               <p>{post.content}</p>
