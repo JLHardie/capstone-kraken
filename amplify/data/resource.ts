@@ -18,7 +18,11 @@ const schema = a.schema({
       forumid: a.id(),
       forum: a.belongsTo("Forum", "forumid"),
       comments: a.hasMany("Comment", "postid"),
-    }),
+    })
+    .authorization((allow) => [
+      allow.publicApiKey().to(['read']),
+      allow.owner()
+    ]),
   Forum: a
     .model({
       id: a.id(),
@@ -26,7 +30,11 @@ const schema = a.schema({
       beongsTo: a.string(),
       description: a.string(),
       posts: a.hasMany("Post", "forumid"),
-    }),
+    })
+    .authorization((allow) => [
+      allow.publicApiKey().to(['read']),
+      allow.owner()
+    ]),
     Comment: a
       .model({
         id: a.id(),
@@ -40,10 +48,7 @@ const schema = a.schema({
         allow.publicApiKey().to(['read']),
         allow.owner()
       ]),
-}).authorization((allow) => [
-  allow.publicApiKey().to(['read']),
-  allow.owner()
-]);
+});
 
 export type Schema = ClientSchema<typeof schema>;
 
