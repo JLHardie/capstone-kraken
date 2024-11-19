@@ -6,7 +6,7 @@ import { generateClient } from "aws-amplify/data";
 const client = generateClient<Schema>();
 
 function CreatePost() {
-    const { forumId } = useParams<{ forumId: string }>();
+    const { forumId } = useParams<{ forumid: string }>();
     const [subject, setSubject] = useState(""); // State for the subject
     const [content, setContent] = useState(""); // State for the content
     const [loading, setLoading] = useState(false); // State for loading status
