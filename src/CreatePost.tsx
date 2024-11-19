@@ -18,7 +18,7 @@ function CreatePost() {
 
         try {
             // Create a new post in the database
-            const newPost = await client.Post.create({
+            const newPost = await client.models.Post.create({
                 subject,
                 content,
                 forumId, // Associate the post with the current forum
