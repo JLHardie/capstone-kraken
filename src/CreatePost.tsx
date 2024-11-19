@@ -12,25 +12,38 @@ function CreatePost() {
     const [loading, setLoading] = useState(false); // State for loading status
     const navigate = useNavigate(); // For navigation after submission
 
+
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
         setLoading(true);
 
         try {
-            // Create a new post in the database
-            const newPost = await client.models.Post.create({
+            if (!forumId) {
+                throw new Error("Forum ID is missing.");
+            }
+
+            // Retrieve the forum to ensure it exists (optional step for validation)
+            const forum = await client.models.Forum.get({ id: forumId });
+            if (!forum) {
+                throw new Error("Forum not found.");
+            }
+
+            // Create the post and link it to the forum
+            const newPost = await client.Post.create({
                 subject,
                 content,
-                forumId, // Associate the post with the current forum
-                createdAt: new Date().toISOString(),
+                containsImage: false, // Set default value for now
+                datePosted: new Date().toISOString(),
+                likes: 0, // Default likes count
+                forum: { id: forumId }, // Link to the forum by ID
             });
 
             console.log("Post created:", newPost);
 
-            // Navigate back to the forum page after creation
+            // Navigate back to the forum page after successful creation
             navigate(`/forum/${forumId}`);
-        } catch (error) {
-            console.error("Error creating post:", error);
+        } catch (err) {
+            console.error("Error creating post:", err);
         } finally {
             setLoading(false);
         }
