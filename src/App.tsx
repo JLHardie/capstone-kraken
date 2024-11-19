@@ -2,9 +2,11 @@
 // import type { Schema } from "../amplify/data/resource";
 // import { generateClient } from "aws-amplify/data";
 // import React from "react";
-import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes, Link, useNavigate } from "react-router-dom";
+import React, { useState } from "react";
 import Forum from "./Forum";
 import Post from "./Post";
+import Search from "./Search";
 import { Authenticator } from '@aws-amplify/ui-react'
 //import '@aws-amplify/ui-react/styles.css'
 
@@ -23,7 +25,15 @@ function App() {
   //   client.models.Todo.create({ content: window.prompt("Todo content") });
   // }
 
-  
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const handleSearch = (event: React.FormEvent) => {
+    event.preventDefault();
+    // Navigate to the search page with the query as a URL parameter
+    navigate(`/search?query=${encodeURIComponent(searchQuery)}`);
+  };
+
+  const navigate = useNavigate();
 
   return (
 
@@ -35,9 +45,19 @@ function App() {
             <Link to="/forum">Forum</Link>
             <Link to="/post">Post</Link>
           </nav>
+          <form onSubmit={handleSearch}>
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="Search for a forum"
+            />
+            <button type="submit">Search</button>
+          </form>
           <Routes>
             <Route path="/forum/:forumid" element={<Forum />} />
             <Route path="/post/:postid" element={<Post />} />
+            <Route path="/search" element={<Search />} />
             <Route path="/" element={<h2>Welcome! Select a page:</h2>} />
           </Routes>
         </div>
