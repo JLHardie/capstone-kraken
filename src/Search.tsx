@@ -19,7 +19,7 @@ function Search() {
         if (query) {
           // Filter forums based on the query string
           const filteredForums = data.items.filter(forum =>
-            forum.name.toLowerCase().includes(query.toLowerCase())
+            forum.name?.toLowerCase().includes(query.toLowerCase())
           );
           setForums(filteredForums); // Update forums state
         } else {
