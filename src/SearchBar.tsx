@@ -6,11 +6,11 @@ function SearchBar() {
   const navigate   
  = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (searchTerm.trim() !== '') {
-      navigate(`/search?q=${searchTerm}`);   
-
+    if (searchTerm.trim()   
+ !== '') {
+      navigate(`/search?q=${searchTerm}`);
       setSearchTerm('');
     }
   };
@@ -21,7 +21,7 @@ function SearchBar() {
         type="text"
         placeholder="Search forums..."
         value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSearchTerm(e.target.value)}
       />
       <button type="submit">Search</button>
     </form>
