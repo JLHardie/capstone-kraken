@@ -29,7 +29,7 @@ function CreatePost() {
             }
 
             // Create the post and link it to the forum
-            const newPost = await client.Post.create({
+            const newPost = await client.models.Post.create({
                 subject,
                 content,
                 containsImage: false, // Set default value for now
