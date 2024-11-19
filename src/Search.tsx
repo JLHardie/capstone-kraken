@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
 import { generateClient } from "aws-amplify/data"; // Import generateClient to work with your schema
 import { Schema } from "../amplify/data/resource"; // Assuming you have the Schema defined
 
@@ -50,8 +50,10 @@ function Search() {
             <ul>
               {forums.map((forum) => (
                 <li key={forum.id}>
+                  <Link to={`/forum/${forum.id}`}>
                   <h3>{forum.name}</h3>
-                  <p>{forum.description}</p>
+                </Link>
+                <p>{forum.description}</p>
                 </li>
               ))}
             </ul>
