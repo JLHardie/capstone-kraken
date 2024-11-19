@@ -1,4 +1,4 @@
-import type { Schema } from "../amplify/data/resource";
+import { type Schema } from "../amplify/data/resource";
 import {useState, useEffect} from "react"
 import { generateClient } from "aws-amplify/data";
 import { useParams } from "react-router-dom";
@@ -6,15 +6,18 @@ import { useParams } from "react-router-dom";
 const client = generateClient<Schema>();
 
 const { forumId } = useParams<{ forumId: string }>();
-const { data: forum } = await client.models.Forum.get({ id: forumId });
 
 
 function Forum() {
   const [posts, setPosts] = useState<Schema['Post']['type'][]>([]);
+  const [forum, setForum] = useState<Schema['Forum']['type'] | null>(null);
 
   // Fetch forum and posts data on mount
   useEffect(() => {
     const fetchData = async () => {
+      
+      const { data: forum } = (await client.models.Forum.get({ id: forumId }));
+      setForum(forum);
       
       const { data : postsData } = await client.models.Post.list({
         filter: {
