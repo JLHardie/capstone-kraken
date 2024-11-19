@@ -18,9 +18,9 @@ function CreatePost() {
         setLoading(true);
 
         try {
-            // if (!forumId) {
-            //     throw new Error("Forum ID is missing.");
-            // }
+            if (!forumId) {
+                throw new Error("Forum ID is missing.");
+            }
 
             // Retrieve the forum to ensure it exists (optional step for validation)
             const { data : forum } = await client.models.Forum.get({ id: forumId });
