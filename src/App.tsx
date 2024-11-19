@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Route, Routes, Navigate, Link } from "react-router-dom";
-import Forum from "./Forum";
+//import Forum from "./Forum";
 import Post from "./Post";
 import SearchBar from './SearchBar';
 import Search from "./Search";
@@ -21,7 +21,7 @@ function App() {
           <SearchBar />
           <Routes>
             <Route path="/feed" element={<Home />} />
-            <Route path="/forum/:forumid" element={<Forum />} />
+            {/* <Route path="/forum/:forumid" element={<Forum />} /> */}
             <Route path="/forum/:forumid/create" element={<CreatePost />} />
             <Route path="/post/:postid" element={<Post />} />
             <Route path="/search" element={<Search />} />
