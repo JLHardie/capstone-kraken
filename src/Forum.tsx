@@ -5,16 +5,14 @@ import { useParams } from "react-router-dom";
 const client = generateClient<Schema>();
 const { forumId } = useParams<{ forumId: string }>();
 const {data : forum} = await client.models.Forum.get({ id: forumId });
-const {data : posts} = await forum.posts();
+const {data : posts} = await forum?.posts();
 
 function Forum() {
     
     return (
       <main>
         <button>Add New Post</button>
-        {forums.map((forum) => (
-          <h1>Forum: {forum.name}</h1>
-        ))}
+        <h1>Forum: {forum?.name}</h1>
   
         {posts.length ? (
           posts.map((post) => (
