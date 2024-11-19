@@ -30,7 +30,8 @@ function App() {
   const handleSearch = (event: React.FormEvent) => {
     event.preventDefault();
     // Navigate to the search page with the query as a URL parameter
-    navigate(`/search?query=${encodeURIComponent(searchQuery)}`);
+    //navigate(`/search?query=${encodeURIComponent(searchQuery)}`);
+    navigate(`/search`);
   };
 
   const navigate = useNavigate();
