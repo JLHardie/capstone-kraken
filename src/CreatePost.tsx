@@ -23,22 +23,22 @@ function CreatePost() {
             }
 
             // Retrieve the forum to ensure it exists (optional step for validation)
-            const forum = await client.models.Forum.get({ id: forumId });
+            const { data : forum } = await client.models.Forum.get({ id: forumId });
             if (!forum) {
                 throw new Error("Forum not found.");
             }
 
             // Create the post and link it to the forum
-            const newPost = await client.models.Post.create({
+            const { data : post } = await client.models.Post.create({
                 subject,
                 content,
                 containsImage: false, // Set default value for now
                 datePosted: new Date().toISOString(),
                 likes: 0, // Default likes count
-                forum: { id: forumId }, // Link to the forum by ID
+                forum: forum.id, // Link to the forum by ID
             });
 
-            console.log("Post created:", newPost);
+            console.log("Post created:", post);
 
             // Navigate back to the forum page after successful creation
             navigate(`/forum/${forumId}`);
