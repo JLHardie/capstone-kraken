@@ -46,6 +46,12 @@ const schema = a.schema({
         allow.publicApiKey(),
         allow.owner()
       ]),
+    Message: a
+      .model({
+        sender: a.string(),
+        recipient: a.string(),
+        content: a.string(),
+      })
 });
 
 export type Schema = ClientSchema<typeof schema>;
