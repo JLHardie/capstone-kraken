@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import type { Schema } from "../amplify/data/resource";
 import { generateClient } from "aws-amplify/data";
@@ -9,20 +9,24 @@ function CreatePost() {
     const { forumId } = useParams<{ forumId: string }>();
     const [forum, setForum] = useState<Schema['Forum']['type'] | null>(null);
 
+    if (!forumId) {
+        throw new Error("ForumId is required")
+      }
+
     const [subject, setSubject] = useState(""); // State for the subject
     const [content, setContent] = useState(""); // State for the content
     const [loading, setLoading] = useState(false); // State for loading status
     const navigate = useNavigate(); // For navigation after submission
 
-    // useEffect(() => {
-    //     const fetchData = async () => {
+    useEffect(() => {
+        const fetchData = async () => {
           
-    //       const { data: forum } = await client.models.Forum.get({ id: forumId });
-    //       setForum(forum);
-    //     };
+          const { data: forum } = await client.models.Forum.get({ id: forumId });
+          setForum(forum);
+        };
     
-    //     fetchData();
-    //   }, [forumId]);
+        fetchData();
+      }, [forumId]);
 
 
     const handleSubmit = async (event: React.FormEvent) => {
