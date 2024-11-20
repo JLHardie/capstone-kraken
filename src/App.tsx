@@ -6,32 +6,28 @@ import Search from "./Search";
 import Home from "./Home";
 import CreatePost from "./CreatePost";
 import Chatroom from "./Chatroom";
-import { Authenticator } from '@aws-amplify/ui-react'
 //import '@aws-amplify/ui-react/styles.css'
 
 function App() {
 
   return (
-
-    <Authenticator>
-      <Router>
-        <div>
-          <Link to={`/feed`}>
-            <h1>Kraken</h1>
-          </Link>
-          <SearchBar />
-          <Routes>
-            <Route path="/feed" element={<Home />} />
-            <Route path="/forum/:forumId" element={<Forum />} />
-            <Route path="/forum/:forumId/create" element={<CreatePost />} />
-            <Route path="/post/:postId" element={<Post />} />
-            <Route path="/search" element={<Search />} />
-            <Route path="/chat/:userId" element={<Chatroom />} />
-            <Route path="/" element={<Navigate to="/feed" replace />} />
-          </Routes>
-        </div>
-      </Router>
-    </Authenticator>
+    <Router>
+      <div>
+        <Link to={`/feed`}>
+          <h1>Kraken</h1>
+        </Link>
+        <SearchBar />
+        <Routes>
+          <Route path="/feed" element={<Home />} />
+          <Route path="/forum/:forumId" element={<Forum />} />
+          <Route path="/forum/:forumId/create" element={<CreatePost />} />
+          <Route path="/post/:postId" element={<Post />} />
+          <Route path="/search" element={<Search />} />
+          <Route path="/chat/:userId" element={<Chatroom />} />
+          <Route path="/" element={<Navigate to="/feed" replace />} />
+        </Routes>
+      </div>
+    </Router>
   );
 }
 
