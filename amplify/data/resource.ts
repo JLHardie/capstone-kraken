@@ -52,6 +52,10 @@ const schema = a.schema({
         recipient: a.string(),
         content: a.string(),
       })
+      .authorization((allow) => [
+        allow.publicApiKey(),
+        allow.owner()
+      ]),
 });
 
 export type Schema = ClientSchema<typeof schema>;
