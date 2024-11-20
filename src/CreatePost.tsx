@@ -46,7 +46,6 @@ function CreatePost() {
             if (!forumdata) {
                 throw new Error("Forum not found.");
             }
-            setForum(forumdata)
             console.log(forum)
             console.log(forumdata)
             if (!forum) {
