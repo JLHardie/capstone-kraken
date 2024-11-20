@@ -6,6 +6,7 @@ import Search from "./Search";
 import Home from "./Home";
 import CreatePost from "./CreatePost";
 import Chatroom from "./Chatroom";
+import Profile from "./Profile";
 //import '@aws-amplify/ui-react/styles.css'
 
 function App() {
@@ -17,8 +18,12 @@ function App() {
           <h1>Kraken</h1>
         </Link>
         <SearchBar />
+        <Link to={`/profile`}>
+          <button type="button">Profile</button>
+        </Link>
         <Routes>
           <Route path="/feed" element={<Home />} />
+          <Route path="/profile" element={<Profile />} />
           <Route path="/forum/:forumId" element={<Forum />} />
           <Route path="/forum/:forumId/create" element={<CreatePost />} />
           <Route path="/post/:postId" element={<Post />} />
