@@ -7,6 +7,8 @@ const client = generateClient<Schema>();
 
 function CreatePost() {
     const { forumId } = useParams<{ forumId: string }>();
+    const [forum, setForum] = useState<Schema['Forum']['type'] | null>(null);
+
     const [subject, setSubject] = useState(""); // State for the subject
     const [content, setContent] = useState(""); // State for the content
     const [loading, setLoading] = useState(false); // State for loading status
@@ -14,6 +16,8 @@ function CreatePost() {
 
 
     const handleSubmit = async (event: React.FormEvent) => {
+
+
         event.preventDefault();
         setLoading(true);
 
@@ -23,7 +27,9 @@ function CreatePost() {
             }
 
             // Retrieve the forum to ensure it exists (optional step for validation)
-            const { data : forum } = await client.models.Forum.get({ id: forumId });
+            const { data : forumdata } = await client.models.Forum.get({ id: forumId });
+            console.log(forum)
+            setForum(forumdata);
             if (!forum) {
                 throw new Error("Forum not found.");
             }
