@@ -86,7 +86,7 @@ function Post() {
           {comments.length ? (
               comments.map((comment) => (
                 <li key={comment.id} style={{ marginBottom: '10px' }}>
-                  <h3>{comments.commenter}</h3>
+                  <h3>{comment.commenter}</h3>
                   <p>{comment.content}</p>
                   <small>Commented on: {new Date(comment.createdAt).toLocaleDateString()}</small>
                 </li>
