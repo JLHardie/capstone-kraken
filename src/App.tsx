@@ -1,13 +1,15 @@
 import { BrowserRouter as Router, Route, Routes, Navigate, Link } from "react-router-dom";
+import React from "react"
 import Forum from "./Forum";
 import Post from "./Post";
 import SearchBar from './SearchBar';
 import Search from "./Search";
 import Home from "./Home";
-import CreatePost from "./CreatePost";
-import Chatroom from "./Chatroom";
-import Profile from "./Profile";
 //import '@aws-amplify/ui-react/styles.css'
+
+const Chatroom = React.lazy(() => import('./Chatroom'));
+const Profile = React.lazy(() => import('./Profile'));
+const CreatePost = React.lazy(() => import('./CreatePost'));
 
 function App() {
 
