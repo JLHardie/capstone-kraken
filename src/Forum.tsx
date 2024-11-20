@@ -11,6 +11,10 @@ function Forum() {
 
   const { forumId } = useParams<{ forumId: string }>();
   
+  if (!forumId) {
+    throw new Error("ForumId is required")
+  }
+  
   const [posts, setPosts] = useState<Schema['Post']['type'][]>([]);
   const [forum, setForum] = useState<Schema['Forum']['type'] | null>(null);
 
