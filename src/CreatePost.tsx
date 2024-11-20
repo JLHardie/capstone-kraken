@@ -59,7 +59,7 @@ function CreatePost() {
                 containsImage: false, // Set default value for now
                 datePosted: new Date().toISOString(),
                 likes: 0, // Default likes count
-                forumid: forumdata.id, // Link to the forum by ID
+                forumid: forum.id, // Link to the forum by ID
             });
 
             console.log("Post created:", post);

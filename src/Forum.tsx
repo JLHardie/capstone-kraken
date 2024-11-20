@@ -1,7 +1,7 @@
 import { type Schema } from "../amplify/data/resource";
 import {useState, useEffect} from "react"
 import { generateClient } from "aws-amplify/data";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 
 const client = generateClient<Schema>();
 
@@ -10,7 +10,7 @@ const client = generateClient<Schema>();
 function Forum() {
 
   const { forumId } = useParams<{ forumId: string }>();
-  
+
   if (!forumId) {
     throw new Error("ForumId is required")
   }
@@ -43,19 +43,23 @@ function Forum() {
 
   return (
     <main>
-      <button>Add New Post</button>
+      <Link to={`/forum/${forum.id}/create`}>
+        <button>Add New Post</button>
+      </Link>
       <h1>Forum: {forum.name}</h1>
       <ul>
         {posts.length ? (
           posts.map((post) => (
-            <li key={post.id}>
-              <h2>{post.subject}</h2>
-              <p>{post.content}</p>
-              <small>
-                Posted by: PLACEHOLDER on{" "}
-                {new Date(post.createdAt).toLocaleDateString()}
-              </small>
-            </li>
+            <Link to={`/post/${post.id}`}>
+              <li key={post.id}>
+                <h2>{post.subject}</h2>
+                <p>{post.content}</p>
+                <small>
+                  Posted by: PLACEHOLDER on{" "}
+                  {new Date(post.createdAt).toLocaleDateString()}
+                </small>
+              </li>
+            </Link>
           ))
         ) : (
           <div>
