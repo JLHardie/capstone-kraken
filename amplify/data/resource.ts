@@ -45,13 +45,11 @@ const schema = a.schema({
       .model({
         userId: a.string(),
         forumid: a.id(),
-        forum: a.hasOne("Forum", "forumid"),
       }),
     Like: a
       .model({
         userId: a.string(),
         postid: a.id(),
-        post: a.hasOne("Post", "postid"),
       })
 })
 .authorization((allow) => [
