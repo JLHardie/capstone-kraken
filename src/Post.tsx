@@ -39,9 +39,17 @@ function Post() {
 
   return (
     <div>
-      <h1>{post.subject}</h1>
-      <p>{post.content}</p>
-      <small>Posted on: {post.datePosted}</small>
+      {
+        post ? (
+          <div>
+            <h1>{post.subject}</h1>
+            <p>{post.content}</p>
+            <small>Posted on: {post.datePosted}</small>
+          </div>
+        ) : (
+          <h3>Post data failed to load</h3>
+        )
+      }
       <div>
         <h3>Comments</h3>
         {comments.length ? (
