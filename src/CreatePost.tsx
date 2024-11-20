@@ -16,8 +16,7 @@ function CreatePost() {
 
 
     const handleSubmit = async (event: React.FormEvent) => {
-
-
+        console.log(forumId)
         event.preventDefault();
         setLoading(true);
 
