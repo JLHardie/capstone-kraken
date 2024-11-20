@@ -9,7 +9,6 @@ specifies that any user authenticated via an API key can "create", "read",
 const schema = a.schema({
   Post: a
     .model({
-      id: a.id(),
       subject: a.string(),
       content: a.string(),
       containsImage: a.boolean(),
@@ -25,7 +24,6 @@ const schema = a.schema({
     ]),
   Forum: a
     .model({
-      id: a.id(),
       name: a.string(),
       beongsTo: a.string(),
       description: a.string(),
