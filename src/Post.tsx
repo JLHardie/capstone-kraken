@@ -17,6 +17,7 @@ function Post() {
   const [post, setPost] = useState<Schema['Post']['type'] | null>(null);
   const [comments, setComments] = useState<Schema['Comment']['type'][]>([]);
   const [newComment, setNewComment] = useState('');
+  //const [myLike, setLikes] = useState<Schema['Like']['type'][]>([]);
 
   const handleNewComment = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -38,11 +39,24 @@ function Post() {
 
   useEffect(() => {
     const fetchData = async () => {
+      //const {userId} = await getCurrentUser();
       const { data: postData } = await client.models.Post.get({id: postId})
       if (!postData) {
         throw new Error("Post not found");
       }
       setPost(postData);
+
+      // const { data: likesData } = await client.models.Like.list({
+      //   filter: {
+      //     and: [
+      //       {postid: {eq: postData.id}},
+      //       {userId: {eq: userId}}
+      //     ]
+      //   }
+      // })
+      // if (likesData) {
+      //   setLikes(likesData)
+      // }
 
       const { data: commentsData } = await client.models.Comment.list({
         filter: {
@@ -57,6 +71,15 @@ function Post() {
     fetchData();
   }, [postId]);
 
+  const pressLike = async () => {
+    const {userId} = await getCurrentUser();
+    const { data: like } = await client.models.Like.create({
+      userId: userId,
+      postid: post?.id,
+    })
+    console.log(like)
+  }
+
 
   return (
     <div>
@@ -66,6 +89,7 @@ function Post() {
             <h1>{post.subject}</h1>
             <p>{post.content}</p>
             <small>Posted on: {post.datePosted}</small>
+            <button onClick={pressLike}>Likes: {post.likes}</button>
           </div>
         ) : (
           <h3>Post data failed to load</h3>
