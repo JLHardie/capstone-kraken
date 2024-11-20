@@ -17,22 +17,14 @@ const schema = a.schema({
       forumid: a.id(),
       forum: a.belongsTo("Forum", "forumid"),
       comments: a.hasMany("Comment", "postid"),
-    })
-    .authorization((allow) => [
-      allow.publicApiKey(),
-      allow.owner()
-    ]),
+    }),
   Forum: a
     .model({
       name: a.string(),
       belongsTo: a.string(),
       description: a.string(),
       posts: a.hasMany("Post", "forumid"),
-    })
-    .authorization((allow) => [
-      allow.publicApiKey(),
-      allow.owner()
-    ]),
+    }),
     Comment: a
       .model({
         content: a.string(),
@@ -41,34 +33,30 @@ const schema = a.schema({
         likes: a.integer(),
         postid: a.id(),
         post: a.belongsTo("Post", "postid"),
-      })
-      .authorization((allow) => [
-        allow.publicApiKey(),
-        allow.owner()
-      ]),
+      }),
     Message: a
       .model({
         sender: a.string(),
         recipient: a.string(),
         content: a.string(),
-      })
-      .authorization((allow) => [
-        allow.publicApiKey(),
-        allow.owner()
-      ]),
-});
+      }),
+})
+// .authorization((allow) => [
+//   allow.publicApiKey(),
+//   allow.owner()
+// ]);
 
 export type Schema = ClientSchema<typeof schema>;
 
 export const data = defineData({
   schema,
-  authorizationModes: {
-    defaultAuthorizationMode: "apiKey",
-    // API Key is used for a.allow.public() rules
-    apiKeyAuthorizationMode: {
-      expiresInDays: 30,
-    },
-  },
+  // authorizationModes: {
+  //   defaultAuthorizationMode: "apiKey",
+  //   // API Key is used for a.allow.public() rules
+  //   apiKeyAuthorizationMode: {
+  //     expiresInDays: 30,
+  //   },
+  // },
 });
 
 /*== STEP 2 ===============================================================
