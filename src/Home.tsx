@@ -3,10 +3,10 @@ import { generateClient } from 'aws-amplify/data'
 import { getCurrentUser } from 'aws-amplify/auth';
 
 const client = generateClient<Schema>()
-const { userId } = await getCurrentUser();
 
 function Home() {
     const createForum = async () => {
+        const { userId } = await getCurrentUser();
         await client.models.Forum.create({
             name: window.prompt("Name for forum?"),
             belongsTo: userId
