@@ -15,7 +15,7 @@ export default function Chatroom() {
 
     useEffect(() => {
         const sub = client.models.Message.observeQuery().subscribe({
-            next: ({ items, isSynced }) => {
+            next: ({ items }) => {
                 setMessages([...items]);
             },
         });
