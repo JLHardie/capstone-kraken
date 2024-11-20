@@ -27,8 +27,9 @@ function CreatePost() {
 
             // Retrieve the forum to ensure it exists (optional step for validation)
             const { data : forumdata } = await client.models.Forum.get({ id: forumId });
-            setForum(forumdata);
+            await setForum(forumdata);
             console.log(forum)
+            console.log(forumdata)
             if (!forum) {
                 throw new Error("Forum not found.");
             }
