@@ -16,7 +16,9 @@ function CreatePost() {
 
 
     const handleSubmit = async (event: React.FormEvent) => {
-        console.log(forumId)
+        console.log(forumId);
+        console.log(subject);
+        console.log(content);
         event.preventDefault();
         setLoading(true);
 
@@ -30,7 +32,7 @@ function CreatePost() {
             await setForum(forumdata);
             console.log(forum)
             console.log(forumdata)
-            if (!forum) {
+            if (!forumdata) {
                 throw new Error("Forum not found.");
             }
 
@@ -41,7 +43,7 @@ function CreatePost() {
                 containsImage: false, // Set default value for now
                 datePosted: new Date().toISOString(),
                 likes: 0, // Default likes count
-                forumid: forum.id, // Link to the forum by ID
+                forumid: forumdata.id, // Link to the forum by ID
             });
 
             console.log("Post created:", post);
