@@ -21,8 +21,7 @@ function Post() {
   const handleNewComment = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const { userId, username } = await getCurrentUser();
-    if (newComment.trim()   
-      !== '') {
+    if ((newComment.trim() !== '') && !(!post)) {
         const { data: newCommentData } = await client.models.Comment.create({
           content: newComment,
           commenter: username,
