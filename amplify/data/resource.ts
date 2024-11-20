@@ -25,7 +25,7 @@ const schema = a.schema({
   Forum: a
     .model({
       name: a.string(),
-      beongsTo: a.string(),
+      belongsTo: a.string(),
       description: a.string(),
       posts: a.hasMany("Post", "forumid"),
     })
