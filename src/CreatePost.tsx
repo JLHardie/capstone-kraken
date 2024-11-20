@@ -36,6 +36,8 @@ function CreatePost() {
                 throw new Error("Forum not found.");
             }
 
+            console.log(forumdata.id)
+
             // Create the post and link it to the forum
             const { data : post } = await client.models.Post.create({
                 subject,
