@@ -19,8 +19,7 @@ const schema = a.schema({
       comments: a.hasMany("Comment", "postid"),
     })
     .authorization((allow) => [
-      allow.publicApiKey().to(['read']),
-      allow.owner()
+      allow.publicApiKey()
     ]),
   Forum: a
     .model({
@@ -30,8 +29,7 @@ const schema = a.schema({
       posts: a.hasMany("Post", "forumid"),
     })
     .authorization((allow) => [
-      allow.publicApiKey().to(['read']),
-      allow.owner()
+      allow.publicApiKey()
     ]),
     Comment: a
       .model({
@@ -43,8 +41,7 @@ const schema = a.schema({
         post: a.belongsTo("Post", "postid"),
       })
       .authorization((allow) => [
-        allow.publicApiKey().to(['read']),
-        allow.owner()
+        allow.publicApiKey()
       ]),
 });
 
