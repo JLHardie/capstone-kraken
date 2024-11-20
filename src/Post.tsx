@@ -80,7 +80,7 @@ function Post() {
     console.log(like)
     console.log(post)
     console.log(post?.likes)
-    if (!(!post) && !(!post.likes)) {
+    if (!(!post) && (post.likes != undefined)) {
       const numLikes = post.likes?.valueOf()
       const {data: postData} = await client.models.Post.update({
         id: post.id,
