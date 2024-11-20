@@ -24,6 +24,7 @@ const schema = a.schema({
       belongsTo: a.string(),
       description: a.string(),
       posts: a.hasMany("Post", "forumid"),
+      scribers: a.hasMany("Subscribo", "forumid")
     }),
     Comment: a
       .model({
@@ -44,6 +45,7 @@ const schema = a.schema({
       .model({
         userId: a.string(),
         forumid: a.id(),
+        forum: a.belongsTo("Forum", "forumid")
       }),
     Like: a
       .model({

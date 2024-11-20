@@ -2,6 +2,8 @@ import { type Schema } from "../amplify/data/resource";
 import {useState, useEffect} from "react"
 import { generateClient } from "aws-amplify/data";
 import { useParams, Link } from "react-router-dom";
+import { getCurrentUser } from 'aws-amplify/auth';
+
 
 const client = generateClient<Schema>();
 
@@ -41,12 +43,22 @@ function Forum() {
     return <div>Loading...</div>;
   }
 
+  const subButtonClick = async () => {
+    const { userId } = await getCurrentUser();
+    const { data: newSub } = await client.models.Subscribo.create({
+      userId: userId,
+      forumid: forum.id
+    })
+    console.log(newSub)
+  }
+
   return (
     <main>
       <Link to={`/forum/${forum.id}/create`}>
         <button>Add New Post</button>
       </Link>
       <h1>Forum: {forum.name}</h1>
+      <button onClick={subButtonClick}>Subscribe</button>
       <ul>
         {posts.length ? (
           posts.map((post) => (
