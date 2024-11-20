@@ -20,7 +20,7 @@ function Post() {
 
   const handleNewComment = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const { userId, username } = await getCurrentUser();
+    const { username, userId } = await getCurrentUser();
     if ((newComment.trim() !== '') && !(!post)) {
         const { data: newCommentData } = await client.models.Comment.create({
           content: newComment,
@@ -83,12 +83,15 @@ function Post() {
           <button type="submit">Comment</button>
         </form>
         {comments.length ? (
-          comments.map((comment) => (
-            <div key={comment.id} style={{ marginBottom: '10px' }}>
-              <p>{comment.content}</p>
-              <small>Commented on: {new Date(comment.createdAt).toLocaleDateString()}</small>
-            </div>
-          ))
+          <ul>
+            comments.map((comment) => (
+              <li key={comment.id} style={{ marginBottom: '10px' }}>
+                <h3>{comments.commenter}</h3>
+                <p>{comment.content}</p>
+                <small>Commented on: {new Date(comment.createdAt).toLocaleDateString()}</small>
+              </li>
+            ))
+          </ul>
         ) : (
           <p>No comments yet. Be the first to comment!</p>
         )}
