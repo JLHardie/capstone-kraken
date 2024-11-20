@@ -41,10 +41,10 @@ const schema = a.schema({
         content: a.string(),
       }),
 })
-// .authorization((allow) => [
-//   allow.publicApiKey(),
-//   allow.owner()
-// ]);
+.authorization((allow) => [
+  allow.publicApiKey(),
+  //allow.owner()
+]);
 
 export type Schema = ClientSchema<typeof schema>;
 
