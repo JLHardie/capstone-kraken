@@ -1,11 +1,13 @@
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import { generateClient } from "aws-amplify/data";
 import type { Schema } from "../amplify/data/resource";
+import { getCurrentUser } from 'aws-amplify/auth';
 
 const client = generateClient<Schema>();
 
 function Post() {
+  const navigate = useNavigate();
   const { postId } = useParams<{ postId: string }>();
 
   if (!postId) {
@@ -14,6 +16,26 @@ function Post() {
 
   const [post, setPost] = useState<Schema['Post']['type'] | null>(null);
   const [comments, setComments] = useState<Schema['Comment']['type'][]>([]);
+  const [newComment, setNewComment] = useState('');
+
+  const handleNewComment = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const { userId, username } = await getCurrentUser();
+    if (newComment.trim()   
+      !== '') {
+        const { data: newCommentData } = await client.models.Comment.create({
+          content: newComment,
+          commenter: username,
+          commenterId: userId,
+          postid: post.id
+        })
+
+        console.log(newCommentData)
+
+        navigate(`/post/${postId}`);
+        setNewComment('');
+    }
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -52,6 +74,15 @@ function Post() {
       }
       <div>
         <h3>Comments</h3>
+        <form onSubmit={handleNewComment}>
+          <input
+            type="text"
+            placeholder="Make a comment..."
+            value={newComment}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setNewComment(e.target.value)}
+          />
+          <button type="submit">Comment</button>
+        </form>
         {comments.length ? (
           comments.map((comment) => (
             <div key={comment.id} style={{ marginBottom: '10px' }}>

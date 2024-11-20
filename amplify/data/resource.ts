@@ -35,8 +35,8 @@ const schema = a.schema({
     ]),
     Comment: a
       .model({
-        id: a.id(),
         content: a.string(),
+        commenterId: a.string(),
         commenter: a.string(),
         likes: a.integer(),
         postid: a.id(),
