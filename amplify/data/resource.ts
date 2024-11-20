@@ -41,7 +41,7 @@ const schema = a.schema({
         recipient: a.string(),
         content: a.string(),
       }),
-    Subscription: a
+    Subscribo: a
       .model({
         userId: a.string(),
         forumid: a.id(),
