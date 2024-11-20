@@ -14,15 +14,15 @@ function CreatePost() {
     const [loading, setLoading] = useState(false); // State for loading status
     const navigate = useNavigate(); // For navigation after submission
 
-    useEffect(() => {
-        const fetchData = async () => {
+    // useEffect(() => {
+    //     const fetchData = async () => {
           
-          const { data: forum } = await client.models.Forum.get({ id: forumId });
-          setForum(forum);
-        };
+    //       const { data: forum } = await client.models.Forum.get({ id: forumId });
+    //       setForum(forum);
+    //     };
     
-        fetchData();
-      }, [forumId]);
+    //     fetchData();
+    //   }, [forumId]);
 
 
     const handleSubmit = async (event: React.FormEvent) => {
@@ -39,6 +39,7 @@ function CreatePost() {
 
             // Retrieve the forum to ensure it exists (optional step for validation)
             const { data : forumdata } = await client.models.Forum.get({ id: forumId });
+            setForum(forumdata)
             console.log(forum)
             console.log(forumdata)
             if (!forumdata) {
