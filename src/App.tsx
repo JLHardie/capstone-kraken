@@ -1,7 +1,5 @@
 import { BrowserRouter as Router, Route, Routes, Navigate, Link } from "react-router-dom";
 import React from "react"
-import Forum from "./Forum";
-import Post from "./Post";
 import SearchBar from './SearchBar';
 import Search from "./Search";
 import Home from "./Home";
@@ -10,6 +8,8 @@ import Home from "./Home";
 const Chatroom = React.lazy(() => import('./Chatroom'));
 const Profile = React.lazy(() => import('./Profile'));
 const CreatePost = React.lazy(() => import('./CreatePost'));
+const Post = React.lazy(() => import('./Post'))
+const Forum = React.lazy(() => import('./Forum'))
 
 function App() {
 
