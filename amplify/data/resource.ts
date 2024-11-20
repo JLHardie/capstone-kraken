@@ -1,4 +1,5 @@
 import { type ClientSchema, a, defineData } from "@aws-amplify/backend";
+import { Subscription } from "aws-cdk-lib/aws-sns";
 
 /*== STEP 1 ===============================================================
 The section below creates a Todo database table with a "content" field. Try
@@ -40,6 +41,18 @@ const schema = a.schema({
         recipient: a.string(),
         content: a.string(),
       }),
+    Subscription: a
+      .model({
+        userId: a.string(),
+        forumid: a.id(),
+        forum: a.hasOne("Forum", "forumid"),
+      }),
+    Like: a
+      .model({
+        userId: a.string(),
+        postid: a.id(),
+        post: a.hasOne("Post", "postid"),
+      })
 })
 .authorization((allow) => [
   allow.publicApiKey(),
