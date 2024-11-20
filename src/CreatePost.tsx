@@ -17,7 +17,7 @@ function CreatePost() {
     useEffect(() => {
         const fetchData = async () => {
           
-          const { data: forum } = (await client.models.Forum.get({ id: forumId }));
+          const { data: forum } = await client.models.Forum.get({ id: forumId });
           setForum(forum);
         };
     
