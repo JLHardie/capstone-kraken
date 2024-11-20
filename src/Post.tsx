@@ -78,6 +78,14 @@ function Post() {
       postid: post?.id,
     })
     console.log(like)
+    if (!(!post) && !(!post.likes)) {
+      const numLikes = post.likes?.valueOf()
+      const {data: postData} = await client.models.Post.update({
+        id: post.id,
+        likes: numLikes + 1,
+      })
+      console.log(postData)
+    }
   }
 
 

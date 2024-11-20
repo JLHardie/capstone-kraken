@@ -30,7 +30,7 @@ const schema = a.schema({
         content: a.string(),
         commenterId: a.string(),
         commenter: a.string(),
-        likes: a.integer(),
+        likes: a.integer().default(0).required(),
         postid: a.id(),
         post: a.belongsTo("Post", "postid"),
       }),
