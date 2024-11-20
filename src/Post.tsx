@@ -82,19 +82,19 @@ function Post() {
           />
           <button type="submit">Comment</button>
         </form>
-        {comments.length ? (
-          <ul>
-            comments.map((comment) => (
-              <li key={comment.id} style={{ marginBottom: '10px' }}>
-                <h3>{comments.commenter}</h3>
-                <p>{comment.content}</p>
-                <small>Commented on: {new Date(comment.createdAt).toLocaleDateString()}</small>
-              </li>
-            ))
-          </ul>
-        ) : (
-          <p>No comments yet. Be the first to comment!</p>
-        )}
+        <ul>
+          {comments.length ? (
+              comments.map((comment) => (
+                <li key={comment.id} style={{ marginBottom: '10px' }}>
+                  <h3>{comments.commenter}</h3>
+                  <p>{comment.content}</p>
+                  <small>Commented on: {new Date(comment.createdAt).toLocaleDateString()}</small>
+                </li>
+              ))
+          ) : (
+            <p>No comments yet. Be the first to comment!</p>
+          )}
+        </ul>
       </div>
     </div>
     
