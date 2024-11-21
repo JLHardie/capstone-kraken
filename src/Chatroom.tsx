@@ -22,7 +22,7 @@ export default function Chatroom() {
             if(!forumData) {
                 throw new Error("forumData not found")
             }
-            setForum(forumData);
+            await setForum(forumData);
             console.log(forum);
         }
         getData();
