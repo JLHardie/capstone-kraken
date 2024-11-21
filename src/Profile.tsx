@@ -1,4 +1,4 @@
-import { AccountSettings, ThemeProvider } from '@aws-amplify/ui-react';
+import { AccountSettings, Card, ThemeProvider } from '@aws-amplify/ui-react';
 import { signOut } from 'aws-amplify/auth';
 import '@aws-amplify/ui-react/styles.css';
 
@@ -32,14 +32,16 @@ export default function Profile() {
             <ThemeProvider theme={theme}>
                 <h2>Profile</h2>
                 <button type="button" onClick={doSignOut}>Sign Out</button>
-                <AccountSettings.ChangePassword 
-                    displayText={{
-                        currentPasswordFieldLabel: 'Enter current password',
-                        newPasswordFieldLabel: 'Enter new password',
-                        confirmPasswordFieldLabel: 'Confirm your password',
-                        updatePasswordButtonText: 'Update your password',
-                    }}  
-                />
+                <Card>
+                    <AccountSettings.ChangePassword 
+                        displayText={{
+                            currentPasswordFieldLabel: 'Enter current password',
+                            newPasswordFieldLabel: 'Enter new password',
+                            confirmPasswordFieldLabel: 'Confirm your password',
+                            updatePasswordButtonText: 'Update your password',
+                        }}  
+                    />
+                </Card>
             </ThemeProvider>
         </div>
     )
