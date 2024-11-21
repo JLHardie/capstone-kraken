@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import type { Schema } from "../amplify/data/resource";
 import { generateClient } from "aws-amplify/data";
+import { getCurrentUser } from 'aws-amplify/auth';
 
 const client = generateClient<Schema>();
 
@@ -35,6 +36,7 @@ function CreatePost() {
         console.log(content);
         event.preventDefault();
         setLoading(true);
+        const { userId } = await getCurrentUser();
 
         try {
             if (!forumId) {
@@ -62,6 +64,7 @@ function CreatePost() {
                 datePosted: new Date().toISOString(),
                 likes: 0, // Default likes count
                 forumid: forumId, // Link to the forum by ID
+                user: userId,
             });
 
             console.log("Post created:", post);

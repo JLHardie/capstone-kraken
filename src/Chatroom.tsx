@@ -55,7 +55,7 @@ export default function Chatroom() {
     return (
         <div>
             <h2>{}</h2>
-            <div style='height:70%; overflow:auto'>
+            <div>
                 <ul>
                     {
                         messages.map((message) => (
