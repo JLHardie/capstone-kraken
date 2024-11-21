@@ -9,7 +9,7 @@ export default function Profile() {
     }
 
     const passChangeSuccess = async () => {
-        <Alert variation='success'>Password change success!</Alert>
+        alert("Password change success!")
     }
 
     const theme = {
@@ -38,7 +38,7 @@ export default function Profile() {
                 <button type="button" onClick={doSignOut}>Sign Out</button>
                 <Card>
                     <AccountSettings.ChangePassword 
-                        onSuccess={}
+                        onSuccess={passChangeSuccess}
                         displayText={{
                             currentPasswordFieldLabel: 'Enter current password',
                             newPasswordFieldLabel: 'Enter new password',
