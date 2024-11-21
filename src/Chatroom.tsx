@@ -41,7 +41,11 @@ export default function Chatroom() {
             <ul>
                 {
                     messages.map((message) => (
-                        <li key={message.id}>{message.content}</li>
+                        (message.forumid === forumId) ? (
+                            <li key={message.id}>{message.content}</li>
+                        ) : (
+                            <h2>No messages yet.</h2>
+                        )
                     ))
                 }
             </ul>
