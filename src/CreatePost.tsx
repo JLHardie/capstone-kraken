@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import type { Schema } from "../amplify/data/resource";
 import { generateClient } from "aws-amplify/data";
 import { getCurrentUser } from 'aws-amplify/auth';
+import { FileUploader } from '@aws-amplify/ui-react-storage';
 
 const client = generateClient<Schema>();
 
@@ -101,6 +102,12 @@ function CreatePost() {
                         required
                     />
                 </div>
+                <FileUploader
+                    acceptedFileTypes={['image/*']}
+                    path="public/"
+                    maxFileCount={1}
+                    isResumable
+                />
                 <button type="submit" disabled={loading}>
                     {loading ? "Submitting..." : "Submit"}
                 </button>
