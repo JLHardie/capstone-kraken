@@ -1,3 +1,4 @@
+import { AccountSettings } from '@aws-amplify/ui-react';
 import { signOut } from 'aws-amplify/auth';
 
 export default function Profile() {
@@ -10,6 +11,14 @@ export default function Profile() {
         <div>
             <h2>Profile</h2>
             <button type="button" onClick={doSignOut}>Sign Out</button>
+            <AccountSettings.ChangePassword 
+                displayText={{
+                    currentPasswordFieldLabel: 'Enter current password',
+                    newPasswordFieldLabel: 'Enter new password',
+                    confirmPasswordFieldLabel: 'Confirm your password',
+                    updatePasswordButtonText: 'Update your password',
+                }}  
+            />
         </div>
     )
 }
