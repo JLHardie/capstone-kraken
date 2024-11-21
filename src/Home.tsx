@@ -18,7 +18,6 @@ function Home() {
         const sortedPosts = [...postData].sort((a, b) =>
             new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
         );
-        setPosts(sortedPosts);
 
         const {data: subData} = await client.models.Subscribo.list({
             filter: {
@@ -26,6 +25,15 @@ function Home() {
             }
         });
         setSubscribos(subData);
+
+        // Extract forum IDs from subscribed data
+        const subscribedForumIds = subData.map((sub) => sub.forumid);
+
+        // Fetch posts and filter them by subscribed forum IDs
+        const filteredPosts = sortedPosts.filter((post) =>
+            subscribedForumIds.includes(post.forumid)
+        );
+        setPosts(filteredPosts)
     }
     getData();
 
@@ -42,20 +50,18 @@ function Home() {
             <button onClick={createForum}>Create Forum</button>
             <h2>Welcome to the Feed</h2>
             <ul>
-                {
-                    subscribos.length > 0 ? (
-                        posts.map((post) => (
-                            <li key={post.id}>
-                                <small>{post.user}</small>
-                                <Link to={`/post/${post.id}`}>
-                                    <h2>{post.subject}</h2>
-                                </Link>
-                            </li>
-                        ))
-                    ) : (
-                        <h1>Sub feed coming soon</h1>
-                    )
-                }
+                {subscribos.length > 0 ? (
+                    posts.map((post) => (
+                        <li key={post.id}>
+                            <small>{post.user}</small>
+                            <Link to={`/post/${post.id}`}>
+                                <h2>{post.subject}</h2>
+                            </Link>
+                        </li>
+                    ))
+                ) : (
+                    <h1>No subscriptions yet. Subscribe to forums to see posts!</h1>
+                )}
             </ul>
         </div>
     )
