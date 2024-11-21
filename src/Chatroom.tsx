@@ -55,20 +55,22 @@ export default function Chatroom() {
     return (
         <div>
             <h2>{}</h2>
-            <ul style='height:70%; overflow:auto'>
-                {
-                    messages.map((message) => (
-                        (message.forumid === forumId) ? (
-                            <li key={message.id}>
-                                <small>{message.sender}</small>
-                                <p>{message.content}</p>
-                            </li>
-                        ) : (
-                            <h2>No messages yet.</h2>
-                        )
-                    ))
-                }
-            </ul>
+            <div style='height:70%; overflow:auto'>
+                <ul>
+                    {
+                        messages.map((message) => (
+                            (message.forumid === forumId) ? (
+                                <li key={message.id}>
+                                    <small>{message.sender}</small>
+                                    <p>{message.content}</p>
+                                </li>
+                            ) : (
+                                <h2>No messages yet.</h2>
+                            )
+                        ))
+                    }
+                </ul>
+            </div>
                 <form onSubmit={handleNewComment}>
                     <input
                         type="text"
