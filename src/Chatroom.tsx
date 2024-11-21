@@ -42,7 +42,7 @@ export default function Chatroom() {
             const { data: newMessageData } = await client.models.Message.create({
               content: newMessage,
               sender: username,
-              forumId: forumData.id
+              forumid: forumData.id
             })
     
             console.log(newMessageData)
