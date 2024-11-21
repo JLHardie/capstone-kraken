@@ -19,6 +19,9 @@ export default function Chatroom() {
     useEffect(() => {
         const getData = async () => {
             const { data: forumData } = await client.models.Forum.get({id: forumId})
+            if(!forumData) {
+                throw new Error("forumData not found")
+            }
             setForum(forumData);
             console.log(forum);
         }
