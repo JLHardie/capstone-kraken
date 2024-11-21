@@ -7,6 +7,7 @@ import Home from "./Home";
 import CreatePost from "./CreatePost";
 import Chatroom from "./Chatroom";
 import Profile from "./Profile";
+import { Flex } from "@aws-amplify/ui-react";
 //import '@aws-amplify/ui-react/styles.css'
 
 function App() {
@@ -14,13 +15,22 @@ function App() {
   return (
     <Router>
       <div>
-        <Link to={`/feed`}>
-          <h1>Kraken</h1>
-        </Link>
-        <SearchBar />
-        <Link to={`/profile`}>
-          <button type="button">Profile</button>
-        </Link>
+      <Flex
+        direction="row"
+        justifyContent="flex-start"
+        alignItems="center"
+        alignContent="flex-start"
+        wrap="nowrap"
+        gap="1rem"
+      >
+          <Link to={`/feed`}>
+            <h1>Kraken</h1>
+          </Link>
+          <SearchBar />
+          <Link to={`/profile`}>
+            <button type="button">Profile</button>
+          </Link>
+        </Flex>
         <Routes>
           <Route path="/feed" element={<Home />} />
           <Route path="/profile" element={<Profile />} />
