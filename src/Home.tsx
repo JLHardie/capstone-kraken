@@ -15,7 +15,11 @@ function Home() {
     const getData = async () => {
         const {userId} = await getCurrentUser()
         const {data: postData} = await client.models.Post.list();
-        setPosts(postData);
+        const sortedPosts = [...postData].sort((a, b) =>
+            new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
+        );
+        setPosts(sortedPosts);
+
         const {data: subData} = await client.models.Subscribo.list({
             filter: {
                 userId: {eq: userId}

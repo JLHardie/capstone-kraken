@@ -32,7 +32,10 @@ function Forum() {
           forumid : { eq : forumId}
         }
       })
-      setPosts(postsData);
+      const sortedPosts = [...postsData].sort((a, b) =>
+        new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
+    );
+    setPosts(sortedPosts);
     };
 
     fetchData();
