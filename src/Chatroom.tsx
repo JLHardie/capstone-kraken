@@ -3,6 +3,7 @@ import { generateClient } from 'aws-amplify/data';
 import type { Schema } from '../amplify/data/resource';
 import { useParams } from "react-router-dom";
 import { getCurrentUser } from 'aws-amplify/auth';
+import { ScrollView } from '@aws-amplify/ui-react';
 
 type Message = Schema['Message']['type'];
 const client = generateClient<Schema>();
@@ -57,6 +58,7 @@ export default function Chatroom() {
             <h2>{}</h2>
             <div>
                 <ul>
+                    <ScrollView height="300px">
                     {
                         messages.map((message) => (
                             (message.forumid === forumId) ? (
@@ -69,6 +71,7 @@ export default function Chatroom() {
                             )
                         ))
                     }
+                    </ScrollView>
                 </ul>
             </div>
                 <form onSubmit={handleNewComment}>
