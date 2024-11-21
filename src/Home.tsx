@@ -11,6 +11,7 @@ type Subscribo = Schema['Subscribo']['type'];
 function Home() {
     const [posts, setPosts] = useState<Post[]>([]);
     const [subscribos, setSubscribos] = useState<Subscribo[]>([]);
+    const [subbedPosts, setSubbedPosts] = useState<Post[]>([]);
 
     const getData = async () => {
         const {userId} = await getCurrentUser()
@@ -18,6 +19,7 @@ function Home() {
         const sortedPosts = [...postData].sort((a, b) =>
             new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
         );
+        setPosts
 
         const {data: subData} = await client.models.Subscribo.list({
             filter: {
@@ -33,7 +35,7 @@ function Home() {
         const filteredPosts = sortedPosts.filter((post) =>
             subscribedForumIds.includes(post.forumid)
         );
-        setPosts(filteredPosts)
+        setSubbedPosts(filteredPosts)
     }
     getData();
 
@@ -51,7 +53,7 @@ function Home() {
             <h2>Welcome to the Feed</h2>
             <ul>
                 {subscribos.length > 0 ? (
-                    posts.map((post) => (
+                    subbedPosts.map((post) => (
                         <li key={post.id}>
                             <small>{post.user}</small>
                             <Link to={`/post/${post.id}`}>
@@ -60,7 +62,14 @@ function Home() {
                         </li>
                     ))
                 ) : (
-                    <h1>No subscriptions yet. Subscribe to forums to see posts!</h1>
+                    posts.map((post) => (
+                        <li key={post.id}>
+                            <small>{post.user}</small>
+                            <Link to={`/post/${post.id}`}>
+                                <h2>{post.subject}</h2>
+                            </Link>
+                        </li>
+                    ))
                 )}
             </ul>
         </div>
