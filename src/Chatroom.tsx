@@ -24,7 +24,10 @@ export default function Chatroom() {
 
         const sub = client.models.Message.observeQuery().subscribe({
             next: ({ items }) => {
-                setMessages([...items]);
+                const sortedMessages = [...items].sort((a, b) =>
+                    new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
+                );
+                setMessages(sortedMessages);
             },
         });
         return () => sub.unsubscribe();
