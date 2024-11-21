@@ -5,7 +5,6 @@ import { useParams } from "react-router-dom";
 import { getCurrentUser } from 'aws-amplify/auth';
 
 type Message = Schema['Message']['type'];
-type Forum = Schema['Forum']['type'];
 const client = generateClient<Schema>();
 
 export default function Chatroom() {
