@@ -1,5 +1,6 @@
 import { AccountSettings } from '@aws-amplify/ui-react';
 import { signOut } from 'aws-amplify/auth';
+import '@aws-amplify/ui-react/styles.css';
 
 export default function Profile() {
 
