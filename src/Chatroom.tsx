@@ -11,7 +11,6 @@ const client = generateClient<Schema>();
 export default function Chatroom() {
     const [messages, setMessages] = useState<Message[]>([]);
     const [newMessage, setNewMessage] = useState('');
-    const [forum, setForum] = useState<Forum>();
     const { forumId } = useParams<{forumId : string}>()
     if (!forumId) {
         throw new Error("Missing forumId")
@@ -20,12 +19,7 @@ export default function Chatroom() {
 
     useEffect(() => {
         const getData = async () => {
-            const { data: forumData } = await client.models.Forum.get({id: forumId})
-            if(!forumData) {
-                throw new Error("forumData not found")
-            }
-            await setForum(forumData);
-            console.log(forum);
+            
         }
         getData();
 
@@ -40,11 +34,15 @@ export default function Chatroom() {
     const handleNewComment = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const { username } = await getCurrentUser();
-        if ((newMessage.trim() !== '') && !(!forum)) {
+        const { data: forumData } = await client.models.Forum.get({id: forumId})
+        if(!forumData) {
+            throw new Error("forumData not found")
+        }
+        if ((newMessage.trim() !== '')) {
             const { data: newMessageData } = await client.models.Message.create({
               content: newMessage,
               sender: username,
-              forumId: forum.id
+              forumId: forumData.id
             })
     
             console.log(newMessageData)
