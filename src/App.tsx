@@ -28,7 +28,7 @@ function App() {
           <Route path="/forum/:forumId/create" element={<CreatePost />} />
           <Route path="/post/:postId" element={<Post />} />
           <Route path="/search" element={<Search />} />
-          <Route path="/chat/:userId" element={<Chatroom />} />
+          <Route path="/forum/:forumId/chat" element={<Chatroom />} />
           <Route path="/" element={<Navigate to="/feed" replace />} />
         </Routes>
       </div>

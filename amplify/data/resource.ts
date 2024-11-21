@@ -24,7 +24,8 @@ const schema = a.schema({
       belongsTo: a.string(),
       description: a.string(),
       posts: a.hasMany("Post", "forumid"),
-      scribers: a.hasMany("Subscribo", "forumid")
+      scribers: a.hasMany("Subscribo", "forumid"),
+      messages: a.hasMany("Message", "forumid"),
     }),
     Comment: a
       .model({
@@ -38,7 +39,8 @@ const schema = a.schema({
     Message: a
       .model({
         sender: a.string(),
-        recipient: a.string(),
+        forumid: a.id(),
+        forum: a.belongsTo("Forum","forumid"),
         content: a.string(),
       }),
     Subscribo: a
