@@ -3,7 +3,7 @@ import { generateClient } from 'aws-amplify/data';
 import type { Schema } from '../amplify/data/resource';
 import { useParams } from "react-router-dom";
 import { getCurrentUser } from 'aws-amplify/auth';
-import { ScrollView } from '@aws-amplify/ui-react';
+import { ScrollView, Divider } from '@aws-amplify/ui-react';
 
 type Message = Schema['Message']['type'];
 const client = generateClient<Schema>();
@@ -63,6 +63,9 @@ export default function Chatroom() {
                         messages.map((message) => (
                             (message.forumid === forumId) ? (
                                 <li key={message.id}>
+                                    <Divider
+                                        size="large"
+                                        orientation="horizontal" />
                                     <small>{message.sender}</small>
                                     <p>{message.content}</p>
                                 </li>
