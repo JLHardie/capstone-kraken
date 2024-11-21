@@ -10,7 +10,7 @@ type Subscribo = Schema['Subscribo']['type'];
 
 function Home() {
     const [posts, setPosts] = useState<Post[]>([]);
-    const [subcribos, setSubscribos] = useState<Subscribo[]>([]);
+    const [subscribos, setSubscribos] = useState<Subscribo[]>([]);
 
     const getData = async () => {
         const {userId} = await getCurrentUser()
@@ -39,7 +39,7 @@ function Home() {
             <h2>Welcome to the Feed</h2>
             <ul>
                 {
-                    !subcribos ? (
+                    subscribos ? (
                         posts.map((post) => (
                             <li key={post.id}>
                                 <small>{post.user}</small>
