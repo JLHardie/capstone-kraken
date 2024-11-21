@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 
 const client = generateClient<Schema>()
 type Post = Schema['Post']['type'];
-type Subscribo = Schema['Subcribo']['type'];
+type Subscribo = Schema['Subscribo']['type'];
 
 function Home() {
     const [posts, setPosts] = useState<Post[]>([]);
@@ -49,9 +49,7 @@ function Home() {
                             </li>
                         ))
                     ) : (
-                        posts.map((post) => {
-
-                        })
+                        <h1>Sub feed coming soon</h1>
                     )
                 }
             </ul>
