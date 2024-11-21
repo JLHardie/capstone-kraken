@@ -43,7 +43,7 @@ function Home() {
             <h2>Welcome to the Feed</h2>
             <ul>
                 {
-                    subscribos ? (
+                    subscribos.length > 0 ? (
                         posts.map((post) => (
                             <li key={post.id}>
                                 <small>{post.user}</small>
