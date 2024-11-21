@@ -19,7 +19,7 @@ function Home() {
         const sortedPosts = [...postData].sort((a, b) =>
             new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
         );
-        setPosts
+        setPosts(sortedPosts)
 
         const {data: subData} = await client.models.Subscribo.list({
             filter: {
