@@ -1,4 +1,4 @@
-import { AccountSettings, Card, ThemeProvider } from '@aws-amplify/ui-react';
+import { AccountSettings, Alert, Card, ThemeProvider } from '@aws-amplify/ui-react';
 import { signOut } from 'aws-amplify/auth';
 import '@aws-amplify/ui-react/styles.css';
 
@@ -6,6 +6,10 @@ export default function Profile() {
 
     const doSignOut = async () => {
         await signOut()
+    }
+
+    const passChangeSuccess = async () => {
+        <Alert variation='success'>Password change success!</Alert>
     }
 
     const theme = {
@@ -34,6 +38,7 @@ export default function Profile() {
                 <button type="button" onClick={doSignOut}>Sign Out</button>
                 <Card>
                     <AccountSettings.ChangePassword 
+                        onSuccess={}
                         displayText={{
                             currentPasswordFieldLabel: 'Enter current password',
                             newPasswordFieldLabel: 'Enter new password',
