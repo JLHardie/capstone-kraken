@@ -1,11 +1,12 @@
 import type { Schema } from '../amplify/data/resource'
 import { generateClient } from 'aws-amplify/data'
 import { getCurrentUser } from 'aws-amplify/auth';
-import React, { useState } from 'react';
+import { useState } from 'react';
+import { Link } from "react-router-dom";
 
 const client = generateClient<Schema>()
 type Post = Schema['Post']['type'];
-type Subcribo = Schema['Subcribo']['type'];
+type Subscribo = Schema['Subcribo']['type'];
 
 function Home() {
     const [posts, setPosts] = useState<Post[]>([]);
@@ -49,7 +50,7 @@ function Home() {
                         ))
                     ) : (
                         posts.map((post) => {
-                            
+
                         })
                     )
                 }
