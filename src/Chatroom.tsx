@@ -58,7 +58,7 @@ export default function Chatroom() {
             <h2>{}</h2>
             <div>
                 <ul>
-                    <ScrollView height="60%" width="40%" autoScroll='auto'>
+                    <ScrollView height="500px" width="250px" autoScroll='auto'>
                     {
                         messages.map((message) => (
                             (message.forumid === forumId) ? (
