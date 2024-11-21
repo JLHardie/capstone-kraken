@@ -55,7 +55,7 @@ export default function Chatroom() {
     return (
         <div>
             <h2>{}</h2>
-            <ul>
+            <ul style='height:70%; overflow:auto'>
                 {
                     messages.map((message) => (
                         (message.forumid === forumId) ? (
