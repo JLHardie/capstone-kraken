@@ -1,4 +1,4 @@
-import { AccountSettings, Alert, Card, ThemeProvider } from '@aws-amplify/ui-react';
+import { AccountSettings, Card, ThemeProvider } from '@aws-amplify/ui-react';
 import { signOut } from 'aws-amplify/auth';
 import '@aws-amplify/ui-react/styles.css';
 
