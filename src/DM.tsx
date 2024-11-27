@@ -28,10 +28,10 @@ export default function DM() {
 
         const sub = client.models.DirectMessage.observeQuery().subscribe({
             next: ({items}) => {
-                const filtedMessages = items.filter(
-                    (msg) => msg.sender === user?.userId || msg.recipient === user?.userId
-                )
-                const sortedMessages = [...filtedMessages].sort((a, b) =>
+                // const filtedMessages = items.filter(
+                //     (msg) => msg.sender === user?.userId || msg.recipient === user?.userId
+                // )
+                const sortedMessages = [...items].sort((a, b) =>
                     new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
                 );
                 setMessages(sortedMessages);
@@ -48,7 +48,7 @@ export default function DM() {
             <div>
                 <ul>
                     <ScrollView height="500px" autoScroll='auto'>
-                    {
+                    {/* {
                         messages.map((message) => (
                             (
                                 ( message.sender === dmId ) ||
@@ -65,7 +65,7 @@ export default function DM() {
                                 <h2>No messages yet.</h2>
                             )
                         ))
-                    }
+                    } */}
                     </ScrollView>
                 </ul>
             </div>
