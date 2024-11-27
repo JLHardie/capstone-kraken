@@ -7,6 +7,33 @@ specifies that any user authenticated via an API key can "create", "read",
 "update", and "delete" any "Todo" records.
 =========================================================================*/
 const schema = a.schema({
+  User: a
+    .model({
+      username: a.string(),
+      chats: a.hasMany("UserChat","userId"),
+      messages: a.hasMany("DirectMessage", "senderId"),
+    }),
+  UserChat: a
+    .model({
+      userId: a.id().required(),
+      user: a.belongsTo("User","userId"),
+      chatId: a.id().required(),
+      chat: a.belongsTo("Chat", "chatId"),
+    }),
+  Chat: a
+    .model({
+      name: a.string(),
+      messages: a.hasMany("DirectMessage","chatId"),
+      users: a.hasMany("UserChat", "chatId"),
+    }),
+  DirectMessage: a
+    .model({
+      chatId: a.id().required(),
+      chat: a.belongsTo("Chat","chatId"),
+      senderId: a.id().required(),
+      sender: a.belongsTo("User", "senderId"),
+      content: a.string(),
+    }),
   Post: a
     .model({
       subject: a.string(),
@@ -42,12 +69,6 @@ const schema = a.schema({
         sender: a.string(),
         forumid: a.id(),
         forum: a.belongsTo("Forum","forumid"),
-        content: a.string(),
-      }),
-    DirectMessage: a
-      .model({
-        sender: a.string(),
-        recipient: a.string(),
         content: a.string(),
       }),
     Subscribo: a
