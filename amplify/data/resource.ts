@@ -44,6 +44,12 @@ const schema = a.schema({
         forum: a.belongsTo("Forum","forumid"),
         content: a.string(),
       }),
+    DirectMessage: a
+      .model({
+        sender: a.string(),
+        recipient: a.string(),
+        content: a.string(),
+      }),
     Subscribo: a
       .model({
         userId: a.string(),

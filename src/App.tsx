@@ -7,6 +7,7 @@ import Home from "./Home";
 import CreatePost from "./CreatePost";
 import Chatroom from "./Chatroom";
 import Profile from "./Profile";
+import DM from "./DM";
 import { Flex } from "@aws-amplify/ui-react";
 //import '@aws-amplify/ui-react/styles.css'
 
@@ -39,6 +40,7 @@ function App() {
           <Route path="/post/:postId" element={<Post />} />
           <Route path="/search" element={<Search />} />
           <Route path="/forum/:forumId/chat" element={<Chatroom />} />
+          <Route path="/dm/:dmId" element={<DM />} />
           <Route path="/" element={<Navigate to="/feed" replace />} />
         </Routes>
       </div>
