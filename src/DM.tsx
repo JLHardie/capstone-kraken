@@ -36,7 +36,9 @@ export default function DM() {
                 );
                 setMessages(sortedMessages);
             }
+            
         })
+        return () => sub.unsubscribe();
     })
 
 
