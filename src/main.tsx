@@ -19,7 +19,7 @@ const services = {
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <Authenticator services={services}>
+    <Authenticator services={services} signUpAttributes={['preferred_username']}>
       <App />
     </Authenticator>
   </React.StrictMode>
