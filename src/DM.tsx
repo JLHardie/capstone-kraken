@@ -68,6 +68,7 @@ export default function DM() {
         })
 
         console.log(newMessageData);
+        setNewMessage("");
     }
 
 
@@ -121,7 +122,7 @@ export default function DM() {
                         value={newMessage}
                         onChange={(e: React.ChangeEvent<HTMLInputElement>) => setNewMessage(e.target.value)}
                     />
-                    <button type="submit">Comment</button>
+                    <button type="submit">Send</button>
                 </form>
         </div>
     )
