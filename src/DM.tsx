@@ -37,7 +37,10 @@ export default function DM() {
                 selectionSet,
                 filter: {chatId: {eq: dmId}},
             })
-            setMessages(messageData);
+            const sortedMessages = messageData.sort((a, b) =>
+                new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
+            )
+            setMessages(sortedMessages);
             setLoaded(true);
         }
         getMessages();
