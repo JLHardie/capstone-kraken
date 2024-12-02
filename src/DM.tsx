@@ -20,9 +20,9 @@ export default function DM() {
     const [messages, setMessages] = useState<MessageWithUser[]>([])
     //const [user, setUser] = useState<User | null>(null);
     const [loaded, setLoaded] = useState<boolean>();
+    setLoaded(false);
 
     useEffect(() => {
-        setLoaded(false);
         
         // getCurrentUser().then(async (result) => {
         //     const {data: userData} = await client.models.User.get({
