@@ -39,6 +39,7 @@ export default function DM() {
             })
             setMessages(messageData);
         }
+        getMessages();
 
         const messageSub = client.models.DirectMessage.onCreate().subscribe({
             next: () => getMessages()
