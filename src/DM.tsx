@@ -1,9 +1,9 @@
 import type {Schema} from '../amplify/data/resource';
 import { generateClient, SelectionSet } from 'aws-amplify/data';
 import { useState, useEffect } from 'react';
-//import { getCurrentUser } from 'aws-amplify/auth';
 import { Divider, ScrollView } from '@aws-amplify/ui-react';
 import { useParams } from "react-router-dom";
+import { getCurrentUser } from 'aws-amplify/auth';
 
 
 const client = generateClient<Schema>()
@@ -17,7 +17,8 @@ type MessageWithUser = SelectionSet<DirectMessage, typeof selectionSet>;
 export default function DM() {
     
     const { dmId } = useParams<{dmId : string}>()
-    const [messages, setMessages] = useState<MessageWithUser[]>([])
+    const [messages, setMessages] = useState<MessageWithUser[]>([]);
+    const [newMessage, setNewMessage] = useState('');
     //const [user, setUser] = useState<User | null>(null);
     const [loaded, setLoaded] = useState<boolean>();
 
@@ -47,6 +48,17 @@ export default function DM() {
 
         return () => messageSub.unsubscribe();
     })
+
+    const handleNewMessage = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        const { userId } = await getCurrentUser();
+
+        const {data: newMessageData } = await client.models.DirectMessage.create({
+            content: newMessage,
+            senderId: userId,
+            chatId: dmId?
+        })
+    }
 
 
     return (
@@ -92,7 +104,7 @@ export default function DM() {
                     </ScrollView>
                 </ul>
             </div>
-                {/* <form onSubmit={handleNewComment}>
+                <form onSubmit={handleNewMessage}>
                     <input
                         type="text"
                         placeholder="Send Message..."
@@ -100,7 +112,7 @@ export default function DM() {
                         onChange={(e: React.ChangeEvent<HTMLInputElement>) => setNewMessage(e.target.value)}
                     />
                     <button type="submit">Comment</button>
-                </form> */}
+                </form>
         </div>
     )
 }
