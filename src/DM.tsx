@@ -3,7 +3,6 @@ import { generateClient, SelectionSet } from 'aws-amplify/data';
 import { useState, useEffect } from 'react';
 import { Divider, ScrollView, useAuthenticator } from '@aws-amplify/ui-react';
 import { useParams } from "react-router-dom";
-import { getCurrentUser } from 'aws-amplify/auth';
 
 
 const client = generateClient<Schema>()
