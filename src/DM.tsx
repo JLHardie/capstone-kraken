@@ -1,8 +1,9 @@
 import type {Schema} from '../amplify/data/resource';
 import { generateClient, SelectionSet } from 'aws-amplify/data';
 import { useState, useEffect } from 'react';
-import { Divider, ScrollView, useAuthenticator } from '@aws-amplify/ui-react';
+import { Divider, ScrollView } from '@aws-amplify/ui-react';
 import { useParams } from "react-router-dom";
+import { getCurrentUser } from 'aws-amplify/auth';
 
 
 const client = generateClient<Schema>()
@@ -50,8 +51,9 @@ export default function DM() {
 
     const handleNewMessage = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        const { user } = useAuthenticator((context) => [context.user]);
-        const loginId = user.signInDetails?.loginId
+        const { signInDetails } = await getCurrentUser();
+        const loginId = signInDetails?.loginId
+
         if(!dmId || !loginId) {
             throw new Error("AAAAAAAAAA")
         }
