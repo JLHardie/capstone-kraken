@@ -51,7 +51,7 @@ export default function DM() {
 
     const handleNewMessage = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        const { userId } = await getCurrentUser();
+        const { username } = await getCurrentUser();
 
         if(!dmId) {
             throw new Error("AAAAAAAAAA")
@@ -59,7 +59,7 @@ export default function DM() {
 
         const {data: newMessageData } = await client.models.DirectMessage.create({
             content: newMessage,
-            senderId: userId,
+            senderId: username,
             chatId: dmId
         })
 
