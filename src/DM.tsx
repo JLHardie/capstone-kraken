@@ -1,8 +1,8 @@
 import type {Schema} from '../amplify/data/resource';
 import { generateClient, SelectionSet } from 'aws-amplify/data';
 import { useState, useEffect } from 'react';
-import { getCurrentUser } from 'aws-amplify/auth';
-import { Divider, ScrollView } from '@aws-amplify/ui-react';
+//import { getCurrentUser } from 'aws-amplify/auth';
+import { ScrollView } from '@aws-amplify/ui-react';
 import { useParams } from "react-router-dom";
 
 
@@ -12,40 +12,37 @@ const selectionSet = ['content', 'createdAt', 'id',
 ] as const
 type DirectMessage = Schema['DirectMessage']['type'];
 type MessageWithUser = SelectionSet<DirectMessage, typeof selectionSet>;
-type User = Schema['User']['type'];
+//type User = Schema['User']['type'];
 
 export default function DM() {
     
     const { dmId } = useParams<{dmId : string}>()
     const [messages, setMessages] = useState<MessageWithUser[]>([])
-    const [user, setUser] = useState<User | null>(null);
+    //const [user, setUser] = useState<User | null>(null);
     const [loaded, setLoaded] = useState<boolean>();
 
     useEffect(() => {
         setLoaded(false);
         
-        getCurrentUser().then(async (result) => {
-            const {data: userData} = await client.models.User.get({
-                id: result.userId
-            });
-            setUser(userData)
-            setLoaded(true);
-        })
-        const messageSub = client.models.DirectMessage.observeQuery({
-            filter: {chatId: {eq: dmId}},
-            selectionSet
-        }).subscribe({
-            next: ({items}) => {
-                // const filteredMessages = [...items].filter(
-                //     (item) => (item.recipientId === user?.id || item.senderId === user?.id)
-                //         && (item.senderId === dmId || item.recipientId === dmId)
-                // );
-                const sortedMessages = [...items].sort((a, b) =>
-                    new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
-                );
-                setMessages(sortedMessages);
-            }
-        })
+        // getCurrentUser().then(async (result) => {
+        //     const {data: userData} = await client.models.User.get({
+        //         id: result.userId
+        //     });
+        //     setUser(userData)
+        //     setLoaded(true);
+        // })
+
+        const getMessages = async () => {
+            const {data: messageData} = await client.models.DirectMessage.list({
+                selectionSet,
+                filter: {chatId: {eq: dmId}},
+            })
+            setMessages(messageData);
+        }
+
+        const messageSub = client.models.DirectMessage.onCreate().subscribe({
+            next: () => getMessages()
+        });
 
         return () => messageSub.unsubscribe();
     })
