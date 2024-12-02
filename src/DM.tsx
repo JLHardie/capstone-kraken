@@ -53,11 +53,17 @@ export default function DM() {
         e.preventDefault();
         const { userId } = await getCurrentUser();
 
+        if(!dmId) {
+            throw new Error("AAAAAAAAAA")
+        }
+
         const {data: newMessageData } = await client.models.DirectMessage.create({
             content: newMessage,
             senderId: userId,
-            chatId: dmId?
+            chatId: dmId
         })
+
+        console.log(newMessageData);
     }
 
 
