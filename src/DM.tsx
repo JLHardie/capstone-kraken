@@ -1,44 +1,53 @@
 import type {Schema} from '../amplify/data/resource';
-import { generateClient } from 'aws-amplify/data';
+import { generateClient, SelectionSet } from 'aws-amplify/data';
 import { useState, useEffect } from 'react';
-import { AuthUser, getCurrentUser } from 'aws-amplify/auth';
+import { getCurrentUser } from 'aws-amplify/auth';
 import { Divider, ScrollView } from '@aws-amplify/ui-react';
 import { useParams } from "react-router-dom";
 
 
 const client = generateClient<Schema>()
+const selectionSet = ['content', 'createdAt', 'id',
+    'senderId', 'sender.username', 'sender.id'
+] as const
 type DirectMessage = Schema['DirectMessage']['type'];
+type MessageWithUser = SelectionSet<DirectMessage, typeof selectionSet>;
+type User = Schema['User']['type'];
 
 export default function DM() {
+    
     const { dmId } = useParams<{dmId : string}>()
-    const [messages, setMessages] = useState<DirectMessage[]>([])
-    const [user, setUser] = useState<AuthUser | null>(null);
+    const [messages, setMessages] = useState<MessageWithUser[]>([])
+    const [user, setUser] = useState<User | null>(null);
+    const [loaded, setLoaded] = useState<boolean>();
+
     useEffect(() => {
-        const fetchUser = async () => {
-            try {
-                const currentUser = await getCurrentUser();
-                setUser(currentUser);
-            } catch (err) {
-                console.error("Error fetching user:", err);
-                setUser(null);
-            }
-        };
-
-        fetchUser();
-
-        const sub = client.models.DirectMessage.observeQuery().subscribe({
+        setLoaded(false);
+        
+        getCurrentUser().then(async (result) => {
+            const {data: userData} = await client.models.User.get({
+                id: result.userId
+            });
+            setUser(userData)
+            setLoaded(true);
+        })
+        const messageSub = client.models.DirectMessage.observeQuery({
+            filter: {chatId: {eq: dmId}},
+            selectionSet
+        }).subscribe({
             next: ({items}) => {
-                // const filtedMessages = items.filter(
-                //     (msg) => msg.sender === user?.userId || msg.recipient === user?.userId
-                // )
+                // const filteredMessages = [...items].filter(
+                //     (item) => (item.recipientId === user?.id || item.senderId === user?.id)
+                //         && (item.senderId === dmId || item.recipientId === dmId)
+                // );
                 const sortedMessages = [...items].sort((a, b) =>
                     new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
                 );
                 setMessages(sortedMessages);
             }
-            
         })
-        return () => sub.unsubscribe();
+
+        return () => messageSub.unsubscribe();
     })
 
 
@@ -48,24 +57,33 @@ export default function DM() {
             <div>
                 <ul>
                     <ScrollView height="500px" autoScroll='auto'>
-                    {/* {
-                        messages.map((message) => (
-                            (
-                                ( message.sender === dmId ) ||
-                                ( message.recipient === dmId)
-                            ) ? (
-                                <li key={message.id}>
-                                    <Divider
-                                        size="large"
-                                        orientation="horizontal" />
-                                    <small>{message.sender}</small>
-                                    <p>{message.content}</p>
+                    {
+                        (loaded) ? (
+                            messages.map((msg) => (
+                                <li key={msg.id}>
+                                    <small>{msg.sender.username}</small>
                                 </li>
-                            ) : (
-                                <h2>No messages yet.</h2>
-                            )
-                        ))
-                    } */}
+                            ))
+                        ) : (
+                            <h2>Loading...</h2>
+                        )
+                        // messages.map((message) => (
+                        //     (
+                        //         ( message.sender === dmId ) ||
+                        //         ( message.recipient === dmId)
+                        //     ) ? (
+                        //         <li key={message.id}>
+                        //             <Divider
+                        //                 size="large"
+                        //                 orientation="horizontal" />
+                        //             <small>{message.sender}</small>
+                        //             <p>{message.content}</p>
+                        //         </li>
+                        //     ) : (
+                        //         <h2>No messages yet.</h2>
+                        //     )
+                        // ))
+                    }
                     </ScrollView>
                 </ul>
             </div>
