@@ -1,7 +1,7 @@
 import type {Schema} from '../amplify/data/resource';
 import { generateClient, SelectionSet } from 'aws-amplify/data';
 import { useState, useEffect } from 'react';
-import { Divider, ScrollView } from '@aws-amplify/ui-react';
+import { Divider, ScrollView, useAuthenticator } from '@aws-amplify/ui-react';
 import { useParams } from "react-router-dom";
 import { getCurrentUser } from 'aws-amplify/auth';
 
@@ -51,15 +51,15 @@ export default function DM() {
 
     const handleNewMessage = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        const { username } = await getCurrentUser();
-
-        if(!dmId) {
+        const { user } = useAuthenticator((context) => [context.user]);
+        const loginId = user.signInDetails?.loginId
+        if(!dmId || !loginId) {
             throw new Error("AAAAAAAAAA")
         }
 
         const {data: newMessageData } = await client.models.DirectMessage.create({
             content: newMessage,
-            senderId: username,
+            senderId: loginId,
             chatId: dmId
         })
 
