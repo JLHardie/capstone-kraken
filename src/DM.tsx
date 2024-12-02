@@ -38,6 +38,7 @@ export default function DM() {
                 filter: {chatId: {eq: dmId}},
             })
             setMessages(messageData);
+            setLoaded(true);
         }
         getMessages();
 
