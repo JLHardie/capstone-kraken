@@ -2,7 +2,7 @@ import type {Schema} from '../amplify/data/resource';
 import { generateClient, SelectionSet } from 'aws-amplify/data';
 import { useState, useEffect } from 'react';
 //import { getCurrentUser } from 'aws-amplify/auth';
-import { ScrollView } from '@aws-amplify/ui-react';
+import { Divider, ScrollView } from '@aws-amplify/ui-react';
 import { useParams } from "react-router-dom";
 
 
@@ -59,7 +59,14 @@ export default function DM() {
                         (loaded) ? (
                             messages.map((msg) => (
                                 <li key={msg.id}>
+                                    <Divider
+                                        size="large"
+                                        orientation="horizontal"  />
                                     <small>{msg.sender.username}</small>
+                                    <p>{msg.content}</p>
+                                    <Divider
+                                        size="large"
+                                        orientation="horizontal"  />
                                 </li>
                             ))
                         ) : (
