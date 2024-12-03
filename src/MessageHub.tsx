@@ -42,6 +42,7 @@ export default function MessageHub() {
                 return chat.chat.users[0].user.username
             }
         })
+        return "";
     }
 
 
