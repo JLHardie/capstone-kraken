@@ -34,7 +34,7 @@ export default function MessageHub() {
         retrieveData();
     })
 
-    const getNameOfOtherUser = async (input: string) => {
+    const getNameOfOtherUser = (input: string) => {
         userChats.forEach((chat) => {
             if (chat.chatId === input) {
                 if (chat.chat.users[0].userId === currentUserId)
