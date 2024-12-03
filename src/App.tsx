@@ -26,7 +26,7 @@ function App() {
         gap="1rem"
       >
           <Link to={`/feed`}>
-            <h1>Kraken</h1>
+            <Image alt="Kraken Logo" src="../public/Kraken.png" height="50px" width="50px" />
           </Link>
           <SearchBar />
           <Link to={`/profile`}>
