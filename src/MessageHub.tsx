@@ -37,6 +37,7 @@ export default function MessageHub() {
 
     const getNameOfOtherUser = (input: string) => {
         userChats.forEach((chat) => {
+            console.log(chat)
             if (chat.chatId === input) {
                 if (chat.chat.users[0].userId === currentUserId)
                     return chat.chat.users[1].user.username
