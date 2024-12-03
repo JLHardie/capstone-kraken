@@ -4,6 +4,7 @@ import { generateClient, SelectionSet } from "aws-amplify/data";
 import { getCurrentUser } from "aws-amplify/auth";
 import { Divider, ScrollView } from "@aws-amplify/ui-react";
 import { Link } from "react-router-dom";
+import { Nullable } from "@aws-amplify/data-schema";
 
 
 const selectionSet = ['chat.users.user.username', 'chat.*', 'chat.users.userId', 'chatId'] as const;
@@ -35,16 +36,9 @@ export default function MessageHub() {
         retrieveData();
     })
 
-    const getNameOfOtherUser = (input: string) => {
-        userChats.forEach((chat) => {
-            console.log(chat)
-            if (chat.chatId === input) {
-                if (chat.chat.users[0].userId === currentUserId)
-                    return chat.chat.users[1].user.username
-                return chat.chat.users[0].user.username
-            }
-        })
-        return "";
+    const getNameOfOtherUser = (input: { readonly chat: { readonly users: { readonly user: { readonly username: Nullable<string>; }; readonly userId: string; }[]; readonly name: Nullable<string>; readonly id: string; readonly owner: string | null; readonly createdAt: string; readonly updatedAt: string; }; readonly chatId: string; }) => {
+        const otherUser = input.chat.users.find((user) => user.userId != currentUserId)
+        return otherUser?.user.username
     }
 
 
@@ -58,7 +52,7 @@ export default function MessageHub() {
                                 <Link to={`/dm/${chat.chatId}`}>
                                     <Divider size="large" orientation="horizontal" />
                                     <p>{
-                                        getNameOfOtherUser(chat.chatId)
+                                        getNameOfOtherUser(chat)
                                     }</p>
                                     <Divider size="large" orientation="horizontal" />
                                 </Link>
