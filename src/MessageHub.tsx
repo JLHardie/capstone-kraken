@@ -3,6 +3,7 @@ import { Schema } from "../amplify/data/resource";
 import { generateClient, SelectionSet } from "aws-amplify/data";
 import { getCurrentUser } from "aws-amplify/auth";
 import { Divider, ScrollView } from "@aws-amplify/ui-react";
+import { Link } from "react-router-dom";
 
 
 const selectionSet = ['chat.users.user.username', 'chat.*', 'chat.users.userId', 'chatId'] as const;
@@ -52,11 +53,14 @@ export default function MessageHub() {
                 <ScrollView autoScroll="auto">
                     {
                         userChats.map((chat) => (
-                            <li key={chat.chat.id}>
-                                <Divider size="large" orientation="horizontal" />
-                                <p>{
-                                    getNameOfOtherUser(chat.chatId)
-                                }</p>
+                            <li key={chat.chatId}>
+                                <Link to={`/dm/${chat.chatId}`}>
+                                    <Divider size="large" orientation="horizontal" />
+                                    <p>{
+                                        getNameOfOtherUser(chat.chatId)
+                                    }</p>
+                                    <Divider size="large" orientation="horizontal" />
+                                </Link>
                             </li>
                         ))
                     }
