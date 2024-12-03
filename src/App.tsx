@@ -9,7 +9,7 @@ import Chatroom from "./Chatroom";
 import Profile from "./Profile";
 import DM from "./DM";
 import MessageHub from "./MessageHub";
-import { Flex } from "@aws-amplify/ui-react";
+import { Flex, Image } from "@aws-amplify/ui-react";
 //import '@aws-amplify/ui-react/styles.css'
 
 function App() {
