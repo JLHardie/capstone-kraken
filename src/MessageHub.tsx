@@ -5,13 +5,14 @@ import { getCurrentUser } from "aws-amplify/auth";
 import { Divider, ScrollView } from "@aws-amplify/ui-react";
 
 
-const selectionSet = ['chats.*', 'chats.chat.*'] as const;
-type User = Schema['User']['type'];
-type UserWithChat = SelectionSet<User, typeof selectionSet>;
+const selectionSet = ['chat.users.user.username', 'chat.*', 'chat.users.userId', 'chatId'] as const;
+type UserChat =  Schema['UserChat']['type'];
+type UserChatFiltered = SelectionSet<UserChat, typeof selectionSet>;
 const client = generateClient<Schema>();
 
 export default function MessageHub() {
-    const [user, setUser] = useState<UserWithChat>();
+    const [userChats, setUserChats] = useState<UserChatFiltered[]>([]);
+    const [currentUserId, setCurrentUserId] = useState('');
 
     useEffect(() => {
         const retrieveData = async () => {
@@ -20,27 +21,27 @@ export default function MessageHub() {
             if (!loginId) {
                 throw new Error("BBBBB");
             }
-            const { data: userData } = await client.models.User.get(
-                {id: loginId},
-                {selectionSet}
-            )
-            if(!userData) {
+            setCurrentUserId(loginId);
+            const { data: userChatData } = await client.models.UserChat.list({
+                filter: {userId: {eq: loginId}},
+                selectionSet
+            })
+            if(!userChatData) {
                 throw new Error("FUCK");
             }
-            setUser(userData)
+            setUserChats(userChatData)
         }
         retrieveData();
     })
 
     const getNameOfOtherUser = async (input: string) => {
-        const { data: chatData } = await client.models.Chat.get(
-            {id: input},
-            {selectionSet: ['users.userId', 'users.user.username']}
-        )
-        const { signInDetails } = await getCurrentUser();
-        if (chatData?.users[0].userId === signInDetails?.loginId)
-            return chatData?.users[0].user.username
-        return chatData?.users[1].user.username
+        userChats.forEach((chat) => {
+            if (chat.chatId === input) {
+                if (chat.chat.users[0].userId === currentUserId)
+                    return chat.chat.users[1].user.username
+                return chat.chat.users[0].user.username
+            }
+        })
     }
 
 
@@ -49,10 +50,12 @@ export default function MessageHub() {
             <ul>
                 <ScrollView autoScroll="auto">
                     {
-                        user?.chats.map((chat) => (
+                        userChats.map((chat) => (
                             <li key={chat.chat.id}>
                                 <Divider size="large" orientation="horizontal" />
-                                {getNameOfOtherUser(chat.id)}
+                                <p>{
+                                    getNameOfOtherUser(chat.chatId)
+                                }</p>
                             </li>
                         ))
                     }
