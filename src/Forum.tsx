@@ -3,7 +3,7 @@ import {useState, useEffect} from "react"
 import { generateClient } from "aws-amplify/data";
 import { useParams, Link } from "react-router-dom";
 import { getCurrentUser } from 'aws-amplify/auth';
-import { Button, Card, Divider, Flex, Heading, ScrollView, View } from "@aws-amplify/ui-react";
+import { Button, Card, Divider, Flex, Heading, ScrollView, View, Text } from "@aws-amplify/ui-react";
 
 
 const client = generateClient<Schema>();
@@ -98,8 +98,8 @@ export default function Forum() {
             <Card key={post.id}>
               <Link to={`/post/${post.id}`}>
                 <Heading level={4}>{post.subject}</Heading>
-                <Text as="p">{post.content}</Text>
-                <Text as="p" fontSize=".75em">Posted by Placeholder</Text>
+                <Text>{post.content}</Text>
+                <Text fontSize=".75em">Posted by Placeholder</Text>
               </Link>
             </Card>
           ))

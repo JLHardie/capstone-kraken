@@ -6,12 +6,12 @@ import { Link } from "react-router-dom";
 
 const client = generateClient<Schema>()
 type Post = Schema['Post']['type'];
-type Subscribo = Schema['Subscribo']['type'];
+//type Subscribo = Schema['Subscribo']['type'];
 
 function Home() {
     const [posts, setPosts] = useState<Post[]>([]);
-    const [subscribos, setSubscribos] = useState<Subscribo[]>([]);
-    const [subbedPosts, setSubbedPosts] = useState<Post[]>([]);
+    //const [subscribos, setSubscribos] = useState<Subscribo[]>([]);
+    //const [subbedPosts, setSubbedPosts] = useState<Post[]>([]);
 
     const getData = async () => {
         const {userId} = await getCurrentUser()
@@ -21,21 +21,21 @@ function Home() {
         );
         setPosts(sortedPosts)
 
-        const {data: subData} = await client.models.Subscribo.list({
-            filter: {
-                userId: {eq: userId}
-            }
-        });
-        setSubscribos(subData);
+        // const {data: subData} = await client.models.Subscribo.list({
+        //     filter: {
+        //         userId: {eq: userId}
+        //     }
+        // });
+        // setSubscribos(subData);
 
         // Extract forum IDs from subscribed data
-        const subscribedForumIds = subData.map((sub) => sub.forumid);
+        //const subscribedForumIds = subData.map((sub) => sub.forumid);
 
         // Fetch posts and filter them by subscribed forum IDs
-        const filteredPosts = sortedPosts.filter((post) =>
-            subscribedForumIds.includes(post.forumid)
-        );
-        setSubbedPosts(filteredPosts)
+        // const filteredPosts = sortedPosts.filter((post) =>
+        //     subscribedForumIds.includes(post.forumid)
+        // );
+        // setSubbedPosts(filteredPosts)
     }
     getData();
 
@@ -52,7 +52,7 @@ function Home() {
             <button onClick={createForum}>Create Forum</button>
             <h2>Welcome to the Feed</h2>
             <ul>
-                {subscribos.length > 0 ? (
+                {/* {subscribos.length > 0 ? (
                     subbedPosts.map((post) => (
                         <li key={post.id}>
                             <small>{post.user}</small>
@@ -61,16 +61,17 @@ function Home() {
                             </Link>
                         </li>
                     ))
-                ) : (
-                    posts.map((post) => (
+                ) : ( */}
+                    {posts.map((post) => (
                         <li key={post.id}>
                             <small>{post.user}</small>
                             <Link to={`/post/${post.id}`}>
                                 <h2>{post.subject}</h2>
                             </Link>
                         </li>
-                    ))
-                )}
+                    ))}
+                {//)}
+}
             </ul>
         </div>
     )
