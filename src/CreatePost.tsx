@@ -2,7 +2,7 @@ import { Divider, Heading, View, TextField, TextAreaField, Button, Flex } from "
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { Schema } from "../amplify/data/resource";
-import { useEffect, useState } from "react";
+import { SetStateAction, useEffect, useState } from "react";
 import { generateClient } from "aws-amplify/data";
 import { getCurrentUser } from "aws-amplify/auth";
 
@@ -64,11 +64,11 @@ export default function CreatePost() {
                 <Divider orientation="horizontal" size="large" />
                 <TextField 
                     label="Subject" 
-                    onChange={(e) => setSubject(e.currentTarget.value)}
+                    onChange={(e: { currentTarget: { value: SetStateAction<string>; }; }) => setSubject(e.currentTarget.value)}
                 />
                 <TextAreaField
                     label="Content"
-                    onChange={(e) => setContent(e.currentTarget.value)}
+                    onChange={(e: { currentTarget: { value: SetStateAction<string>; }; }) => setContent(e.currentTarget.value)}
                 />
                 {
                     (postLoading) ? (
