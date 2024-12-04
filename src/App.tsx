@@ -29,7 +29,7 @@ function App() {
             <Image alt="Kraken Logo" src="/Kraken.png" height="75px" width="75px" />
           </Link>
           <SearchBar />
-          <Link to={`/profile`}>
+          <Link to={`/profile`} className="profile-button">
             <Button className="profile-button">Profile</Button>
           </Link>
         </Flex>
