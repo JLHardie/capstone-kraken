@@ -9,6 +9,7 @@ import { getCurrentUser } from "aws-amplify/auth";
 const client = generateClient<Schema>();
 type Forum = Schema['Forum']['type']
 type User = Schema['User']['type']
+const navigate = useNavigate();
 
 export default function CreatePost() {
     const {forumId} = useParams<{forumId: string}>();
@@ -43,7 +44,6 @@ export default function CreatePost() {
     }, [])
 
     const onPostClick = async () => {
-        const navigate = useNavigate();
         setPostLoading(true);
         const id = user?.id;
         if (!id || !subject || !content)
