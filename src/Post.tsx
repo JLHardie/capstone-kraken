@@ -108,6 +108,14 @@ export default function Post() {
     // )
   }
 
+  const submitComment = async () => {
+    await client.models.Comment.create({
+      commenterId: user?.id,
+      content: newComment,
+      postid: postId
+    })
+  }
+
   return (
     <View as="div">
       <Button onClick={() => navigate(`/post/${post?.id}`)} variation="primary">Back</Button>
@@ -175,7 +183,7 @@ export default function Post() {
           as="form"
           direction="row" 
           alignContent="center"
-          onSubmit={() => console.log(newComment)}
+          onSubmit={submitComment}
           className="commentBar"
         >
           <TextField
@@ -183,6 +191,7 @@ export default function Post() {
             onChange={(e) => setNewComment(e.target.value)}
             labelHidden={true}
             className="field"
+            placeholder="Add a comment..."
           />
           <Button
             type="submit"
