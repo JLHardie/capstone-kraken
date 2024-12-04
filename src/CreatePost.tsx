@@ -68,6 +68,7 @@ export default function CreatePost() {
                     label="Subject" 
                     onChange={(e) => setSubject(e.target.value)}
                     id="subjectField"
+                    className="field"
                 />
                 <TextAreaField
                     label="Content"
@@ -76,6 +77,7 @@ export default function CreatePost() {
                         console.log(content)
                     }}
                     id="contentField"
+                    className="field"
                 />
                 {
                     (postLoading) ? (
