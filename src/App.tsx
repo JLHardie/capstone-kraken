@@ -30,7 +30,7 @@ function App() {
           </Link>
           <SearchBar />
           <Link to={`/profile`}>
-            <Button>Profile</Button>
+            <Button className="profile-button">Profile</Button>
           </Link>
         </Flex>
       </Card>
