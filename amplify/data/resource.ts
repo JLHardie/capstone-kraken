@@ -1,4 +1,5 @@
 import { type ClientSchema, a, defineData } from "@aws-amplify/backend";
+import { User } from "aws-cdk-lib/aws-iam";
 
 /*== STEP 1 ===============================================================
 The section below creates a Todo database table with a "content" field. Try
@@ -12,6 +13,8 @@ const schema = a.schema({
       username: a.string(),
       chats: a.hasMany("UserChat","userId"),
       messages: a.hasMany("DirectMessage", "senderId"),
+      subscriptions: a.hasMany("ForumSubscription","userId"),
+      likedPosts: a.hasMany("PostLike","userId"),
     }),
   UserChat: a
     .model({
@@ -40,11 +43,18 @@ const schema = a.schema({
       content: a.string(),
       containsImage: a.boolean(),
       datePosted: a.datetime(),
-      likes: a.integer(),
+      likes: a.hasMany("PostLike","postId"),
       forumid: a.id(),
       forum: a.belongsTo("Forum", "forumid"),
       comments: a.hasMany("Comment", "postid"),
       user: a.string(),
+    }),
+  PostLike: a
+    .model({
+      userId: a.id().required(),
+      user: a.belongsTo("User", "userId"),
+      postId: a.id().required(),
+      post: a.belongsTo("Post", "postId"),
     }),
   Forum: a
     .model({
@@ -52,36 +62,31 @@ const schema = a.schema({
       belongsTo: a.string(),
       description: a.string(),
       posts: a.hasMany("Post", "forumid"),
-      scribers: a.hasMany("Subscribo", "forumid"),
+      subscribers: a.hasMany("ForumSubscription", "forumid"),
       messages: a.hasMany("Message", "forumid"),
     }),
-    Comment: a
-      .model({
-        content: a.string(),
-        commenterId: a.string(),
-        commenter: a.string(),
-        likes: a.integer().default(0),
-        postid: a.id(),
-        post: a.belongsTo("Post", "postid"),
-      }),
-    Message: a
-      .model({
-        sender: a.string(),
-        forumid: a.id(),
-        forum: a.belongsTo("Forum","forumid"),
-        content: a.string(),
-      }),
-    Subscribo: a
-      .model({
-        userId: a.string(),
-        forumid: a.id(),
-        forum: a.belongsTo("Forum", "forumid")
-      }),
-    Like: a
-      .model({
-        userId: a.string(),
-        postid: a.id(),
-      })
+  ForumSubscription: a
+    .model({
+      userId: a.id().required(),
+      user: a.belongsTo("User", "userId"),
+      forumId: a.id().required(),
+      forum: a.belongsTo("Forum", "forumId"),
+    }),
+  Comment: a
+    .model({
+      content: a.string(),
+      commenterId: a.string(),
+      commenter: a.string(),
+      postid: a.id(),
+      post: a.belongsTo("Post", "postid"),
+    }),
+  Message: a
+    .model({
+      sender: a.string(),
+      forumid: a.id(),
+      forum: a.belongsTo("Forum","forumid"),
+      content: a.string(),
+    })
 })
 .authorization((allow) => [
   allow.publicApiKey(),

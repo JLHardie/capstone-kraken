@@ -9,7 +9,7 @@ body {
   align-items: center;
 }
 
-.main {
+main {
   display: flex;
   flex-direction: column;
   align-items: stretch;
