@@ -16,9 +16,6 @@ export default function CreatePost() {
     const [user, setUser] = useState<User>();
     const [postLoading, setPostLoading] = useState<boolean>();
 
-    const [subject, setSubject] = useState("");
-    const [content, setContent] = useState("");
-
     useEffect(() => {
         const fetchData = async () => {
             if (!forumId) 
@@ -46,12 +43,14 @@ export default function CreatePost() {
         const navigate = useNavigate();
         setPostLoading(true);
         const id = user?.id;
-        if (!id || !subject || !content)
+        const subjectFieldData = document.getElementById("subjectField")?.getHTML();
+        const contentFieldData = document.getElementById("contentField")?.getHTML();
+        if (!id || !subjectFieldData || !contentFieldData)
             throw new Error("Something is missing")
         await client.models.Post.create({
             userId: id,
-            subject: subject,
-            content: content,
+            subject: subjectFieldData,
+            content: contentFieldData,
             forumid: forumId,
         })
         navigate(-1);
@@ -64,11 +63,11 @@ export default function CreatePost() {
                 <Divider orientation="horizontal" size="large" />
                 <TextField 
                     label="Subject" 
-                    onChange={(e: { currentTarget: { value: SetStateAction<string>; }; }) => setSubject(e.currentTarget.value)}
+                    id="subjectField"
                 />
                 <TextAreaField
                     label="Content"
-                    onChange={(e: { currentTarget: { value: SetStateAction<string>; }; }) => setContent(e.currentTarget.value)}
+                    id="contentField"
                 />
                 {
                     (postLoading) ? (
