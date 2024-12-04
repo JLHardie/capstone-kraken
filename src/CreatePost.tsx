@@ -1,9 +1,60 @@
-import { View } from "@aws-amplify/ui-react";
+import { Divider, Heading, View, TextField, TextAreaField, Button, Flex } from "@aws-amplify/ui-react";
+import { useParams } from "react-router-dom";
+import { Schema } from "../amplify/data/resource";
+import { useEffect, useState } from "react";
+import { generateClient } from "aws-amplify/data";
+import { getCurrentUser } from "aws-amplify/auth";
+
+const client = generateClient<Schema>();
+type Forum = Schema['Forum']['type']
+type User = Schema['User']['type']
 
 export default function CreatePost() {
+    const {forumId} = useParams<{forumId: string}>();
+    const [forum, setForum] = useState<Forum>();
+    const [user, setUser] = useState<User>();
+
+    const [subject, setSubject] = useState("");
+    const [content, setContent] = useState("");
+
+    useEffect(() => {
+        const fetchData = async () => {
+            if (!forumId) 
+                throw new Error("Forum ID not found");
+            const {data: forumData} = await client.models.Forum.get({id:forumId})
+            if (!forumData)
+                throw new Error("Forum Data not found")
+            setForum(forumData)
+
+            const {signInDetails} = await getCurrentUser();
+            const signIn = signInDetails?.loginId;
+            if (!signIn)
+                throw new Error("Couldn't retrieve user login data")
+            const {data: userData} = await client.models.User.get({id:signIn});
+            if (!userData)
+                throw new Error("Couldn't retrieve user data.")
+            setUser(userData);
+        }
+        fetchData();
+
+
+    }, [])
+
     return (
         <View as="div">
-            
+            <Flex orientation="vertical">
+                <Heading level={2}>Create Post for {forum?.name}</Heading>
+                <Divider orientation="horizontal" size="large" />
+                <TextField 
+                    label="Subject" 
+                    onChange={(e) => setSubject(e.currentTarget.value)}
+                />
+                <TextAreaField
+                    label="Content"
+                    onChange={(e) => setContent(e.currentTarget.value)}
+                />
+                <Button>Make Post</Button>
+            </Flex>
         </View>
     )
     // const { forumId } = useParams<{ forumId: string }>();
