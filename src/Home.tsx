@@ -14,7 +14,7 @@ function Home() {
     //const [subbedPosts, setSubbedPosts] = useState<Post[]>([]);
 
     const getData = async () => {
-        const {userId} = await getCurrentUser()
+        //const {userId} = await getCurrentUser()
         const {data: postData} = await client.models.Post.list();
         const sortedPosts = [...postData].sort((a, b) =>
             new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
