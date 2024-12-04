@@ -80,24 +80,28 @@ export default function Forum() {
     setIsSubbed(true);
   }
 
-  // const onClickUnsub = async () => {
-  //   const { signInDetails } = await getCurrentUser();
-  //   const userId = signInDetails?.loginId;
-  //   if(!userId)
-  //     throw new Error("userId not found")
-  //   const {data: userData} = await client.models.User.get({
-  //     id: userId,
-  //   })
+  const onClickUnsub = async () => {
+    const { signInDetails } = await getCurrentUser();
+    const userId = signInDetails?.loginId;
+    if(!userId)
+      throw new Error("userId not found")
+    const {data: userData} = await client.models.User.get({
+      id: userId,
+    })
 
-  //   if (!userData?.id || !forumId) {
-  //     throw new Error("Subscription failed")
-  //   }
-  //   await client.models.ForumSubscription.create({
-  //     userId: userData?.id,
-  //     forumId: forumId,
-  //   })
-  //   setIsSubbed(false);
-  // }
+    if (!userData?.id || !forumId) {
+      throw new Error("Subscription failed")
+    }
+    const {data: forumSubs} = await client.models.ForumSubscription.listForumSubscriptionByUserId(
+      {userId:userId}
+    )
+    forumSubs.forEach(async (sub) => {
+      if(sub.forumId === forumId) {
+        await client.models.ForumSubscription.delete({id: sub.id})
+        setIsSubbed(false);
+      }
+    })
+  }
 
   return (
     <View as="div">
@@ -108,7 +112,7 @@ export default function Forum() {
       >
         {(!isSubbed) ?
           (<Button variation="primary" onClick={onClickSub}>Subscribe</Button>) :
-          (<Button variation="primary" isDisabled={true}>Subscribe</Button>)}   
+          (<Button variation="primary" colorTheme="error" onClick={onClickUnsub}>Unsubscribe</Button>)}   
         <Button variation="primary">New Post</Button>
       </Flex>
       <Divider size="large" orientation="horizontal" />
