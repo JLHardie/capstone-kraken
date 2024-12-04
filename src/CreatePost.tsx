@@ -2,7 +2,7 @@ import { Divider, Heading, View, TextField, TextAreaField, Button, Flex } from "
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { Schema } from "../amplify/data/resource";
-import { SetStateAction, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { generateClient } from "aws-amplify/data";
 import { getCurrentUser } from "aws-amplify/auth";
 
