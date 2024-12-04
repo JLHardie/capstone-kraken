@@ -34,7 +34,7 @@ function App() {
           </Link>
         </Flex>
       </Card>
-      <div className="main">
+      <main>
         <Routes>
           <Route path="/feed" element={<Home />} />
           <Route path="/profile" element={<Profile />} />
@@ -47,7 +47,7 @@ function App() {
           <Route path="/dm" element={<MessageHub />} />
           <Route path="/" element={<Navigate to="/feed" replace />} />
         </Routes>
-      </div>
+      </main>
     </Router>
   );
 }
