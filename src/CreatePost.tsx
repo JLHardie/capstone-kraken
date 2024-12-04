@@ -12,7 +12,7 @@ type User = Schema['User']['type']
 
 export default function CreatePost() {
     const navigate = useNavigate();
-    
+
     const {forumId} = useParams<{forumId: string}>();
     const [forum, setForum] = useState<Forum>();
     const [user, setUser] = useState<User>();
@@ -60,7 +60,7 @@ export default function CreatePost() {
 
     return (
         <View>
-            <Flex direction="column" justifyContent="center">
+            <Flex direction="column" justifyContent="center" className="center-aligner">
                 <Heading level={2}>Create Post for {forum?.name}</Heading>
                 <Divider orientation="horizontal" size="large" />
                 

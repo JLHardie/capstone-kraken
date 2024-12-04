@@ -15,6 +15,10 @@ main {
   align-items: stretch;
 }
 
+.center-aligner {
+  width: 60vw;
+}
+
 .navbar-card {
   background: linear-gradient(180deg, rgb(39, 39, 39), rgb(14, 14, 14));
   display: fixed;
