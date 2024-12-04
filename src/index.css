@@ -20,7 +20,7 @@ main {
   display: fixed;
   top: 0;
   width: 100vw;
-  height: 15vh;
+  height: 50px;
 }
 
 .profile-button {
