@@ -9,6 +9,10 @@ body {
   align-items: center;
 }
 
+.field {
+  background-color: rgb(200, 200, 200);
+}
+
 main {
   display: flex;
   flex-direction: column;
