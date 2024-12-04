@@ -13,6 +13,7 @@ export default function CreatePost() {
     const {forumId} = useParams<{forumId: string}>();
     const [forum, setForum] = useState<Forum>();
     const [user, setUser] = useState<User>();
+    const [postLoading, setPostLoading] = useState<boolean>();
 
     const [subject, setSubject] = useState("");
     const [content, setContent] = useState("");
@@ -40,9 +41,21 @@ export default function CreatePost() {
 
     }, [])
 
+    const onPostClick = async () => {
+        const id = user?.id;
+        if (!id || !subject || !content)
+            throw new Error("Something is missing")
+        await client.models.Post.create({
+            userId: id,
+            subject: subject,
+            content: content,
+            forumid: forumId,
+        })
+    }
+
     return (
-        <View as="div">
-            <Flex orientation="vertical">
+        <View>
+            <Flex direction="column" justifyContent="center">
                 <Heading level={2}>Create Post for {forum?.name}</Heading>
                 <Divider orientation="horizontal" size="large" />
                 <TextField 
@@ -53,7 +66,23 @@ export default function CreatePost() {
                     label="Content"
                     onChange={(e) => setContent(e.currentTarget.value)}
                 />
-                <Button>Make Post</Button>
+                {
+                    (postLoading) ? (
+                        <Button 
+                            isLoading={true} 
+                            isDisabled={true}
+                            loadingText="Posting..."
+                        >
+                            Make Post
+                        </Button>
+                    ) : (
+                        <Button
+                            onClick={onPostClick}
+                        >
+                            Make Post
+                        </Button>
+                    )
+                }
             </Flex>
         </View>
     )
