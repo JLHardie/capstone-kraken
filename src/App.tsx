@@ -9,7 +9,7 @@ import Chatroom from "./Chatroom";
 import Profile from "./Profile";
 import DM from "./DM";
 import MessageHub from "./MessageHub";
-import { Flex, Image } from "@aws-amplify/ui-react";
+import { Button, Card, Flex, Image } from "@aws-amplify/ui-react";
 //import '@aws-amplify/ui-react/styles.css'
 
 function App() {
@@ -25,13 +25,15 @@ function App() {
         wrap="nowrap"
         gap="1rem"
       >
+        <Card>
           <Link to={`/feed`}>
             <Image alt="Kraken Logo" src="/Kraken.png" height="75px" width="75px" />
           </Link>
           <SearchBar />
           <Link to={`/profile`}>
-            <button type="button">Profile</button>
+            <Button>Profile</Button>
           </Link>
+        </Card>
         </Flex>
         <Routes>
           <Route path="/feed" element={<Home />} />
