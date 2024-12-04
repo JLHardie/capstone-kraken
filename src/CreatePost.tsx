@@ -1,5 +1,6 @@
 import { Divider, Heading, View, TextField, TextAreaField, Button, Flex } from "@aws-amplify/ui-react";
 import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Schema } from "../amplify/data/resource";
 import { useEffect, useState } from "react";
 import { generateClient } from "aws-amplify/data";
@@ -42,6 +43,8 @@ export default function CreatePost() {
     }, [])
 
     const onPostClick = async () => {
+        const navigate = useNavigate();
+        setPostLoading(true);
         const id = user?.id;
         if (!id || !subject || !content)
             throw new Error("Something is missing")
@@ -51,6 +54,7 @@ export default function CreatePost() {
             content: content,
             forumid: forumId,
         })
+        navigate(-1);
     }
 
     return (
