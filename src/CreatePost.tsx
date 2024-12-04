@@ -16,6 +16,9 @@ export default function CreatePost() {
     const [user, setUser] = useState<User>();
     const [postLoading, setPostLoading] = useState<boolean>();
 
+    const [subject, setSubject] = useState("");
+    const [content, setContent] = useState("");
+
     useEffect(() => {
         const fetchData = async () => {
             if (!forumId) 
@@ -43,17 +46,24 @@ export default function CreatePost() {
         const navigate = useNavigate();
         setPostLoading(true);
         const id = user?.id;
-        const subjectFieldData = document.getElementById("subjectField")?.value;
-        const contentFieldData = document.getElementById("contentField")?.value;
-        if (!id || !subjectFieldData || !contentFieldData)
+        if (!id || !subject || !content)
             throw new Error("Something is missing")
         await client.models.Post.create({
             userId: id,
-            subject: subjectFieldData,
-            content: contentFieldData,
+            subject: subject,
+            content: content,
             forumid: forumId,
         })
         navigate(-1);
+    }
+
+    const onSubjectChange = (e: { currentTarget: { value: any; }; }) => {
+        const subjectChange = e.currentTarget.value;
+        setSubject(subjectChange);
+    }
+    const onContentChange = (e: { currentTarget: { value: any; }; }) => {
+        const contentChange = e.currentTarget.value;
+        setContent(contentChange);
     }
 
     return (
@@ -63,10 +73,12 @@ export default function CreatePost() {
                 <Divider orientation="horizontal" size="large" />
                 <TextField 
                     label="Subject" 
+                    onChange={onSubjectChange}
                     id="subjectField"
                 />
                 <TextAreaField
                     label="Content"
+                    onChange={onContentChange}
                     id="contentField"
                 />
                 {
