@@ -113,7 +113,9 @@ export default function Forum() {
         {(!isSubbed) ?
           (<Button variation="primary" onClick={onClickSub}>Subscribe</Button>) :
           (<Button variation="primary" colorTheme="error" onClick={onClickUnsub}>Unsubscribe</Button>)}   
-        <Button variation="primary">New Post</Button>
+        <Link to={`/forum/${forumId}/create`}>
+          <Button variation="primary">New Post</Button>
+        </Link>
       </Flex>
       <Divider size="large" orientation="horizontal" />
       <ScrollView height="75vh">
