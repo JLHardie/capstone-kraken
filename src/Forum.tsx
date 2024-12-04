@@ -53,6 +53,7 @@ export default function Forum() {
       })
 
       if (userData?.subscriptions.includes({forumId: forumId})) {
+        console.log("Sub data found")
         setIsSubbed(true);
       } else {
         setIsSubbed(false);
