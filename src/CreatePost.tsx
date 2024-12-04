@@ -57,28 +57,20 @@ export default function CreatePost() {
         navigate(-1);
     }
 
-    const onSubjectChange = (e: { currentTarget: { value: any; }; }) => {
-        const subjectChange = e.currentTarget.value;
-        setSubject(subjectChange);
-    }
-    const onContentChange = (e: { currentTarget: { value: any; }; }) => {
-        const contentChange = e.currentTarget.value;
-        setContent(contentChange);
-    }
-
     return (
         <View>
             <Flex direction="column" justifyContent="center">
                 <Heading level={2}>Create Post for {forum?.name}</Heading>
                 <Divider orientation="horizontal" size="large" />
+                
                 <TextField 
                     label="Subject" 
-                    onChange={onSubjectChange}
+                    onChange={(e) => setSubject(e.target.value)}
                     id="subjectField"
                 />
                 <TextAreaField
                     label="Content"
-                    onChange={onContentChange}
+                    onChange={(e) => setContent(e.target.value)}
                     id="contentField"
                 />
                 {
