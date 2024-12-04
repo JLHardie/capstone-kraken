@@ -18,6 +18,7 @@ function SearchBar() {
   return (
     <form onSubmit={handleSubmit}>
       <input
+        width="50vw"
         type="text"
         placeholder="Search forums..."
         value={searchTerm}

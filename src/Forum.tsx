@@ -51,7 +51,7 @@ export default function Forum() {
       }, {
         selectionSet: ['subscriptions.forumId']
       })
-
+      console.log(userData?.subscriptions)
       if (userData?.subscriptions.includes({forumId: forumId})) {
         console.log("Sub data found")
         setIsSubbed(true);
