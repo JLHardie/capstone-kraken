@@ -11,6 +11,8 @@ body {
 
 .commentBar {
   background: linear-gradient(180deg, rgb(39, 39, 39), rgb(14, 14, 14));
+  padding: 5px;
+  justify-content: center;
 }
 
 .field {

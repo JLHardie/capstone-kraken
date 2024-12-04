@@ -182,10 +182,12 @@ export default function Post() {
             label="commentField"
             onChange={(e) => setNewComment(e.target.value)}
             labelHidden={true}
+            className="field"
           />
           <Button
             type="submit"
             onClick={() => console.log("Comment Button Pressed")}
+            variation="primary"
           >
             Comment
           </Button>
