@@ -50,7 +50,7 @@ export default function DM() {
         });
 
         return () => messageSub.unsubscribe();
-    })
+    }, [])
 
     const handleNewMessage = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();

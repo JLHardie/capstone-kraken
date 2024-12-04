@@ -1,4 +1,4 @@
-import { Button, Card, Divider, Flex, Heading, ScrollView, Text, View } from "@aws-amplify/ui-react";
+import { Button, Card, Divider, Flex, Heading, Menu, MenuItem, ScrollView, Text, View } from "@aws-amplify/ui-react";
 import { generateClient, SelectionSet } from "aws-amplify/data";
 import { Schema } from "../amplify/data/resource";
 import { useEffect, useState } from "react";
@@ -7,7 +7,7 @@ import { getCurrentUser } from "aws-amplify/auth";
 
 const client = generateClient<Schema>();
 const selectionSet = ['comments.*', 'subject', 'content', 'user.username', 'comments.commenter.username'] as const
-const userSet = ['likedPosts.post.id', 'likedPosts.id', 'id'] as const;
+const userSet = ['likedPosts.post.id', 'likedPosts.id', 'id', 'chats.chat.users.id'] as const;
 type Post = Schema['Post']['type']
 type User = Schema['User']['type']
 type UserLikedPosts = SelectionSet<User, typeof userSet>
@@ -86,6 +86,26 @@ export default function Post() {
     setLikeLoading(false);
   }
 
+  const onOpenDirectMessage = async (input: string | null) => {
+    var hasDm = false;
+    const chats = user?.chats
+    if (chats) {
+      chats.forEach((chat) => {
+        chat.chat.users.forEach((user) => {
+          if(user.id === input) {
+            hasDm = true;
+          }
+        })
+      })
+    }
+    // (hasDm) ? (
+    //   const { data: chatData } 
+    //   navigate(`/dm/`)
+    // ) : (
+
+    // )
+  }
+
   return (
     <View as="div">
       <Button onClick={() => navigate(-1)} variation="primary">Back</Button>
@@ -131,7 +151,19 @@ export default function Post() {
           {
             post?.comments.map((comment) => (
               <Card key={comment.id} className="postCard">
-                <Heading level={4}>{comment.commenter.username}</Heading>
+                <Flex direction="row">
+                  <Heading level={4}>{comment.commenter.username}</Heading>
+                  <Menu
+                    menuAlign="start"
+                    size="small"
+                  >
+                    <MenuItem
+                      onClick={() => onOpenDirectMessage(comment.commenterId)}
+                    >
+                      Open Direct Message
+                    </MenuItem>
+                  </Menu>
+                </Flex>
                 <Text>{comment.content}</Text>
               </Card>
             ))
