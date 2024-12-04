@@ -16,7 +16,10 @@ main {
 }
 
 .navbar-card {
-  background: linear-gradient(180deg, rgb(11, 34, 205), rgb(32, 42, 119))
+  background: linear-gradient(180deg, rgb(39, 39, 39), rgb(14, 14, 14));
+  display: fixed;
+  top: 0;
+  width: 100%;
 }
 
 button {
