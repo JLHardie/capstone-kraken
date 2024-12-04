@@ -1,21 +1,25 @@
 import type { Schema } from '../amplify/data/resource'
-import { generateClient } from 'aws-amplify/data'
+import { generateClient, SelectionSet } from 'aws-amplify/data'
 import { getCurrentUser } from 'aws-amplify/auth';
 import { useState } from 'react';
 import { Link } from "react-router-dom";
 
 const client = generateClient<Schema>()
+const selectionSet = ['subject', 'content', 'id', 'user.username', 'createdAt'] as const;
 type Post = Schema['Post']['type'];
+type PostWithUsername = SelectionSet<Post, typeof selectionSet>;
 //type Subscribo = Schema['Subscribo']['type'];
 
 function Home() {
-    const [posts, setPosts] = useState<Post[]>([]);
+    const [posts, setPosts] = useState<PostWithUsername[]>([]);
     //const [subscribos, setSubscribos] = useState<Subscribo[]>([]);
     //const [subbedPosts, setSubbedPosts] = useState<Post[]>([]);
 
     const getData = async () => {
         //const {userId} = await getCurrentUser()
-        const {data: postData} = await client.models.Post.list();
+        const {data: postData} = await client.models.Post.list({
+            selectionSet
+        });
         const sortedPosts = [...postData].sort((a, b) =>
             new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
         );
@@ -64,7 +68,7 @@ function Home() {
                 ) : ( */}
                     {posts.map((post) => (
                         <li key={post.id}>
-                            <small>{post.user}</small>
+                            <small>{post.user.username}</small>
                             <Link to={`/post/${post.id}`}>
                                 <h2>{post.subject}</h2>
                             </Link>
