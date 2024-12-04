@@ -52,7 +52,7 @@ function Home() {
     }
 
     return (
-        <div>
+        <div className="center-aligner">
             <button onClick={createForum}>Create Forum</button>
             <h2>Welcome to the Feed</h2>
             <ul>

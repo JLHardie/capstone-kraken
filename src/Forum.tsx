@@ -104,7 +104,7 @@ export default function Forum() {
   }
 
   return (
-    <View as="div">
+    <View as="div" className="center-aligner">
       <Heading level={2}>{forum?.name}</Heading>
       <Flex
         direction="row"
