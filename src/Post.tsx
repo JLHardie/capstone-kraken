@@ -98,6 +98,7 @@ export default function Post() {
         })
       })
     }
+    console.log(hasDm)
     // (hasDm) ? (
     //   const { data: chatData } 
     //   navigate(`/dm/`)
