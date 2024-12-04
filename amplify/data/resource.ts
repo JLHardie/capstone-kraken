@@ -14,6 +14,7 @@ const schema = a.schema({
       messages: a.hasMany("DirectMessage", "senderId"),
       subscriptions: a.hasMany("ForumSubscription","userId"),
       likedPosts: a.hasMany("PostLike","userId"),
+      posts: a.hasMany("Post", "userId"),
     }),
   UserChat: a
     .model({
@@ -41,12 +42,12 @@ const schema = a.schema({
       subject: a.string(),
       content: a.string(),
       containsImage: a.boolean(),
-      datePosted: a.datetime(),
       likes: a.hasMany("PostLike","postId"),
       forumid: a.id(),
       forum: a.belongsTo("Forum", "forumid"),
       comments: a.hasMany("Comment", "postid"),
-      user: a.string(),
+      userId: a.id().required(),
+      user: a.belongsTo("User", "userId"),
     }),
   PostLike: a
     .model({
