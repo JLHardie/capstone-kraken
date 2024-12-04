@@ -70,7 +70,10 @@ export default function CreatePost() {
                 />
                 <TextAreaField
                     label="Content"
-                    onChange={(e) => setContent(e.target.value)}
+                    onChange={(e) => {
+                        setContent(e.target.value)
+                        console.log(content)
+                    }}
                     id="contentField"
                 />
                 {
