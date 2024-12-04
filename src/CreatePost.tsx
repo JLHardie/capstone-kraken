@@ -43,8 +43,8 @@ export default function CreatePost() {
         const navigate = useNavigate();
         setPostLoading(true);
         const id = user?.id;
-        const subjectFieldData = document.getElementById("subjectField")?.getHTML();
-        const contentFieldData = document.getElementById("contentField")?.getHTML();
+        const subjectFieldData = document.getElementById("subjectField")?.value;
+        const contentFieldData = document.getElementById("contentField")?.value;
         if (!id || !subjectFieldData || !contentFieldData)
             throw new Error("Something is missing")
         await client.models.Post.create({
