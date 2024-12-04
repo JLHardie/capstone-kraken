@@ -62,7 +62,7 @@ const schema = a.schema({
       belongsTo: a.string(),
       description: a.string(),
       posts: a.hasMany("Post", "forumid"),
-      subscribers: a.hasMany("ForumSubscription", "forumid"),
+      subscribers: a.hasMany("ForumSubscription", "forumId"),
       messages: a.hasMany("Message", "forumid"),
     }),
   ForumSubscription: a
