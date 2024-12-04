@@ -17,15 +17,16 @@ function App() {
   return (
     <Router>
       <div>
-      <Flex
-        direction="row"
-        justifyContent="flex-start"
-        alignItems="center"
-        alignContent="flex-start"
-        wrap="nowrap"
-        gap="1rem"
-      >
-        <Card>
+      
+      <Card className="navbar-card">
+        <Flex
+          direction="row"
+          justifyContent="flex-start"
+          alignItems="center"
+          alignContent="flex-start"
+          wrap="nowrap"
+          gap="1rem"
+        >
           <Link to={`/feed`}>
             <Image alt="Kraken Logo" src="/Kraken.png" height="75px" width="75px" />
           </Link>
@@ -33,8 +34,8 @@ function App() {
           <Link to={`/profile`}>
             <Button>Profile</Button>
           </Link>
-        </Card>
         </Flex>
+      </Card>
         <Routes>
           <Route path="/feed" element={<Home />} />
           <Route path="/profile" element={<Profile />} />
