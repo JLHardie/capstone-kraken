@@ -70,7 +70,7 @@ const schema = a.schema({
       user: a.belongsTo("User", "userId"),
       forumId: a.id().required(),
       forum: a.belongsTo("Forum", "forumId"),
-    }),
+    }).secondaryIndexes((index) => [index("userId")]),
   Comment: a
     .model({
       content: a.string(),

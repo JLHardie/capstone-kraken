@@ -80,6 +80,25 @@ export default function Forum() {
     setIsSubbed(true);
   }
 
+  // const onClickUnsub = async () => {
+  //   const { signInDetails } = await getCurrentUser();
+  //   const userId = signInDetails?.loginId;
+  //   if(!userId)
+  //     throw new Error("userId not found")
+  //   const {data: userData} = await client.models.User.get({
+  //     id: userId,
+  //   })
+
+  //   if (!userData?.id || !forumId) {
+  //     throw new Error("Subscription failed")
+  //   }
+  //   await client.models.ForumSubscription.create({
+  //     userId: userData?.id,
+  //     forumId: forumId,
+  //   })
+  //   setIsSubbed(false);
+  // }
+
   return (
     <View as="div">
       <Heading level={2}>{forum?.name}</Heading>
