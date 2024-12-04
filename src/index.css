@@ -19,7 +19,7 @@ body {
   background: linear-gradient(180deg, rgb(39, 39, 39), rgb(14, 14, 14));
   display: fixed;
   top: 0;
-  width: 100%;
+  width: 100vw;
 }
 
 button {
