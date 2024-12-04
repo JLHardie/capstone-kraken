@@ -19,6 +19,7 @@ export default function Forum() {
   const [isSubbed, setIsSubbed] = useState<boolean>();
 
   useEffect(() => {
+    console.log("UseEffect used")
     const fetchData = async () => {
       if (!forumId) {
         throw new Error("ForumId not found");
