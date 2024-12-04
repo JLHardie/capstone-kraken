@@ -6,7 +6,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { getCurrentUser } from "aws-amplify/auth";
 
 const client = generateClient<Schema>();
-const selectionSet = ['comments.*', 'subject', 'content', 'user.username', 'comments.commenter.username'] as const
+const selectionSet = ['comments.*', 'id', 'subject', 'content', 'user.username', 'comments.commenter.username'] as const
 const userSet = ['likedPosts.post.id', 'likedPosts.id', 'id', 'chats.chat.users.id'] as const;
 type Post = Schema['Post']['type']
 type User = Schema['User']['type']
@@ -110,7 +110,7 @@ export default function Post() {
 
   return (
     <View as="div">
-      <Button onClick={() => navigate(-1)} variation="primary">Back</Button>
+      <Button onClick={() => navigate(`/post/${post?.id}`)} variation="primary">Back</Button>
       <View as="div" className="center-aligner">
         <Heading level={2}>{post?.subject}</Heading>
         <Divider size="small" orientation="horizontal"/>
@@ -176,15 +176,19 @@ export default function Post() {
           direction="row" 
           alignContent="center"
           onSubmit={() => console.log(newComment)}
+          className="commentBar"
         >
           <TextField
             label="commentField"
             onChange={(e) => setNewComment(e.target.value)}
+            labelHidden={true}
           />
           <Button
             type="submit"
             onClick={() => console.log("Comment Button Pressed")}
-          />
+          >
+            Comment
+          </Button>
         </Flex>
       </View>
     </View>

@@ -9,6 +9,10 @@ body {
   align-items: center;
 }
 
+.commentBar {
+  background: linear-gradient(180deg, rgb(39, 39, 39), rgb(14, 14, 14));
+}
+
 .field {
   background-color: rgb(200, 200, 200);
 }
