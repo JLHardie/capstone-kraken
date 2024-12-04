@@ -1,13 +1,141 @@
-import { View } from "@aws-amplify/ui-react";
-// import { generateClient } from "aws-amplify/api";
-// import { Schema } from "../amplify/data/resource";
+import { Button, Card, Divider, Flex, Heading, ScrollView, Text, View } from "@aws-amplify/ui-react";
+import { generateClient, SelectionSet } from "aws-amplify/data";
+import { Schema } from "../amplify/data/resource";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { getCurrentUser } from "aws-amplify/auth";
 
-//const client = generateClient<Schema>();
+const client = generateClient<Schema>();
+const selectionSet = ['comments.*', 'subject', 'content', 'user.username', 'comments.commenter.username'] as const
+const userSet = ['likedPosts.post.id', 'likedPosts.id', 'id'] as const;
+type Post = Schema['Post']['type']
+type User = Schema['User']['type']
+type UserLikedPosts = SelectionSet<User, typeof userSet>
+type PostWithComments = SelectionSet<Post, typeof selectionSet>
 
 export default function Post() {
+  const {postId} = useParams<{postId: string}>();
+  const [post, setPost] = useState<PostWithComments>()
+  const [user, setUser] = useState<UserLikedPosts>()
+  const [likesPost, setLikesPost] = useState<boolean>();
+  const [likeLoading, setLikeLoading] = useState<boolean>();
+
+
+  useEffect(() => {
+    setLikeLoading(true);
+    const getData = async () => {
+      if (!postId)
+        throw new Error("postId not found")
+      const { data: postData } = await client.models.Post.get(
+        {id: postId},
+        {selectionSet}
+      )
+
+      if (!postData)
+        throw new Error("Failed to retrieve Post data.")
+      setPost(postData);
+
+      const {signInDetails} = await getCurrentUser();
+      const signIn = signInDetails?.loginId;
+      if (!signIn)
+        throw new Error("User sign in not found")
+      const { data: userData } = await client.models.User.get(
+        {id: signIn},
+        {selectionSet: userSet}
+      );
+      if (!userData)
+        throw new Error("User data not found")
+      setUser(userData);
+
+      setLikesPost(false);
+      userData.likedPosts.forEach((post) => {
+        if (post.post.id === postId)
+          setLikesPost(true);
+      })
+      setLikeLoading(false);
+    }
+    getData();
+  }, [])
+
+  const onClickLike = async () => {
+    setLikeLoading(true);
+    const id = user?.id;
+    if (!id||!postId)
+      throw new Error("userId not found");
+    await client.models.PostLike.create({
+      userId: id,
+      postId: postId
+    })
+    setLikesPost(true);
+    setLikeLoading(false);
+  }
+
+  const onClickUnlike = async () => {
+    setLikeLoading(true);
+    const id = user?.id;
+    if (!id||!postId)
+      throw new Error("userId not found");
+    user.likedPosts.forEach(async (likedPost) => {
+      if (likedPost.post.id === postId) {
+        await client.models.PostLike.delete({id: likedPost.id})
+        setLikesPost(false)
+      }
+    })
+    setLikeLoading(false);
+  }
+
   return (
     <View as="div">
-
+      <Button>Back</Button>
+      <View as="div" className="center-aligner">
+        <Heading level={2}>{post?.subject}</Heading>
+        <Divider size="small" orientation="horizontal"/>
+        <Text>{post?.content}</Text>
+        <Flex direction="row" justifyContent="flex-start">
+          {
+            (likeLoading) ? (
+              <Button
+                isLoading="true"
+                isDisabled="true"
+                variation="primary"
+                loadingText="Please Wait..."
+              />
+            ) : (
+              (!likesPost) ? (
+                <Button 
+                  colorTheme="success" 
+                  variation="primary"
+                  onClick={onClickLike}
+                >
+                  Like Post
+                </Button>
+              ) : (
+                <Button 
+                  colorTheme="error" 
+                  variation="primary"
+                  onClick={onClickUnlike}
+                >
+                  Unlike Post
+                </Button>
+              )
+            )
+          }
+          <Text>Likes: {post?.comments.length}</Text>
+        </Flex>
+        <Divider size="large" orientation="horizontal"/>
+        <ScrollView
+          height="35vh"
+        >
+          {
+            post?.comments.map((comment) => (
+              <Card key={comment.id} className="postCard">
+                <Heading level={4}>{comment.commenter.username}</Heading>
+                <Text>{comment.content}</Text>
+              </Card>
+            ))
+          }
+        </ScrollView>
+      </View>
     </View>
   )
   // const navigate = useNavigate();

@@ -15,6 +15,7 @@ const schema = a.schema({
       subscriptions: a.hasMany("ForumSubscription","userId"),
       likedPosts: a.hasMany("PostLike","userId"),
       posts: a.hasMany("Post", "userId"),
+      comments: a.hasMany("Comment", "commenterId"),
     }),
   UserChat: a
     .model({
@@ -75,8 +76,8 @@ const schema = a.schema({
   Comment: a
     .model({
       content: a.string(),
-      commenterId: a.string(),
-      commenter: a.string(),
+      commenterId: a.id(),
+      commenter: a.belongsTo("User","commenterId"),
       postid: a.id(),
       post: a.belongsTo("Post", "postid"),
     }),
