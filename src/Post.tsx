@@ -1,4 +1,4 @@
-import { Button, Card, Divider, Flex, Heading, Menu, MenuItem, ScrollView, Text, View } from "@aws-amplify/ui-react";
+import { Button, Card, Divider, Flex, Heading, Menu, MenuItem, ScrollView, Text, TextField, View } from "@aws-amplify/ui-react";
 import { generateClient, SelectionSet } from "aws-amplify/data";
 import { Schema } from "../amplify/data/resource";
 import { useEffect, useState } from "react";
@@ -21,6 +21,7 @@ export default function Post() {
   const [user, setUser] = useState<UserLikedPosts>()
   const [likesPost, setLikesPost] = useState<boolean>();
   const [likeLoading, setLikeLoading] = useState<boolean>();
+  const [newComment, setNewComment] = useState("");
 
 
   useEffect(() => {
@@ -170,6 +171,21 @@ export default function Post() {
             ))
           }
         </ScrollView>
+        <Flex 
+          as="form"
+          direction="row" 
+          alignContent="center"
+          onSubmit={() => console.log(newComment)}
+        >
+          <TextField
+            label="commentField"
+            onChange={(e) => setNewComment(e.target.value)}
+          />
+          <Button
+            type="submit"
+            onClick={() => console.log("Comment Button Pressed")}
+          />
+        </Flex>
       </View>
     </View>
   )
