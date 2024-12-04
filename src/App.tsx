@@ -16,8 +16,6 @@ function App() {
 
   return (
     <Router>
-      <div>
-      
       <Card className="navbar-card">
         <Flex
           direction="row"
@@ -36,6 +34,7 @@ function App() {
           </Link>
         </Flex>
       </Card>
+      <div className="main">
         <Routes>
           <Route path="/feed" element={<Home />} />
           <Route path="/profile" element={<Profile />} />
