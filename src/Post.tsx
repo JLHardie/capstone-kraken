@@ -2,7 +2,7 @@ import { Button, Card, Divider, Flex, Heading, ScrollView, Text, View } from "@a
 import { generateClient, SelectionSet } from "aws-amplify/data";
 import { Schema } from "../amplify/data/resource";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { getCurrentUser } from "aws-amplify/auth";
 
 const client = generateClient<Schema>();
@@ -14,6 +14,8 @@ type UserLikedPosts = SelectionSet<User, typeof userSet>
 type PostWithComments = SelectionSet<Post, typeof selectionSet>
 
 export default function Post() {
+  const navigate = useNavigate();
+
   const {postId} = useParams<{postId: string}>();
   const [post, setPost] = useState<PostWithComments>()
   const [user, setUser] = useState<UserLikedPosts>()
@@ -86,7 +88,7 @@ export default function Post() {
 
   return (
     <View as="div">
-      <Button>Back</Button>
+      <Button onClick={() => navigate(-1)} variation="primary">Back</Button>
       <View as="div" className="center-aligner">
         <Heading level={2}>{post?.subject}</Heading>
         <Divider size="small" orientation="horizontal"/>
