@@ -97,8 +97,8 @@ export default function Post() {
           {
             (likeLoading) ? (
               <Button
-                isLoading="true"
-                isDisabled="true"
+                isLoading={true}
+                isDisabled={true}
                 variation="primary"
                 loadingText="Please Wait..."
               />
