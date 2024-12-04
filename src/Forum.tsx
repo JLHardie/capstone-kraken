@@ -58,7 +58,7 @@ export default function Forum() {
       }
     }
     fetchData();
-  })
+  }, [])
 
   const onClickSub = async () => {
     const { signInDetails } = await getCurrentUser();
@@ -95,7 +95,7 @@ export default function Forum() {
       <ScrollView height="75vh">
         {
           posts?.map((post) => (
-            <Card key={post.id}>
+            <Card key={post.id} className="postCard">
               <Link to={`/post/${post.id}`}>
                 <Heading level={4}>{post.subject}</Heading>
                 <Text>{post.content}</Text>
