@@ -87,7 +87,7 @@ export default function Forum() {
         direction="row"
         justifyContent="flex-start"
       >
-        {(isSubbed) ?
+        {(!isSubbed) ?
           (<Button variation="primary" onClick={onClickSub}>Subscribe</Button>) :
           (<Button variation="primary" isDisabled={true}>Subscribe</Button>)}   
         <Button variation="primary">New Post</Button>
