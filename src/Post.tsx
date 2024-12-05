@@ -199,7 +199,7 @@ export default function Post() {
         <Heading level={3}>Comments</Heading>
         <ul>
         <ScrollView
-          style={{height: "auto"}}
+          height="60vh"
         >
           {
             (comments) ? (
