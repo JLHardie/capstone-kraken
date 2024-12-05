@@ -199,7 +199,7 @@ export default function Post() {
         <Heading level={3}>Comments</Heading>
         <ul>
         <ScrollView
-          height="60vh"
+          height="50vh"
         >
           {
             (comments) ? (
