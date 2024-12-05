@@ -10,6 +10,7 @@ import Profile from "./Profile";
 import DM from "./DM";
 import MessageHub from "./MessageHub";
 import { Button, Flex, Image, Menu, MenuItem } from "@aws-amplify/ui-react";
+import Subscribo from "./Subscribo";
 //import '@aws-amplify/ui-react/styles.css'
 
 export default function App() {
@@ -47,7 +48,11 @@ export default function App() {
           justifyContent="center"
         >
           <Menu size="large" menuAlign="end">
-            <MenuItem>Subscritions</MenuItem>
+            <MenuItem>
+              <Link to={'/subscriptions'}>
+                Subscritions
+              </Link>
+            </MenuItem>
             <MenuItem>
               <Link to={'/dm'}>
                 Direct Messages
@@ -70,6 +75,7 @@ export default function App() {
           <Route path="/forum/:forumId/chat" element={<Chatroom />} />
           <Route path="/dm/:dmId" element={<DM />} />
           <Route path="/dm" element={<MessageHub />} />
+          <Route path="/subscriptions" element={<Subscribo />} />
           <Route path="/" element={<Navigate to="/feed" replace />} />
         </Routes>
       </main>
