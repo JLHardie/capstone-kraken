@@ -28,6 +28,7 @@ main {
 
 .center-aligner {
   width: 60vw;
+  align-content: center;
 }
 
 #navbar-card {

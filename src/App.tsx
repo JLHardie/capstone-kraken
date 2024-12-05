@@ -34,7 +34,8 @@ export default function App() {
           columnEnd="-1"
           id="navbar-card"
         >
-          <Flex direction="row">
+          <Flex direction="row"
+          alignItems="center">
             <Link to={'/'}>
               <Image 
                 alt="Kraken Logo" 
