@@ -24,7 +24,7 @@ function App() {
         alignContent="flex-start"
         wrap="nowrap"
         gap="1rem"
-        className="navbar-card"
+        id="navbar-card"
       >
         <Link to={`/feed`}>
           <Image alt="Kraken Logo" src="/Kraken.png" height="100%" />
