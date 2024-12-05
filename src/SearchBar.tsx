@@ -16,7 +16,7 @@ function SearchBar() {
   };
 
   return (
-    <form onSubmit={handleSubmit} width="50vw">
+    <form onSubmit={handleSubmit}>
       <input
         width="50vw"
         type="text"
