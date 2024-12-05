@@ -75,9 +75,9 @@ export default function DM() {
     return (
         <div>
             <h2>{}</h2>
-            <div>
+            <div className="center-aligner">
                 <ul>
-                    <ScrollView height="500px" autoScroll='auto'>
+                    <ScrollView height="50vh" autoScroll='auto'>
                     {
                         (loaded) ? (
                             messages.map((msg) => (
