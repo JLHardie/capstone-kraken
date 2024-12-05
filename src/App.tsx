@@ -69,18 +69,20 @@ export default function App() {
           columnEnd="-1"
           className="center-aligner"
         >
-          <Routes>
-            <Route path="/feed" element={<Home />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/forum/:forumId" element={<Forum />} />
-            <Route path="/forum/:forumId/create" element={<CreatePost />} />
-            <Route path="/post/:postId" element={<Post />} />
-            <Route path="/search" element={<Search />} />
-            <Route path="/forum/:forumId/chat" element={<Chatroom />} />
-            <Route path="/dm/:dmId" element={<DM />} />
-            <Route path="/dm" element={<MessageHub />} />
-            <Route path="/" element={<Navigate to="/feed" replace />} />
-          </Routes>
+          <main>
+            <Routes>
+              <Route path="/feed" element={<Home />} />
+              <Route path="/profile" element={<Profile />} />
+              <Route path="/forum/:forumId" element={<Forum />} />
+              <Route path="/forum/:forumId/create" element={<CreatePost />} />
+              <Route path="/post/:postId" element={<Post />} />
+              <Route path="/search" element={<Search />} />
+              <Route path="/forum/:forumId/chat" element={<Chatroom />} />
+              <Route path="/dm/:dmId" element={<DM />} />
+              <Route path="/dm" element={<MessageHub />} />
+              <Route path="/" element={<Navigate to="/feed" replace />} />
+            </Routes>
+          </main>
         </View>
       </Grid>
     </Router>
