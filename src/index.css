@@ -19,11 +19,6 @@ body {
   background-color: rgb(200, 200, 200);
 }
 
-.right-float {
-  float: inline-end;
-  width: 25vw;
-}
-
 main {
   display: flex;
   flex-direction: column;
@@ -45,14 +40,6 @@ main {
   width: 100vw;
   height: 15%;
   object-position: top;
-}
-
-#logo-searchbar {
-  max-height: 15vh;
-  align-self: center;
-  flex-flow: row;
-  place-content: flex-start;
-  width: 75vw;
 }
 
 .profile-button {

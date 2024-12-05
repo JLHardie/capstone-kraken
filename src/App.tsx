@@ -29,7 +29,6 @@ export default function App() {
         <Flex
           alignContent="center"
           direction="row"
-          id="logo-searchbar"
         >
           <Link to={'/'}>
             <Image 
@@ -40,7 +39,9 @@ export default function App() {
           </Link>
           <SearchBar />
         </Flex>
-        <View as="div" className="right-float">
+        <Flex
+          direction="row-reverse"
+          alignContent="center">
           <Menu size="large" menuAlign="center">
             <MenuItem>Subscritions</MenuItem>
             <MenuItem>
@@ -52,7 +53,7 @@ export default function App() {
           <Link to={`/profile`}>
             <Button variation="primary">Profile</Button>
           </Link>
-        </View>
+        </Flex>
       </Flex>
       <main>
         <Routes>
