@@ -23,7 +23,7 @@ main {
   align-items: stretch;
   justify-content: center;
   align-items: center;
-  height: 90%;
+  height: 85%;
 }
 
 .center-aligner {
@@ -35,13 +35,12 @@ main {
   display: fixed;
   top: 0;
   width: 100vw;
-  height: 10%;
+  height: 15%;
   object-position: top;
 }
 
-.float-right {
-  display: block;
-  float: right;
+#logo-searchbar {
+  max-height: 15vh;
 }
 
 .profile-button {
