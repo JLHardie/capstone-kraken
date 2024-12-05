@@ -39,7 +39,7 @@ export default function App() {
               <Image 
                 alt="Kraken Logo" 
                 src="/Kraken.png" 
-                height="100%"
+                height="15vh"
                 objectFit="fill" />
             </Link>
             <SearchBar />
