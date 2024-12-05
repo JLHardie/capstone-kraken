@@ -121,19 +121,21 @@ export default function Forum() {
         </Link>
       </Flex>
       <Divider size="large" orientation="horizontal" />
-      <ScrollView height="75vh">
-        {
-          posts?.map((post) => (
-            <Card key={post.id} className="postCard">
-              <Link to={`/post/${post.id}`}>
-                <Heading level={4}>{post.subject}</Heading>
-                <Text>{post.content}</Text>
-                <Text fontSize=".75em">Posted by {post.user.username}</Text>
-              </Link>
-            </Card>
-          ))
-        }
-      </ScrollView>
+      <ul>
+        <ScrollView height="75vh" style={{height: "auto"}}>
+          {
+            posts?.map((post) => (
+              <Card key={post.id} className="postCard">
+                <Link to={`/post/${post.id}`}>
+                  <Heading level={4}>{post.subject}</Heading>
+                  <Text>{post.content}</Text>
+                  <Text fontSize=".75em">Posted by {post.user.username}</Text>
+                </Link>
+              </Card>
+            ))
+          }
+        </ScrollView>
+      </ul>
     </View>
   )
 
