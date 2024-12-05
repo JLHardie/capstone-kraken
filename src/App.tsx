@@ -9,7 +9,7 @@ import Chatroom from "./Chatroom";
 import Profile from "./Profile";
 import DM from "./DM";
 import MessageHub from "./MessageHub";
-import { Button, Card, Flex, Grid, Image, Menu, MenuItem, View } from "@aws-amplify/ui-react";
+import { Button, Flex, Image, Menu, MenuItem, View } from "@aws-amplify/ui-react";
 //import '@aws-amplify/ui-react/styles.css'
 
 export default function App() {
@@ -17,74 +17,51 @@ export default function App() {
 
   return (
     <Router>
-      <Grid
-        columnGap="0.5rem"
-        rowGap="0.5rem"
-        templateColumns="15vw 85vw"
-        templateRows="15vh 85vh"
+      <Flex
+        direction="row"
+        justifyContent="flex-start"
+        alignItems="center"
+        alignContent="flex-start"
+        wrap="nowrap"
+        gap="1rem"
+        id="navbar-card"
       >
-        <Flex
-          direction="row"
-          justifyContent="flex-start"
-          alignItems="center"
-          alignContent="flex-start"
-          wrap="nowrap"
-          gap="1rem"
-          columnStart="1"
-          columnEnd="-1"
-          id="navbar-card"
-        >
-          <Flex direction="row"
-          alignItems="center">
-            <Link to={'/'}>
-              <Image 
-                alt="Kraken Logo" 
-                src="/Kraken.png" 
-                height="15vh"
-                objectFit="fill" />
-            </Link>
-            <SearchBar />
-          </Flex>
-          <Menu size="large" menuAlign="center">
-            <MenuItem>Subscritions</MenuItem>
-            <MenuItem>
-              <Link to={'/dm'}>
-                Direct Messages
-              </Link>
-            </MenuItem>
-          </Menu>
-          <Link to={`/profile`}>
-            <Button variation="primary">Profile</Button>
+        <View as="div" height="100%" >
+          <Link to={'/'}>
+            <Image 
+              alt="Kraken Logo" 
+              src="/Kraken.png" 
+              height="100%"
+              objectFit="fill" />
           </Link>
-        </Flex>
-        <Card
-          columnStart="1"
-          columnEnd="2"
-        >
-          Nav
-        </Card>
-        <View
-          as="div"
-          columnStart="2"
-          columnEnd="-1"
-          className="center-aligner"
-        >
-          <main>
-            <Routes>
-              <Route path="/feed" element={<Home />} />
-              <Route path="/profile" element={<Profile />} />
-              <Route path="/forum/:forumId" element={<Forum />} />
-              <Route path="/forum/:forumId/create" element={<CreatePost />} />
-              <Route path="/post/:postId" element={<Post />} />
-              <Route path="/search" element={<Search />} />
-              <Route path="/forum/:forumId/chat" element={<Chatroom />} />
-              <Route path="/dm/:dmId" element={<DM />} />
-              <Route path="/dm" element={<MessageHub />} />
-              <Route path="/" element={<Navigate to="/feed" replace />} />
-            </Routes>
-          </main>
+          <SearchBar />
         </View>
-      </Grid>
+        <Menu size="large" menuAlign="center">
+          <MenuItem>Subscritions</MenuItem>
+          <MenuItem>
+            <Link to={'/dm'}>
+              Direct Messages
+            </Link>
+          </MenuItem>
+        </Menu>
+        <Link to={`/profile`}>
+          <Button variation="primary">Profile</Button>
+        </Link>
+      </Flex>
+      <main>
+        <Routes>
+          <Route path="/feed" element={<Home />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/forum/:forumId" element={<Forum />} />
+          <Route path="/forum/:forumId/create" element={<CreatePost />} />
+          <Route path="/post/:postId" element={<Post />} />
+          <Route path="/search" element={<Search />} />
+          <Route path="/forum/:forumId/chat" element={<Chatroom />} />
+          <Route path="/dm/:dmId" element={<DM />} />
+          <Route path="/dm" element={<MessageHub />} />
+          <Route path="/" element={<Navigate to="/feed" replace />} />
+        </Routes>
+      </main>
     </Router>
   );
 }

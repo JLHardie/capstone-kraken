@@ -23,16 +23,20 @@ main {
   align-items: stretch;
   justify-content: center;
   align-items: center;
-  height: 85%;
+  height: 90%;
 }
 
 .center-aligner {
   width: 60vw;
-  align-content: center;
 }
 
 #navbar-card {
   background: linear-gradient(180deg, rgb(39, 39, 39), rgb(14, 14, 14));
+  display: fixed;
+  top: 0;
+  width: 100vw;
+  height: 10%;
+  object-position: top;
 }
 
 .profile-button {
