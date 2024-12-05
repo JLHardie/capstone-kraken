@@ -34,7 +34,7 @@ export default function MessageHub() {
             setUserChats(userChatData)
         }
         retrieveData();
-    })
+    }, [])
 
     const getNameOfOtherUser = (input: { readonly chat: { readonly users: { readonly user: { readonly username: Nullable<string>; }; readonly userId: string; }[]; readonly name: Nullable<string>; readonly id: string; readonly owner: string | null; readonly createdAt: string; readonly updatedAt: string; }; readonly chatId: string; }) => {
         const otherUser = input.chat.users.find((user) => user.userId != currentUserId)

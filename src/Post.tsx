@@ -8,11 +8,13 @@ import { getCurrentUser } from "aws-amplify/auth";
 const client = generateClient<Schema>();
 const selectionSet = ['likes.*','comments.*', 'id', 'subject', 'content', 'user.username', 'comments.commenter.username', 'forum.id'] as const
 const userSet = ['likedPosts.post.id', 'likedPosts.id', 'chats.chat.id', 'id', 'chats.chat.users.id'] as const;
+const commentSet = ['content','createdAt','id','commenter.*'] as const;
 type Post = Schema['Post']['type']
 type User = Schema['User']['type']
 type Comment = Schema['Comment']['type']
 type UserLikedPosts = SelectionSet<User, typeof userSet>
 type PostWithComments = SelectionSet<Post, typeof selectionSet>
+type CommentWithUser = SelectionSet<Comment, typeof commentSet>
 
 export default function Post() {
   const navigate = useNavigate();
@@ -23,7 +25,7 @@ export default function Post() {
   const [likesPost, setLikesPost] = useState<boolean>();
   const [likeLoading, setLikeLoading] = useState<boolean>();
   const [newComment, setNewComment] = useState("");
-  const [comments, setComments] = useState<Comment[] | null>([]);
+  const [comments, setComments] = useState<CommentWithUser[] | null>([]);
 
 
   useEffect(() => {
@@ -43,7 +45,8 @@ export default function Post() {
       const { data: commentData } = await client.models.Comment.list({
         filter: {
           postid: {eq: postId}
-        }
+        },
+        selectionSet: ['content','createdAt','id','commenter.*']
       })
       setComments(commentData);
 
@@ -206,7 +209,7 @@ export default function Post() {
                       size="small"
                     >
                       <MenuItem
-                        onClick={() => onOpenDirectMessage(comment.commenterId)}
+                        onClick={() => onOpenDirectMessage(comment.commenter.id)}
                       >
                         Open Direct Message
                       </MenuItem>
