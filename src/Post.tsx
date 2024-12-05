@@ -6,10 +6,11 @@ import { useNavigate, useParams, Link } from "react-router-dom";
 import { getCurrentUser } from "aws-amplify/auth";
 
 const client = generateClient<Schema>();
-const selectionSet = ['comments.*', 'id', 'subject', 'content', 'user.username', 'comments.commenter.username', 'forum.id'] as const
+const selectionSet = ['likes.*','comments.*', 'id', 'subject', 'content', 'user.username', 'comments.commenter.username', 'forum.id'] as const
 const userSet = ['likedPosts.post.id', 'likedPosts.id', 'chats.chat.id', 'id', 'chats.chat.users.id'] as const;
 type Post = Schema['Post']['type']
 type User = Schema['User']['type']
+type Comment = Schema['Comment']['type']
 type UserLikedPosts = SelectionSet<User, typeof userSet>
 type PostWithComments = SelectionSet<Post, typeof selectionSet>
 
@@ -22,6 +23,7 @@ export default function Post() {
   const [likesPost, setLikesPost] = useState<boolean>();
   const [likeLoading, setLikeLoading] = useState<boolean>();
   const [newComment, setNewComment] = useState("");
+  const [comments, setComments] = useState<Comment[]>([]);
 
 
   useEffect(() => {
@@ -173,7 +175,7 @@ export default function Post() {
                 )
               )
             }
-            <Text>Likes: {post?.comments.length}</Text>
+            <Text>Likes: {post?.likes.length}</Text>
           </Flex>
         </Card>
         <Divider size="large" orientation="horizontal"/>
