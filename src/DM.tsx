@@ -81,15 +81,9 @@ export default function DM() {
                     {
                         (loaded) ? (
                             messages.map((msg) => (
-                                <li key={msg.id}>
-                                    <Divider
-                                        size="large"
-                                        orientation="horizontal"  />
+                                <li key={msg.id} className="postCard">
                                     <small>{msg.sender.username}</small>
                                     <p>{msg.content}</p>
-                                    <Divider
-                                        size="large"
-                                        orientation="horizontal"  />
                                 </li>
                             ))
                         ) : (

@@ -215,7 +215,11 @@ export default function Post() {
                       </MenuItem>
                     </Menu>
                   </Flex>
-                  <Text>{comment.content}</Text>
+                  <Text
+                    style={{
+                      margin: "5px"
+                    }}
+                  >{comment.content}</Text>
                 </Card>
               ))
             ) : (
