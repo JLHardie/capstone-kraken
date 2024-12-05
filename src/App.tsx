@@ -27,7 +27,8 @@ export default function App() {
         id="navbar-card"
       >
         <Flex
-          alignContent="center"
+          alignContent="flex-start"
+          justifyContent="center"
           direction="row"
         >
           <Link to={'/'}>
@@ -41,7 +42,9 @@ export default function App() {
         </Flex>
         <Flex
           direction="row-reverse"
-          alignContent="center">
+          alignContent="flex-end"
+          justifyContent="center"
+        >
           <Menu size="large" menuAlign="center">
             <MenuItem>Subscritions</MenuItem>
             <MenuItem>
