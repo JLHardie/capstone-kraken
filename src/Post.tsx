@@ -261,6 +261,7 @@ export default function Post() {
             labelHidden={true}
             className="field"
             placeholder="Add a comment..."
+            value={newComment}
           />
           <Button
             type="submit"
