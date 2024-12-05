@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Route, Routes, Navigate, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes, Navigate, Link, useNavigate } from "react-router-dom";
 import Forum from "./Forum";
 import Post from "./Post";
 import SearchBar from './SearchBar';
@@ -12,8 +12,8 @@ import MessageHub from "./MessageHub";
 import { Button, Flex, Image, Menu, MenuItem } from "@aws-amplify/ui-react";
 //import '@aws-amplify/ui-react/styles.css'
 
-function App() {
-  //const navigate = useNavigate()
+export default function App() {
+  const navigate = useNavigate()
 
   return (
     <Router>
@@ -26,9 +26,12 @@ function App() {
         gap="1rem"
         id="navbar-card"
       >
-        <Link to={`/feed`} height="100%">
-          <Image alt="Kraken Logo" src="/Kraken.png" height="100%" />
-        </Link>
+        <Image 
+          alt="Kraken Logo" 
+          src="/Kraken.png" 
+          height="100%"
+          objectFit="fill"
+          onClick={() => navigate('/')} />
         <SearchBar />
         <Menu size="large" menuAlign="center">
           <MenuItem>Subscritions</MenuItem>
@@ -57,5 +60,3 @@ function App() {
     </Router>
   );
 }
-
-export default App;
