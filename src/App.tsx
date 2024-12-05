@@ -66,6 +66,7 @@ export default function App() {
           as="div"
           columnStart="2"
           columnEnd="-1"
+          className="center-aligner"
         >
           <Routes>
             <Route path="/feed" element={<Home />} />
