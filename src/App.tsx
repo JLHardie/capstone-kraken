@@ -36,7 +36,7 @@ export default function App() {
               alt="Kraken Logo" 
               src="/Kraken.png"
               height="15vh"
-              objectFit="fill" />
+            />
           </Link>
           <SearchBar />
         </Flex>
