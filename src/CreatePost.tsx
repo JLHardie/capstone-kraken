@@ -61,41 +61,45 @@ export default function CreatePost() {
     return (
         <View>
             <Flex direction="column" justifyContent="center" className="center-aligner">
-                <Heading level={2}>Create Post for {forum?.name}</Heading>
-                <Divider orientation="horizontal" size="large" />
-                
-                <TextField 
-                    label="Subject" 
-                    onChange={(e) => setSubject(e.target.value)}
-                    id="subjectField"
-                    className="field"
-                />
-                <TextAreaField
-                    label="Content"
-                    onChange={(e) => {
-                        setContent(e.target.value)
-                        console.log(content)
-                    }}
-                    id="contentField"
-                    className="field"
-                />
-                {
-                    (postLoading) ? (
-                        <Button 
-                            isLoading={true} 
-                            isDisabled={true}
-                            loadingText="Posting..."
-                        >
-                            Make Post
-                        </Button>
-                    ) : (
-                        <Button
-                            onClick={onPostClick}
-                        >
-                            Make Post
-                        </Button>
-                    )
-                }
+                <ul>
+                    <Heading level={2}>Create Post for {forum?.name}</Heading>
+                    <Divider orientation="horizontal" size="large" />
+                    
+                    <TextField 
+                        label="Subject" 
+                        onChange={(e) => setSubject(e.target.value)}
+                        id="subjectField"
+                        className="field"
+                    />
+                    <TextAreaField
+                        label="Content"
+                        onChange={(e) => {
+                            setContent(e.target.value)
+                            console.log(content)
+                        }}
+                        id="contentField"
+                        className="field"
+                    />
+                    {
+                        (postLoading) ? (
+                            <Button 
+                                isLoading={true} 
+                                isDisabled={true}
+                                variation="primary"
+                                loadingText="Posting..."
+                            >
+                                Make Post
+                            </Button>
+                        ) : (
+                            <Button
+                                onClick={onPostClick}
+                                variation="primary"
+                            >
+                                Make Post
+                            </Button>
+                        )
+                    }
+                </ul>
             </Flex>
         </View>
     )

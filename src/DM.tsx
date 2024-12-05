@@ -1,7 +1,7 @@
 import type {Schema} from '../amplify/data/resource';
 import { generateClient, SelectionSet } from 'aws-amplify/data';
 import { useState, useEffect } from 'react';
-import { ScrollView } from '@aws-amplify/ui-react';
+import { Card, ScrollView } from '@aws-amplify/ui-react';
 import { useParams } from "react-router-dom";
 import { getCurrentUser } from 'aws-amplify/auth';
 
@@ -81,10 +81,10 @@ export default function DM() {
                     {
                         (loaded) ? (
                             messages.map((msg) => (
-                                <li key={msg.id} className="postCard">
+                                <Card key={msg.id} className="postCard">
                                     <small>{msg.sender.username}</small>
                                     <p>{msg.content}</p>
-                                </li>
+                                </Card>
                             ))
                         ) : (
                             <h2>Loading...</h2>
