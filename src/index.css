@@ -7,6 +7,10 @@ body {
   width: 100vw;
 }
 
+.postCard {
+  margin: 8px;
+}
+
 .comment-bar {
   background: linear-gradient(180deg, rgb(39, 39, 39), rgb(14, 14, 14));
   padding: 10px;
