@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Route, Routes, Navigate, Link, useNavigate } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes, Navigate, Link } from "react-router-dom";
 import Forum from "./Forum";
 import Post from "./Post";
 import SearchBar from './SearchBar';
@@ -13,7 +13,7 @@ import { Button, Card, Flex, Image, Menu, MenuItem } from "@aws-amplify/ui-react
 //import '@aws-amplify/ui-react/styles.css'
 
 function App() {
-  const navigate = useNavigate()
+  //const navigate = useNavigate()
 
   return (
     <Router>
@@ -30,10 +30,10 @@ function App() {
             <Image alt="Kraken Logo" src="/Kraken.png" height="75px" width="75px" />
           </Link>
           <SearchBar />
-          <Menu size="large">
+          <Menu size="large" menuAlign="center">
             <MenuItem>Subscritions</MenuItem>
             <MenuItem
-              onClick={() => navigate(`/dm`)}
+              //onClick={() => navigate(`/dm`)}
             >Direct Messages</MenuItem>
           </Menu>
           <Link to={`/profile`}>
