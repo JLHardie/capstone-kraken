@@ -20,8 +20,8 @@ export default function App() {
       <Grid
         columnGap="0.5rem"
         rowGap="0.5rem"
-        templateColumns=".5fr 1fr 1fr"
-        templateRows="1fr 3fr"
+        templateColumns="15vw 85vw"
+        templateRows="15vh 85vh"
       >
         <Flex
           direction="row"
