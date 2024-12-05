@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Route, Routes, Navigate, Link, useNavigate } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes, Navigate, Link } from "react-router-dom";
 import Forum from "./Forum";
 import Post from "./Post";
 import SearchBar from './SearchBar';
@@ -9,11 +9,11 @@ import Chatroom from "./Chatroom";
 import Profile from "./Profile";
 import DM from "./DM";
 import MessageHub from "./MessageHub";
-import { Button, Flex, Image, Menu, MenuItem } from "@aws-amplify/ui-react";
+import { Button, Flex, Image, Menu, MenuItem, View } from "@aws-amplify/ui-react";
 //import '@aws-amplify/ui-react/styles.css'
 
 export default function App() {
-  const navigate = useNavigate()
+  //const navigate = useNavigate()
 
   return (
     <Router>
@@ -26,12 +26,16 @@ export default function App() {
         gap="1rem"
         id="navbar-card"
       >
-        <Image 
-          alt="Kraken Logo" 
-          src="/Kraken.png" 
-          height="100%"
-          objectFit="fill"
-          onClick={() => navigate('/')} />
+        <View as="div" height="100%">
+          <Link to={'/'}>
+            <Image 
+              alt="Kraken Logo" 
+              src="/Kraken.png" 
+              height="100%"
+              objectFit="fill" />
+          </Link>
+        </View>
+        
         <SearchBar />
         <Menu size="large" menuAlign="center">
           <MenuItem>Subscritions</MenuItem>
