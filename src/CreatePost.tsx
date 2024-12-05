@@ -1,4 +1,4 @@
-import { Divider, Heading, View, TextField, TextAreaField, Button, Flex } from "@aws-amplify/ui-react";
+import { Heading, View, TextField, TextAreaField, Button, Flex } from "@aws-amplify/ui-react";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { Schema } from "../amplify/data/resource";
