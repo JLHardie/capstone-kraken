@@ -32,8 +32,9 @@ export default function App() {
           gap="1rem"
           columnStart="1"
           columnEnd="-1"
+          id="navbar-card"
         >
-          <View as="div" height="100%" >
+          <Flex direction="row">
             <Link to={'/'}>
               <Image 
                 alt="Kraken Logo" 
@@ -42,7 +43,7 @@ export default function App() {
                 objectFit="fill" />
             </Link>
             <SearchBar />
-          </View>
+          </Flex>
           <Menu size="large" menuAlign="center">
             <MenuItem>Subscritions</MenuItem>
             <MenuItem>
