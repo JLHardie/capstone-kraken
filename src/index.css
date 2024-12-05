@@ -31,7 +31,7 @@ main {
 
 .center-aligner {
   width: 60vw;
-  height: 100%;
+  height:auto;
 }
 
 #navbar-card {
