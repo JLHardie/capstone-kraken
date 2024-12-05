@@ -46,7 +46,7 @@ export default function App() {
           alignContent="flex-end"
           justifyContent="center"
         >
-          <Menu size="large" menuAlign="center">
+          <Menu size="large" menuAlign="end">
             <MenuItem>Subscritions</MenuItem>
             <MenuItem>
               <Link to={'/dm'}>
