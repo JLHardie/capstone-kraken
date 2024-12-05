@@ -7,12 +7,9 @@ body {
   width: 100vw;
 }
 
-.commentBar {
+.comment-bar {
   background: linear-gradient(180deg, rgb(39, 39, 39), rgb(14, 14, 14));
-  padding: 5px;
-  justify-content: center;
-  object-position: bottom;
-  display: block;
+  padding: 10px;
 }
 
 .field {

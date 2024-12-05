@@ -204,7 +204,7 @@ export default function Post() {
           direction="row" 
           alignContent="center"
           onSubmit={submitComment}
-          className="commentBar"
+          padding="10px"
         >
           <TextField
             label="commentField"
