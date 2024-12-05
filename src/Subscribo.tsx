@@ -13,7 +13,7 @@ type ForumSubWithForumName = SelectionSet<ForumSubscription, typeof selectionSet
 
 export default function Subscribo() {
 
-    const [forumSubscriptions, setForumSubscriptions] = useState<ForumSubWithForumName[] | null>([]);
+    const [forumSubscriptions, setForumSubscriptions] = useState<ForumSubWithForumName[]>([]);
 
     useEffect(() => {
         const getData = async () => {
@@ -26,6 +26,9 @@ export default function Subscribo() {
                 },
                 selectionSet: ['forum.*', 'id']
             })
+            if (!forumSubscriptionsData) {
+                throw new Error("Something broke")
+            }
             setForumSubscriptions(forumSubscriptionsData)
         }
         getData();
@@ -39,7 +42,7 @@ export default function Subscribo() {
                     height="70vh"
                 >
                     {
-                        (forumSubscriptions) ? (
+                        (forumSubscriptions?.length) ? (
                             forumSubscriptions.map((forumSub) => (
                                 <Card key={forumSub.id} className="postCard">
                                     <Link to={`/forum/${forumSub.forum.id}`}>
