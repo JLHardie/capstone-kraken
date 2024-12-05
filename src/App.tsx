@@ -26,7 +26,7 @@ function App() {
         gap="1rem"
         id="navbar-card"
       >
-        <Link to={`/feed`}>
+        <Link to={`/feed`} height="100%">
           <Image alt="Kraken Logo" src="/Kraken.png" height="100%" />
         </Link>
         <SearchBar />
