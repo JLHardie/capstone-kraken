@@ -7,7 +7,7 @@ import { getCurrentUser } from "aws-amplify/auth";
 
 const client = generateClient<Schema>();
 const selectionSet = ['comments.*', 'id', 'subject', 'content', 'user.username', 'comments.commenter.username'] as const
-const userSet = ['likedPosts.post.id', 'likedPosts.id', 'id', 'chats.chat.users.id'] as const;
+const userSet = ['likedPosts.post.id', 'likedPosts.id', 'chats.chat.id', 'id', 'chats.chat.users.id'] as const;
 type Post = Schema['Post']['type']
 type User = Schema['User']['type']
 type UserLikedPosts = SelectionSet<User, typeof userSet>
@@ -100,12 +100,29 @@ export default function Post() {
       })
     }
     console.log(hasDm)
-    // (hasDm) ? (
-    //   const { data: chatData } 
-    //   navigate(`/dm/`)
-    // ) : (
-
-    // )
+    if (hasDm) {
+      chats?.forEach((chat) => {
+        chat.chat.users.forEach((user) => {
+          if (user.id === input) {
+            navigate(`/dm/${chat.chat.id}`)
+          }
+        })
+      })
+     } else {
+      const {data: newChat} = await client.models.Chat.create({
+        name: "Direct Message"
+      })
+      if (!input || !newChat?.id || !user?.id)
+        throw new Error("Something is missing...")
+      await client.models.UserChat.create({
+        userId: input,
+        chatId: newChat.id
+      })
+      await client.models.UserChat.create({
+        userId: user?.id,
+        chatId: newChat.id
+      })
+     }
   }
 
   const submitComment = async () => {
