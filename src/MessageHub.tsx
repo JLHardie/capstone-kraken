@@ -43,8 +43,8 @@ export default function MessageHub() {
 
 
     return (
-        <div>
-            <ul className="centerAligner">
+        <div className="center-aligner">
+            <ul>
                 <ScrollView autoScroll="auto">
                     {
                         userChats.map((chat) => (
