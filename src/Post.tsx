@@ -122,6 +122,7 @@ export default function Post() {
         userId: user?.id,
         chatId: newChat.id
       })
+      navigate(`/dm/${newChat.id}`)
      }
   }
 
