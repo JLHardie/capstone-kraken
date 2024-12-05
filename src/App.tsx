@@ -28,7 +28,8 @@ export default function App() {
       >
         <Flex
           alignContent="flex-start"
-          justifyContent="center"
+          justifyContent="flex-start"
+          alignItems="center"
           direction="row"
         >
           <Link to={'/'}>
