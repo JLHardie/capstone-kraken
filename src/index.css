@@ -39,6 +39,10 @@ main {
   object-position: top;
 }
 
+.float-right {
+  float: right;
+}
+
 .profile-button {
   align-self: flex-end;
 }

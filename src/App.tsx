@@ -26,7 +26,11 @@ export default function App() {
         gap="1rem"
         id="navbar-card"
       >
-        <View as="div" height="100%" >
+        <Flex
+          alignContent="center"
+          direction="row"
+          id="logo-searchbar"
+        >
           <Link to={'/'}>
             <Image 
               alt="Kraken Logo" 
@@ -35,18 +39,20 @@ export default function App() {
               objectFit="fill" />
           </Link>
           <SearchBar />
+        </Flex>
+        <View as="div" className="right-float">
+          <Menu size="large" menuAlign="center">
+            <MenuItem>Subscritions</MenuItem>
+            <MenuItem>
+              <Link to={'/dm'}>
+                Direct Messages
+              </Link>
+            </MenuItem>
+          </Menu>
+          <Link to={`/profile`}>
+            <Button variation="primary">Profile</Button>
+          </Link>
         </View>
-        <Menu size="large" menuAlign="center">
-          <MenuItem>Subscritions</MenuItem>
-          <MenuItem>
-            <Link to={'/dm'}>
-              Direct Messages
-            </Link>
-          </MenuItem>
-        </Menu>
-        <Link to={`/profile`}>
-          <Button variation="primary">Profile</Button>
-        </Link>
       </Flex>
       <main>
         <Routes>
