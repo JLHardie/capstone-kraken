@@ -1,8 +1,8 @@
-import { Button, Card, Divider, Flex, Heading, Link, Menu, MenuItem, ScrollView, Text, TextField, View } from "@aws-amplify/ui-react";
+import { Button, Card, Divider, Flex, Heading, Menu, MenuItem, ScrollView, Text, TextField, View } from "@aws-amplify/ui-react";
 import { generateClient, SelectionSet } from "aws-amplify/data";
 import { Schema } from "../amplify/data/resource";
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, Link } from "react-router-dom";
 import { getCurrentUser } from "aws-amplify/auth";
 
 const client = generateClient<Schema>();
