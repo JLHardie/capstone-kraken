@@ -150,6 +150,17 @@ export default function Post() {
       postid: postId
     })
     setNewComment('')
+
+    const { data: commentData } = await client.models.Comment.list({
+      filter: {
+        postid: {eq: postId}
+      },
+      selectionSet: ['content','createdAt','id','commenter.*']
+    })
+    const sortedComments = [...commentData].sort((a, b) =>
+      new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+    );
+    setComments(sortedComments);
   }
 
   const style = {
