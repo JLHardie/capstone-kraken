@@ -17,30 +17,29 @@ function App() {
 
   return (
     <Router>
-      <Card className="navbar-card">
-        <Flex
-          direction="row"
-          justifyContent="flex-start"
-          alignItems="center"
-          alignContent="flex-start"
-          wrap="nowrap"
-          gap="1rem"
-        >
-          <Link to={`/feed`}>
-            <Image alt="Kraken Logo" src="/Kraken.png" height="100%" />
-          </Link>
-          <SearchBar />
-          <Menu size="large" menuAlign="center">
-            <MenuItem>Subscritions</MenuItem>
-            <MenuItem
-              //onClick={() => navigate(`/dm`)}
-            >Direct Messages</MenuItem>
-          </Menu>
-          <Link to={`/profile`}>
-            <Button variation="primary">Profile</Button>
-          </Link>
-        </Flex>
-      </Card>
+      <Flex
+        direction="row"
+        justifyContent="flex-start"
+        alignItems="center"
+        alignContent="flex-start"
+        wrap="nowrap"
+        gap="1rem"
+        className="navbar-card"
+      >
+        <Link to={`/feed`}>
+          <Image alt="Kraken Logo" src="/Kraken.png" height="100%" />
+        </Link>
+        <SearchBar />
+        <Menu size="large" menuAlign="center">
+          <MenuItem>Subscritions</MenuItem>
+          <MenuItem
+            //onClick={() => navigate(`/dm`)}
+          >Direct Messages</MenuItem>
+        </Menu>
+        <Link to={`/profile`}>
+          <Button variation="primary">Profile</Button>
+        </Link>
+      </Flex>
       <main>
         <Routes>
           <Route path="/feed" element={<Home />} />

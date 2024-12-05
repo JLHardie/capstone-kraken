@@ -135,7 +135,7 @@ export default function Post() {
   }
 
   return (
-    <View as="div">
+    <View as="div" className="center-aligner">
       <Button onClick={() => navigate(`/post/${post?.id}`)} variation="primary">Back</Button>
       <View as="div" className="center-aligner">
         <Heading level={2}>{post?.subject}</Heading>
