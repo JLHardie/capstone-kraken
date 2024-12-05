@@ -61,15 +61,14 @@ export default function CreatePost() {
     return (
         <View>
             <Flex direction="column" justifyContent="center" className="center-aligner">
+            <Heading level={2}>Create Post for {forum?.name}</Heading>
                 <ul>
-                    <Heading level={2}>Create Post for {forum?.name}</Heading>
-                    <Divider orientation="horizontal" size="large" />
-                    
                     <TextField 
                         label="Subject" 
                         onChange={(e) => setSubject(e.target.value)}
                         id="subjectField"
                         className="field"
+                        style={{margin: "10px"}}
                     />
                     <TextAreaField
                         label="Content"
@@ -79,6 +78,7 @@ export default function CreatePost() {
                         }}
                         id="contentField"
                         className="field"
+                        style={{margin: "10px"}}
                     />
                     {
                         (postLoading) ? (
