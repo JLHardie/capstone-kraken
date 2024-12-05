@@ -23,7 +23,7 @@ export default function Post() {
   const [likesPost, setLikesPost] = useState<boolean>();
   const [likeLoading, setLikeLoading] = useState<boolean>();
   const [newComment, setNewComment] = useState("");
-  const [comments, setComments] = useState<Comment[]>([]);
+  const [comments, setComments] = useState<Comment[] | null>([]);
 
 
   useEffect(() => {
@@ -39,6 +39,13 @@ export default function Post() {
       if (!postData)
         throw new Error("Failed to retrieve Post data.")
       setPost(postData);
+      
+      const { data: commentData } = await client.models.Comment.list({
+        filter: {
+          postid: {eq: postId}
+        }
+      })
+      setComments(commentData);
 
       const {signInDetails} = await getCurrentUser();
       const signIn = signInDetails?.loginId;
@@ -136,6 +143,10 @@ export default function Post() {
     })
   }
 
+  const style = {
+    color: 'white'
+  }
+
   return (
     <View as="div" className="center-aligner">
       <Link to={`/forum/${post?.forum.id}`}>
@@ -185,24 +196,28 @@ export default function Post() {
           height="35vh"
         >
           {
-            post?.comments.map((comment) => (
-              <Card key={comment.id} className="postCard">
-                <Flex direction="row">
-                  <Heading level={4}>{comment.commenter.username}</Heading>
-                  <Menu
-                    menuAlign="start"
-                    size="small"
-                  >
-                    <MenuItem
-                      onClick={() => onOpenDirectMessage(comment.commenterId)}
+            (comments) ? (
+              comments.map((comment) => (
+                <Card key={comment.id} className="postCard">
+                  <Flex direction="row">
+                    <Heading level={4}>{comment.commenter.username}</Heading>
+                    <Menu
+                      menuAlign="start"
+                      size="small"
                     >
-                      Open Direct Message
-                    </MenuItem>
-                  </Menu>
-                </Flex>
-                <Text>{comment.content}</Text>
-              </Card>
-            ))
+                      <MenuItem
+                        onClick={() => onOpenDirectMessage(comment.commenterId)}
+                      >
+                        Open Direct Message
+                      </MenuItem>
+                    </Menu>
+                  </Flex>
+                  <Text>{comment.content}</Text>
+                </Card>
+              ))
+            ) : (
+              <Heading level={4} style={style}>No comments yet...</Heading>
+            )
           }
         </ScrollView>
         </ul>
