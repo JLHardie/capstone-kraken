@@ -162,7 +162,10 @@ export default function Post() {
         <Card>
           <Heading level={2}>{post?.subject}</Heading>
           <Divider size="small" orientation="horizontal"/>
-          <Text>{post?.content}</Text>
+          <Text style={{
+            marginTop: "5px", 
+            marginBottom: "5px"
+            }}>{post?.content}</Text>
           <Flex direction="row" alignItems="center">
             {
               (likeLoading) ? (
