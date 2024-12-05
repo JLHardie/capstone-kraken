@@ -1,6 +1,6 @@
 import { type Schema } from "../amplify/data/resource";
 import {useState, useEffect} from "react"
-import { generateClient } from "aws-amplify/data";
+import { generateClient, SelectionSet } from "aws-amplify/data";
 import { useParams, Link } from "react-router-dom";
 import { getCurrentUser } from 'aws-amplify/auth';
 import { Button, Card, Divider, Flex, Heading, ScrollView, View, Text } from "@aws-amplify/ui-react";
@@ -9,13 +9,15 @@ import { Button, Card, Divider, Flex, Heading, ScrollView, View, Text } from "@a
 const client = generateClient<Schema>();
 type Forum = Schema['Forum']['type'];
 type Post = Schema['Post']['type'];
+const selectionSet = ['id','subject','content','createdAt','user.username'] as const
+type PostWithUsername = SelectionSet<Post, typeof selectionSet>
 
 
 export default function Forum() {
 
   const {forumId} = useParams<{ forumId: string }>();
   const [forum, setForum] = useState<Forum>();
-  const [posts, setPosts] = useState<Post[]>();
+  const [posts, setPosts] = useState<PostWithUsername[]>();
   const [isSubbed, setIsSubbed] = useState<boolean>();
 
   useEffect(() => {
@@ -35,7 +37,8 @@ export default function Forum() {
       const {data: postData} = await client.models.Post.list({
         filter: {
           forumid: {eq: forumId}
-        }
+        },
+        selectionSet
       })
       const sortedPosts = postData.sort((a, b) =>
         new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
@@ -125,7 +128,7 @@ export default function Forum() {
               <Link to={`/post/${post.id}`}>
                 <Heading level={4}>{post.subject}</Heading>
                 <Text>{post.content}</Text>
-                <Text fontSize=".75em">Posted by Placeholder</Text>
+                <Text fontSize=".75em">Posted by {post.user.username}</Text>
               </Link>
             </Card>
           ))

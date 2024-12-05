@@ -1,4 +1,4 @@
-import { Button, Card, Divider, Flex, Heading, Menu, MenuItem, ScrollView, Text, TextField, View } from "@aws-amplify/ui-react";
+import { Button, Card, Divider, Flex, Heading, Link, Menu, MenuItem, ScrollView, Text, TextField, View } from "@aws-amplify/ui-react";
 import { generateClient, SelectionSet } from "aws-amplify/data";
 import { Schema } from "../amplify/data/resource";
 import { useEffect, useState } from "react";
@@ -136,7 +136,9 @@ export default function Post() {
 
   return (
     <View as="div" className="center-aligner">
-      <Button onClick={() => navigate(`/post/${post?.id}`)} variation="primary">Back</Button>
+      <Link to={`/post/${post?.id}`}>
+        <Button variation="primary">Back</Button>
+      </Link>
       <View as="div" className="center-aligner">
         <Heading level={2}>{post?.subject}</Heading>
         <Divider size="small" orientation="horizontal"/>
