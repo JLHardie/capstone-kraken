@@ -140,41 +140,45 @@ export default function Post() {
         <Button variation="primary">Back</Button>
       </Link>
       <View as="div" className="center-aligner">
-        <Heading level={2}>{post?.subject}</Heading>
-        <Divider size="small" orientation="horizontal"/>
-        <Text>{post?.content}</Text>
-        <Flex direction="row" justifyContent="flex-start">
-          {
-            (likeLoading) ? (
-              <Button
-                isLoading={true}
-                isDisabled={true}
-                variation="primary"
-                loadingText="Please Wait..."
-              />
-            ) : (
-              (!likesPost) ? (
-                <Button 
-                  colorTheme="success" 
+        <Card>
+          <Heading level={2}>{post?.subject}</Heading>
+          <Divider size="small" orientation="horizontal"/>
+          <Text>{post?.content}</Text>
+          <Flex direction="row" alignItems="center">
+            {
+              (likeLoading) ? (
+                <Button
+                  isLoading={true}
+                  isDisabled={true}
                   variation="primary"
-                  onClick={onClickLike}
-                >
-                  Like Post
-                </Button>
+                  loadingText="Please Wait..."
+                />
               ) : (
-                <Button 
-                  colorTheme="error" 
-                  variation="primary"
-                  onClick={onClickUnlike}
-                >
-                  Unlike Post
-                </Button>
+                (!likesPost) ? (
+                  <Button 
+                    colorTheme="success" 
+                    variation="primary"
+                    onClick={onClickLike}
+                  >
+                    Like Post
+                  </Button>
+                ) : (
+                  <Button 
+                    colorTheme="error" 
+                    variation="primary"
+                    onClick={onClickUnlike}
+                  >
+                    Unlike Post
+                  </Button>
+                )
               )
-            )
-          }
-          <Text>Likes: {post?.comments.length}</Text>
-        </Flex>
+            }
+            <Text>Likes: {post?.comments.length}</Text>
+          </Flex>
+        </Card>
         <Divider size="large" orientation="horizontal"/>
+        <Heading level={3}>Comments</Heading>
+        <ul>
         <ScrollView
           height="35vh"
         >
@@ -199,12 +203,13 @@ export default function Post() {
             ))
           }
         </ScrollView>
+        </ul>
         <Flex 
           as="form"
           direction="row" 
           alignContent="center"
           onSubmit={submitComment}
-          padding="10px"
+          className="comment-bar"
         >
           <TextField
             label="commentField"
