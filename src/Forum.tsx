@@ -122,7 +122,7 @@ export default function Forum() {
       </Flex>
       <Divider size="large" orientation="horizontal" />
       <ul>
-        <ScrollView height="75vh">
+        <ScrollView height="70vh">
           {
             posts?.map((post) => (
               <Card key={post.id} className="postCard">
