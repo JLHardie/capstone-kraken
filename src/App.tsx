@@ -34,8 +34,8 @@ export default function App() {
           <Link to={'/'}>
             <Image 
               alt="Kraken Logo" 
-              src="/Kraken.png" 
-              height="100%"
+              src="/Kraken.png"
+              height="15vh"
               objectFit="fill" />
           </Link>
           <SearchBar />
