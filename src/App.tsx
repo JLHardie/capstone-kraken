@@ -34,14 +34,15 @@ export default function App() {
               height="100%"
               objectFit="fill" />
           </Link>
+          <SearchBar />
         </View>
-        
-        <SearchBar />
         <Menu size="large" menuAlign="center">
           <MenuItem>Subscritions</MenuItem>
-          <MenuItem
-            //onClick={() => navigate(`/dm`)}
-          >Direct Messages</MenuItem>
+          <MenuItem>
+            <Link to={'/dm'}>
+              Direct Messages
+            </Link>
+          </MenuItem>
         </Menu>
         <Link to={`/profile`}>
           <Button variation="primary">Profile</Button>
