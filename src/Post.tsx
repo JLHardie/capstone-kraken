@@ -48,7 +48,10 @@ export default function Post() {
         },
         selectionSet: ['content','createdAt','id','commenter.*']
       })
-      setComments(commentData);
+      const sortedComments = [...commentData].sort((a, b) =>
+        new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+    );
+      setComments(sortedComments);
 
       const {signInDetails} = await getCurrentUser();
       const signIn = signInDetails?.loginId;
