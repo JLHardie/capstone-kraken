@@ -141,12 +141,15 @@ export default function Post() {
      }
   }
 
-  const submitComment = async () => {
+  const submitComment = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    console.log("submission log")
     await client.models.Comment.create({
       commenterId: user?.id,
       content: newComment,
       postid: postId
     })
+    setNewComment('')
   }
 
   const style = {
