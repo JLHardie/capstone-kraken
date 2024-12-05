@@ -6,7 +6,7 @@ import { useNavigate, useParams, Link } from "react-router-dom";
 import { getCurrentUser } from "aws-amplify/auth";
 
 const client = generateClient<Schema>();
-const selectionSet = ['comments.*', 'id', 'subject', 'content', 'user.username', 'comments.commenter.username'] as const
+const selectionSet = ['comments.*', 'id', 'subject', 'content', 'user.username', 'comments.commenter.username', 'forum.id'] as const
 const userSet = ['likedPosts.post.id', 'likedPosts.id', 'chats.chat.id', 'id', 'chats.chat.users.id'] as const;
 type Post = Schema['Post']['type']
 type User = Schema['User']['type']
@@ -136,7 +136,7 @@ export default function Post() {
 
   return (
     <View as="div" className="center-aligner">
-      <Link to={`/post/${post?.id}`}>
+      <Link to={`/forum/${post?.forum.id}`}>
         <Button variation="primary">Back</Button>
       </Link>
       <View as="div" className="center-aligner">
